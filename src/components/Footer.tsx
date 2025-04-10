@@ -8,9 +8,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-xl font-bold">Muslim<span className="text-muslim-gold">Directory</span></h3>
+            <h3 className="text-xl font-bold">Ummah<span className="text-muslim-gold">Connects</span></h3>
             <p className="text-sm text-gray-300">
-              Connecting the Muslim community with businesses, mosques, and professionals worldwide.
+              Creating Barakat with every transaction, for supporting Muslims Services and Organisations by Muslims, for the Sake of Allah.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-300 hover:text-white">
@@ -38,6 +38,7 @@ const Footer = () => {
               <li><Link to="/businesses" className="text-gray-300 hover:text-white">Businesses</Link></li>
               <li><Link to="/mosques" className="text-gray-300 hover:text-white">Mosques</Link></li>
               <li><Link to="/about" className="text-gray-300 hover:text-white">About Us</Link></li>
+              <li><Link to="/packages" className="text-gray-300 hover:text-white">Packages</Link></li>
             </ul>
           </div>
           <div>
@@ -53,14 +54,14 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-sm">
-              <li className="text-gray-300">Email: info@muslimdirectory.com</li>
+              <li className="text-gray-300">Email: info@ummahconnects.com</li>
               <li className="text-gray-300">Phone: +1 (555) 123-4567</li>
               <li className="text-gray-300">Address: 123 Main St, City, Country</li>
             </ul>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-400 text-center">
-          <p>&copy; {new Date().getFullYear()} Muslim Directory. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Ummah Connects. All rights reserved.</p>
         </div>
       </div>
     </footer>

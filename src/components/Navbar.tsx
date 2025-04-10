@@ -19,7 +19,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center">
               <span className="text-muslim-teal font-bold text-xl">
-                Muslim<span className="text-muslim-blue">Directory</span>
+                Ummah<span className="text-muslim-blue">Connects</span>
               </span>
             </Link>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -46,6 +46,12 @@ const Navbar = () => {
                 className="border-transparent text-gray-700 hover:text-muslim-teal inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 About
+              </Link>
+              <Link
+                to="/packages"
+                className="border-transparent text-gray-700 hover:text-muslim-teal inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                Packages
               </Link>
             </div>
           </div>
@@ -109,6 +115,13 @@ const Navbar = () => {
             onClick={toggleMenu}
           >
             About
+          </Link>
+          <Link
+            to="/packages"
+            className="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            onClick={toggleMenu}
+          >
+            Packages
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-gray-200">

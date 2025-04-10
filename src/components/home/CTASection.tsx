@@ -11,7 +11,7 @@ const CTASection = () => {
               Are you a Muslim Business Owner?
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              List your business or mosque in our directory to connect with the Muslim community and increase your visibility.
+              Join Ummah Connects and create Barakat with every transaction. Support Muslims Services and Organisations by Muslims, for the Sake of Allah.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button 

@@ -11,11 +11,19 @@ const HeroSection = () => {
     <section className="pattern-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <div className="md:w-3/4 mx-auto text-center">
+          <div className="mb-4">
+            <p className="text-muslim-teal text-lg mb-1">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
+            <p className="text-muslim-blue text-lg mb-4">Bismillah, Asalamu Alaikum</p>
+          </div>
+          
           <h1 className="text-4xl md:text-5xl font-bold text-muslim-dark mb-4">
-            Find Muslim-Owned Businesses & Mosques
+            Ummah Connects
           </h1>
+          <p className="text-lg md:text-xl text-gray-600 mb-2">
+            A place where all services connects — for Muslims by Muslims.
+          </p>
           <p className="text-lg md:text-xl text-gray-600 mb-8">
-            Connect with the Muslim community worldwide. Discover halal restaurants, shops, professionals, and places of worship.
+            Find Muslim-Owned Businesses & Mosques Worldwide
           </p>
           
           <Tabs 
