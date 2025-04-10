@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors for our Muslim Directory
+				muslim: {
+					teal: '#0D6E6E',
+					blue: '#154C79',
+					gold: '#C49E37',
+					light: '#F8F5EB',
+					dark: '#263238'
 				}
 			},
 			borderRadius: {
