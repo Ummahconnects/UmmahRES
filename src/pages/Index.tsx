@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowRight, Map, Search, TrendingUp, Users, Mosque, Store } from "lucide-react";
+import { ArrowRight, Map, Search, TrendingUp, Users, Building, Store } from "lucide-react";
 import Layout from "@/components/Layout";
 import SearchBar from "@/components/SearchBar";
 import BusinessCard, { BusinessProps } from "@/components/BusinessCard";
@@ -131,7 +131,7 @@ const HomePage = () => {
                   Businesses
                 </TabsTrigger>
                 <TabsTrigger value="mosques">
-                  <Mosque className="h-4 w-4 mr-2" />
+                  <Building className="h-4 w-4 mr-2" />
                   Mosques
                 </TabsTrigger>
               </TabsList>
