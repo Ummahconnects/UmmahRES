@@ -21,6 +21,7 @@ export interface MosqueProps {
   isOpen?: boolean;
   featured?: boolean;
   facilities?: string[];
+  communityImages?: string[]; // Add community images property
 }
 
 const MosqueCard = ({

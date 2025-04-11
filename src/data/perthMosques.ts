@@ -17,7 +17,8 @@ export const perthMosques = [
       asr: "3:45 PM",
       maghrib: "7:15 PM",
       isha: "8:45 PM"
-    }
+    },
+    communityImages: [] // Array to store community submitted images
   },
   {
     id: "wa-perth-2",
@@ -34,7 +35,8 @@ export const perthMosques = [
       asr: "4:00 PM",
       maghrib: "7:20 PM",
       isha: "9:00 PM"
-    }
+    },
+    communityImages: []
   },
   {
     id: "wa-perth-3",
@@ -51,7 +53,8 @@ export const perthMosques = [
       asr: "3:50 PM",
       maghrib: "7:10 PM",
       isha: "8:50 PM"
-    }
+    },
+    communityImages: []
   },
   {
     id: "wa-perth-4",
@@ -68,7 +71,8 @@ export const perthMosques = [
       asr: "3:55 PM",
       maghrib: "7:25 PM",
       isha: "8:55 PM"
-    }
+    },
+    communityImages: []
   },
   {
     id: "wa-perth-5",
@@ -85,6 +89,7 @@ export const perthMosques = [
       asr: "3:40 PM",
       maghrib: "7:05 PM",
       isha: "8:40 PM"
-    }
+    },
+    communityImages: []
   }
 ];
