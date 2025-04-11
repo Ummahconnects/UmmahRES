@@ -4,9 +4,24 @@ import ReviewSection from "@/components/reviews/ReviewSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Check } from "lucide-react";
+import { Check, SparklesIcon, Star } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const PackagesPage = () => {
+  const [sparklePosition, setSparklePosition] = useState({ top: 0, left: 0 });
+  
+  // Animation for the sparkling stars
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSparklePosition({
+        top: Math.floor(Math.random() * 100),
+        left: Math.floor(Math.random() * 100)
+      });
+    }, 700);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -147,19 +162,33 @@ const PackagesPage = () => {
             </CardFooter>
           </Card>
 
-          {/* Supreme Package */}
-          <Card className="border-t-4 border-t-muslim-orange relative md:scale-105 shadow-lg">
-            <div className="absolute -top-4 right-0 left-0 mx-auto w-max px-4 py-1 bg-muslim-orange text-white text-sm rounded-full">
+          {/* Supreme Package with Gold Banner and Sparkling Effect */}
+          <Card className="border-t-4 border-t-muslim-gold relative md:scale-105 shadow-xl overflow-hidden">
+            {/* Gold Banner at the top */}
+            <div className="absolute -top-4 right-0 left-0 mx-auto w-max px-4 py-1 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 text-muslim-dark text-sm font-bold rounded-full border border-amber-300 shadow-md animate-pulse">
               Major Sponsor
             </div>
-            <CardHeader>
-              <CardTitle>Supreme</CardTitle>
+            
+            {/* Gold corner ribbons */}
+            <div className="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-amber-400 via-yellow-300 to-amber-400 transform -rotate-45 -translate-x-10 -translate-y-10"></div>
+            <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-amber-400 via-yellow-300 to-amber-400 transform rotate-45 translate-x-10 -translate-y-10"></div>
+            
+            {/* Animated sparkling stars */}
+            <div 
+              className="absolute h-6 w-6 text-amber-300 animate-pulse z-10"
+              style={{ top: `${sparklePosition.top}%`, left: `${sparklePosition.left}%` }}
+            >
+              <Star className="fill-amber-300" />
+            </div>
+            
+            <CardHeader className="relative z-10 bg-gradient-to-b from-amber-50 to-transparent">
+              <CardTitle className="text-muslim-dark">Supreme</CardTitle>
               <CardDescription>Exclusive sponsorship opportunity</CardDescription>
               <div className="text-3xl font-bold mt-2">
                 $299.99<span className="text-sm font-normal text-gray-500">/month</span>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="relative z-10 bg-white bg-opacity-90">
               <ul className="space-y-2">
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
@@ -170,8 +199,8 @@ const PackagesPage = () => {
                   <span>Half-page featured sponsor spot</span>
                 </li>
                 <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                  <span><strong>Limited to only 2 businesses per month</strong></span>
+                  <Check className="h-5 w-5 text-amber-600 mr-2 shrink-0 font-bold" />
+                  <span className="font-bold text-amber-700">Limited to only 2 businesses per month</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
@@ -191,9 +220,12 @@ const PackagesPage = () => {
                 </li>
               </ul>
             </CardContent>
-            <CardFooter>
-              <Button className="w-full bg-muslim-orange hover:bg-muslim-orange/90">
+            <CardFooter className="flex flex-col gap-2 relative z-10 bg-white">
+              <Button className="w-full bg-muslim-gold hover:bg-amber-500 font-bold">
                 Become a Major Sponsor
+              </Button>
+              <Button variant="outline" className="w-full border-muslim-gold text-muslim-gold hover:bg-amber-50">
+                Reserve Spot for Next Month
               </Button>
             </CardFooter>
           </Card>
@@ -246,15 +278,33 @@ const PackagesPage = () => {
 
         <Separator className="my-16" />
 
-        {/* Review section demonstration */}
+        {/* Reviews section with the two types of reviews */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-muslim-dark mb-6 text-center">What Our Users Are Saying</h2>
-          <ReviewSection 
-            entityName="Ummah Connects" 
-            entityType="business" 
-            averageRating={4.8} 
-            totalReviews={42} 
-          />
+          <h2 className="text-3xl font-bold text-muslim-dark mb-6 text-center">Reviews & Feedback</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div>
+              <h3 className="text-xl font-semibold text-muslim-dark mb-4 text-center">What Customers Say About Our Listed Businesses</h3>
+              <ReviewSection 
+                entityName="Listed Businesses" 
+                entityType="business" 
+                averageRating={4.8} 
+                totalReviews={42}
+                reviewPrompt="Share your experience with this business..."
+              />
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-semibold text-muslim-dark mb-4 text-center">Feedback From Our Business Partners</h3>
+              <ReviewSection 
+                entityName="Ummah Connects Platform" 
+                entityType="business" 
+                averageRating={4.6} 
+                totalReviews={28} 
+                reviewPrompt="How can we improve our service for your business?"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </Layout>

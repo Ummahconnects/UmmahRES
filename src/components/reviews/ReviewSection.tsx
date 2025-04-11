@@ -65,6 +65,7 @@ interface ReviewSectionProps {
   averageRating?: number;
   totalReviews?: number;
   className?: string;
+  reviewPrompt?: string;
 }
 
 const ReviewSection = ({
@@ -72,7 +73,8 @@ const ReviewSection = ({
   entityType,
   averageRating = 4.5,
   totalReviews = 5,
-  className
+  className,
+  reviewPrompt = "Share your experience..."
 }: ReviewSectionProps) => {
   const [reviews, setReviews] = useState<ReviewItemProps[]>(mockReviews);
   const [isWritingReview, setIsWritingReview] = useState(false);
@@ -145,7 +147,7 @@ const ReviewSection = ({
             </TabsContent>
             
             <TabsContent value="write" className="mt-6">
-              <ReviewForm onSubmit={handleReviewSubmit} />
+              <ReviewForm onSubmit={handleReviewSubmit} placeholderText={reviewPrompt} />
             </TabsContent>
           </Tabs>
         </CardContent>

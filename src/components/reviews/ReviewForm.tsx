@@ -8,9 +8,14 @@ import { useToast } from "@/hooks/use-toast";
 interface ReviewFormProps {
   onSubmit: (review: { rating: number; comment: string }) => void;
   className?: string;
+  placeholderText?: string;
 }
 
-const ReviewForm = ({ onSubmit, className }: ReviewFormProps) => {
+const ReviewForm = ({ 
+  onSubmit, 
+  className, 
+  placeholderText = "Share your experience..." 
+}: ReviewFormProps) => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const { toast } = useToast();
@@ -70,7 +75,7 @@ const ReviewForm = ({ onSubmit, className }: ReviewFormProps) => {
           id="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Share your experience..."
+          placeholder={placeholderText}
           rows={4}
         />
       </div>

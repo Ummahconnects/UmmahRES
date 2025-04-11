@@ -1,7 +1,8 @@
 
 import { Link } from "react-router-dom";
-import { ArrowRight, Award } from "lucide-react";
+import { ArrowRight, Award, Star } from "lucide-react";
 import BusinessCard, { BusinessProps } from "@/components/BusinessCard";
+import { useEffect, useState } from "react";
 
 // Mock data for businesses
 const mockBusinesses: BusinessProps[] = [
@@ -53,14 +54,36 @@ const mockBusinesses: BusinessProps[] = [
 ];
 
 const FeaturedBusinessesSection = () => {
+  const [sparklePosition, setSparklePosition] = useState({ top: 0, left: 0 });
+  
+  // Animation for the sparkling stars
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSparklePosition({
+        top: Math.floor(Math.random() * 100),
+        left: Math.floor(Math.random() * 100)
+      });
+    }, 700);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-12 bg-gray-50 relative overflow-hidden">
+      {/* Animated star that moves around */}
+      <div 
+        className="absolute h-6 w-6 text-amber-300 animate-pulse z-10"
+        style={{ top: `${sparklePosition.top}%`, left: `${sparklePosition.left}%` }}
+      >
+        <Star className="fill-amber-300" />
+      </div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-10">
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-3xl font-bold text-muslim-dark">Featured Sponsors</h2>
-              <Award className="h-6 w-6 text-muslim-orange" />
+              <Award className="h-6 w-6 text-muslim-gold" />
             </div>
             <p className="text-gray-600 mt-2">Our major sponsors showcase for this month</p>
           </div>
@@ -75,13 +98,21 @@ const FeaturedBusinessesSection = () => {
           ))}
         </div>
         
-        <div className="mt-8 text-center">
-          <Link 
-            to="/packages" 
-            className="inline-flex items-center bg-muslim-orange hover:bg-muslim-orange/90 text-white px-4 py-2 rounded-md font-medium transition-colors"
-          >
-            Become a Featured Sponsor <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
+        <div className="mt-10 text-center">
+          <div className="inline-block">
+            <div className="relative overflow-hidden">
+              <Link 
+                to="/packages" 
+                className="relative z-10 inline-flex items-center bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 text-muslim-dark px-6 py-3 rounded-md font-bold transition-all hover:shadow-lg"
+              >
+                Become a Featured Sponsor <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+              
+              {/* Gold banner styling */}
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 opacity-20 animate-pulse"></div>
+            </div>
+            <p className="text-sm text-gray-600 mt-2">Only 2 spots available each month!</p>
+          </div>
         </div>
       </div>
     </section>
