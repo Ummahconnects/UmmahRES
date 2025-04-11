@@ -11,9 +11,11 @@ const HomePage = () => {
   return (
     <Layout>
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-10 z-[-1]" 
+        className="fixed inset-0 bg-cover bg-center opacity-25 z-[-1]" 
         style={{
           backgroundImage: `url("/lovable-uploads/798a3755-657f-45d1-a681-0d4bf3476213.png")`,
+          backgroundSize: "contain",
+          backgroundRepeat: "repeat",
         }}
       />
       <HeroSection />
