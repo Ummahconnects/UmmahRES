@@ -18,7 +18,7 @@ import {
 import Layout from "@/components/Layout";
 import { perthMosques } from "@/data/perthMosques";
 import { mockMosques } from "@/pages/Mosques";
-import { cn } from "@/lib/utils"; // Add cn import
+import { cn } from "@/lib/utils";
 
 const MosqueDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -100,7 +100,7 @@ const MosqueDetail = () => {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {mosque.prayerTimes ? (
+                    {'prayerTimes' in mosque && mosque.prayerTimes ? (
                       <>
                         <TableRow>
                           <TableCell className="font-medium">Fajr</TableCell>
