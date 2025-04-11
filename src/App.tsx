@@ -10,7 +10,9 @@ import MosquesPage from "./pages/Mosques";
 import AboutPage from "./pages/About";
 import PackagesPage from "./pages/Packages";
 import NotFound from "./pages/NotFound";
+import React from 'react'; // Explicitly import React
 
+// Create a new QueryClient instance outside the component
 const queryClient = new QueryClient();
 
 const App = () => (
