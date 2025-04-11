@@ -12,7 +12,14 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
         <div className="md:w-3/4 mx-auto text-center">
           <div className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-muslim-dark mb-4 font-montserrat">
+            <h2 className="text-3xl md:text-4xl font-arabic font-bold text-muslim-teal mb-4 tracking-wide">
+              بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 mb-4 italic">
+              In the name of Allah, the Most Gracious, the Most Merciful
+            </p>
+
+            <h1 className="text-4xl md:text-5xl font-montserrat font-bold text-muslim-dark mb-4">
               <span className="tracking-wide">UMMAH-CONNECTS</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 mb-2">
