@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,7 @@ const FilterSidebar = ({ type, onFilterChange }: FilterSidebarProps) => {
   ];
 
   const mosqueCategories = [
-    "Sunni Mosques",
+    "Masjids",
     "Islamic Centers",
     "Prayer Spaces"
   ];

@@ -31,7 +31,6 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { perthMosques } from "@/data/perthMosques";
 
-// Export mockMosques so it can be imported in other files
 export const mockMosques: MosqueProps[] = [
   {
     id: "1",
@@ -97,7 +96,6 @@ export const mockMosques: MosqueProps[] = [
   ...perthMosques
 ];
 
-// Type for the mosque submission form
 type MosqueSubmissionForm = {
   name: string;
   type: string;
@@ -118,7 +116,6 @@ const MosquesPage = () => {
   const [isAddMosqueDialogOpen, setIsAddMosqueDialogOpen] = useState(false);
   const { toast } = useToast();
 
-  // Initialize form
   const form = useForm<MosqueSubmissionForm>({
     defaultValues: {
       name: "",
@@ -240,9 +237,9 @@ const MosquesPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-muslim-dark">Mosques & Islamic Centers</h1>
+              <h1 className="text-3xl font-bold text-muslim-dark">Masjids & Islamic Centers</h1>
               <p className="text-gray-600">
-                Find mosques, prayer spaces, and Islamic centers in Perth, Australia and other locations
+                Find masjids, prayer spaces, and Islamic centers in Perth, Australia and other locations
               </p>
             </div>
             
