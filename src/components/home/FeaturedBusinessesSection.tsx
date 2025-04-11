@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Award } from "lucide-react";
 import BusinessCard, { BusinessProps } from "@/components/BusinessCard";
 
 // Mock data for businesses
@@ -58,8 +58,11 @@ const FeaturedBusinessesSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-10">
           <div>
-            <h2 className="text-3xl font-bold text-muslim-dark">Featured Businesses</h2>
-            <p className="text-gray-600 mt-2">Discover top-rated Muslim-owned businesses</p>
+            <div className="flex items-center gap-2">
+              <h2 className="text-3xl font-bold text-muslim-dark">Featured Sponsors</h2>
+              <Award className="h-6 w-6 text-muslim-orange" />
+            </div>
+            <p className="text-gray-600 mt-2">Our major sponsors showcase for this month</p>
           </div>
           <Link to="/businesses" className="text-muslim-teal hover:text-muslim-teal/80 flex items-center font-medium">
             View All <ArrowRight className="ml-1 h-4 w-4" />
@@ -70,6 +73,15 @@ const FeaturedBusinessesSection = () => {
           {mockBusinesses.map((business) => (
             <BusinessCard key={business.id} {...business} />
           ))}
+        </div>
+        
+        <div className="mt-8 text-center">
+          <Link 
+            to="/packages" 
+            className="inline-flex items-center bg-muslim-orange hover:bg-muslim-orange/90 text-white px-4 py-2 rounded-md font-medium transition-colors"
+          >
+            Become a Featured Sponsor <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>
