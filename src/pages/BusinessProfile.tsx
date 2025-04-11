@@ -96,7 +96,7 @@ const BusinessProfilePage = () => {
             .from("business_profiles")
             .select("*")
             .eq("id", id)
-            .single() as { data: BusinessProfile | null; error: any };
+            .single() as unknown as { data: BusinessProfile | null; error: any };
             
           if (error) throw error;
           
@@ -129,7 +129,7 @@ const BusinessProfilePage = () => {
             .from("business_profiles")
             .select("id")
             .eq("user_id", user.id)
-            .maybeSingle() as { data: { id: string } | null; error: any };
+            .maybeSingle() as unknown as { data: { id: string } | null; error: any };
             
           if (!error && data) {
             toast({
@@ -166,7 +166,7 @@ const BusinessProfilePage = () => {
         const { error } = await supabase
           .from("business_profiles")
           .update(values)
-          .eq("id", id) as { error: any };
+          .eq("id", id) as unknown as { error: any };
           
         if (error) throw error;
         
@@ -182,7 +182,7 @@ const BusinessProfilePage = () => {
             ...values,
             user_id: user.id,
           })
-          .select() as { data: BusinessProfile[]; error: any };
+          .select() as unknown as { data: BusinessProfile[]; error: any };
           
         if (error) throw error;
         
@@ -388,11 +388,12 @@ const BusinessProfilePage = () => {
         
         {isEditing && profileData && (
           <>
-            <MembershipSection businessId={id} />
+            <MembershipSection businessId={id!} />
             <div className="mt-8">
               <ReviewSection 
                 entityName={profileData.business_name} 
-                entityType="business" 
+                entityType="business"
+                entityId={id}
                 reviewPrompt="Share your experience with this business..."
               />
             </div>

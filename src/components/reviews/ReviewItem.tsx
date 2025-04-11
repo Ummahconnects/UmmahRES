@@ -51,7 +51,7 @@ const ReviewItem = ({
       const { error } = await supabase
         .from("reviews")
         .delete()
-        .eq("id", id) as { error: any };
+        .eq("id", id) as unknown as { error: any };
         
       if (error) throw error;
       
