@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,15 +9,15 @@ import {
   SelectTrigger,
   SelectValue 
 } from "@/components/ui/select";
-import { Filter, List, Grid, MapPin, Clock, Calendar } from "lucide-react";
+import { Filter, List, Grid, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import SearchBar from "@/components/SearchBar";
 import MosqueCard, { MosqueProps } from "@/components/MosqueCard";
 import FilterSidebar from "@/components/FilterSidebar";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { perthMosques } from "@/data/perthMosques";
 
-// Extended mock data for mosques
 const mockMosques: MosqueProps[] = [
   {
     id: "1",
@@ -80,7 +79,8 @@ const mockMosques: MosqueProps[] = [
     jumuahTime: "1:00 PM",
     isOpen: true,
     facilities: ["Women's Section", "Funeral Services", "Parking"]
-  }
+  },
+  ...perthMosques
 ];
 
 const MosquesPage = () => {
@@ -91,7 +91,6 @@ const MosquesPage = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [isFilterSidebarVisible, setIsFilterSidebarVisible] = useState(false);
 
-  // Handle initial search params
   useEffect(() => {
     const keyword = searchParams.get("keyword");
     const location = searchParams.get("location");
@@ -148,7 +147,6 @@ const MosquesPage = () => {
   const handleFilterChange = (filters: Record<string, any>) => {
     let filtered = [...mosques];
     
-    // Filter by category
     if (filters.categories && filters.categories.length > 0) {
       filtered = filtered.filter(mosque => 
         filters.categories.some((cat: string) => 
@@ -157,7 +155,6 @@ const MosquesPage = () => {
       );
     }
     
-    // Filter by facility
     if (filters.services && filters.services.length > 0) {
       filtered = filtered.filter(mosque => 
         mosque.facilities?.some(facility => 
@@ -166,7 +163,6 @@ const MosquesPage = () => {
       );
     }
     
-    // Filter by open status
     if (filters.isOpen) {
       filtered = filtered.filter(mosque => mosque.isOpen);
     }
@@ -186,7 +182,7 @@ const MosquesPage = () => {
             <div>
               <h1 className="text-3xl font-bold text-muslim-dark">Mosques & Islamic Centers</h1>
               <p className="text-gray-600">
-                Find mosques, prayer spaces, and Islamic centers near you
+                Find mosques, prayer spaces, and Islamic centers in Perth, Australia and other locations
               </p>
             </div>
             
@@ -199,14 +195,12 @@ const MosquesPage = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Filter Sidebar - Desktop */}
           <div className="hidden lg:block lg:w-64 shrink-0">
             <div className="sticky top-6">
               <FilterSidebar type="mosque" onFilterChange={handleFilterChange} />
             </div>
           </div>
 
-          {/* Mobile Filter Button */}
           <div className="lg:hidden mb-4">
             <Button 
               variant="outline" 
@@ -224,7 +218,6 @@ const MosquesPage = () => {
             )}
           </div>
 
-          {/* Main Content */}
           <div className="flex-1">
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
