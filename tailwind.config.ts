@@ -21,6 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				arabic: ['Scheherazade New', 'serif'],
+				montserrat: ['Montserrat', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

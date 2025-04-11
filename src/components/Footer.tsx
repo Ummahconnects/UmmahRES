@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Mail } from "lucide-react";
+import { Facebook, Twitter, Instagram, Mail, HelpCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-xl font-bold">Ummah<span className="text-muslim-gold">Connects</span></h3>
+            <h3 className="text-xl font-bold font-montserrat tracking-wide">UMMAH-<span className="text-muslim-gold">CONNECTS</span></h3>
             <p className="text-sm text-gray-300">
               Creating Barakat with every transaction, for supporting Muslims Services and Organisations by Muslims, for the Sake of Allah.
             </p>
@@ -42,6 +42,7 @@ const Footer = () => {
               <li><Link to="/packages" className="text-gray-300 hover:text-white">Packages</Link></li>
               <li><Link to="/sales" className="text-gray-300 hover:text-white">Sponsorships</Link></li>
               <li><Link to="/affiliates" className="text-gray-300 hover:text-white">Affiliates & Influencers</Link></li>
+              <li><Link to="/help" className="text-gray-300 hover:text-white">Help & Support</Link></li>
             </ul>
           </div>
           <div>
@@ -57,14 +58,19 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-sm">
-              <li className="text-gray-300">Email: info@ummahconnects.com</li>
+              <li className="text-gray-300">Email: info@ummah-connects.com</li>
               <li className="text-gray-300">Phone: +1 (555) 123-4567</li>
               <li className="text-gray-300">Address: 123 Main St, City, Country</li>
+              <li className="mt-4">
+                <Link to="/help" className="inline-flex items-center text-muslim-gold hover:text-muslim-gold/80">
+                  <HelpCircle className="h-4 w-4 mr-1" /> Need Help? Visit Support
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-400 text-center">
-          <p>&copy; {new Date().getFullYear()} Ummah Connects. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Ummah-Connects. All rights reserved.</p>
         </div>
       </div>
     </footer>
