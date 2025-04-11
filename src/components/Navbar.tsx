@@ -1,15 +1,31 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X, Calendar, HelpCircle } from "lucide-react";
+import { Search, Menu, X, Calendar, HelpCircle, LogIn, LogOut, User, Building } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthContext";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
   };
 
   return (
@@ -80,16 +96,53 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
-            <Button variant="outline" size="sm" className="mr-2">
-              Sign In
-            </Button>
-            <Button
-              variant="default"
-              size="sm"
-              className="bg-muslim-teal hover:bg-muslim-teal/90"
-            >
-              Register
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <div className="h-8 w-8 rounded-full bg-muslim-teal text-white flex items-center justify-center">
+                      <User className="h-4 w-4" />
+                    </div>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate("/business-profile")}>
+                    <Building className="mr-2 h-4 w-4" />
+                    <span>Business Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/membership")}>
+                    <span>Membership</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Sign Out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="mr-2"
+                  onClick={() => navigate("/auth")}
+                >
+                  <LogIn className="h-4 w-4 mr-1" />
+                  Sign In
+                </Button>
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="bg-muslim-teal hover:bg-muslim-teal/90"
+                  onClick={() => navigate("/auth?tab=signup")}
+                >
+                  Register
+                </Button>
+              </>
+            )}
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
             <Button
@@ -177,24 +230,62 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="pt-4 pb-3 border-t border-gray-200">
-          <div className="flex items-center px-4">
-            <div className="flex-shrink-0">
-              <div className="h-10 w-10 rounded-full bg-muslim-teal text-white flex items-center justify-center">
-                <span className="text-sm font-medium">Guest</span>
+          {user ? (
+            <>
+              <div className="flex items-center px-4">
+                <div className="flex-shrink-0">
+                  <div className="h-10 w-10 rounded-full bg-muslim-teal text-white flex items-center justify-center">
+                    <User className="h-5 w-5" />
+                  </div>
+                </div>
+                <div className="ml-3">
+                  <div className="text-base font-medium text-gray-800">{user.email}</div>
+                </div>
               </div>
+              <div className="mt-3 space-y-1">
+                <Link
+                  to="/business-profile"
+                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left"
+                  onClick={toggleMenu}
+                >
+                  Business Profile
+                </Link>
+                <Link
+                  to="/membership"
+                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left"
+                  onClick={toggleMenu}
+                >
+                  Membership
+                </Link>
+                <button 
+                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left"
+                  onClick={() => {
+                    handleSignOut();
+                    toggleMenu();
+                  }}
+                >
+                  Sign out
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="mt-3 space-y-1 px-4">
+              <Link
+                to="/auth"
+                className="block py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left"
+                onClick={toggleMenu}
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/auth?tab=signup"
+                className="block py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left"
+                onClick={toggleMenu}
+              >
+                Register
+              </Link>
             </div>
-            <div className="ml-3">
-              <div className="text-base font-medium text-gray-800">Guest User</div>
-            </div>
-          </div>
-          <div className="mt-3 space-y-1">
-            <button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left">
-              Sign in
-            </button>
-            <button className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 w-full text-left">
-              Register
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </nav>

@@ -12,14 +12,16 @@ import {
 
 interface ReviewListProps {
   reviews: ReviewItemProps[];
+  entityId?: string;
   className?: string;
 }
 
-const ReviewList = ({ reviews, className }: ReviewListProps) => {
+const ReviewList = ({ reviews, entityId, className }: ReviewListProps) => {
   const [sortBy, setSortBy] = useState("recent");
   const [displayCount, setDisplayCount] = useState(3);
+  const [reviewList, setReviewList] = useState<ReviewItemProps[]>(reviews);
 
-  const sortedReviews = [...reviews].sort((a, b) => {
+  const sortedReviews = [...reviewList].sort((a, b) => {
     switch (sortBy) {
       case "recent":
         return b.date.getTime() - a.date.getTime();
@@ -35,12 +37,22 @@ const ReviewList = ({ reviews, className }: ReviewListProps) => {
   });
 
   const displayedReviews = sortedReviews.slice(0, displayCount);
-  const hasMoreReviews = displayCount < reviews.length;
+  const hasMoreReviews = displayCount < reviewList.length;
+
+  const handleDeleteReview = (id: string) => {
+    const updatedReviews = reviewList.filter(review => review.id !== id);
+    setReviewList(updatedReviews);
+  };
+
+  // Update reviewList when props.reviews changes
+  if (JSON.stringify(reviews) !== JSON.stringify(reviewList)) {
+    setReviewList(reviews);
+  }
 
   return (
     <div className={className}>
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Reviews ({reviews.length})</h3>
+        <h3 className="text-lg font-semibold">Reviews ({reviewList.length})</h3>
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sort by" />
@@ -54,11 +66,22 @@ const ReviewList = ({ reviews, className }: ReviewListProps) => {
         </Select>
       </div>
 
-      <div className="space-y-4">
-        {displayedReviews.map((review) => (
-          <ReviewItem key={review.id} {...review} />
-        ))}
-      </div>
+      {reviewList.length === 0 ? (
+        <div className="text-center py-8 text-gray-500">
+          <p>No reviews yet. Be the first to review!</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {displayedReviews.map((review) => (
+            <ReviewItem 
+              key={review.id} 
+              {...review} 
+              onDelete={handleDeleteReview}
+              entityId={entityId}
+            />
+          ))}
+        </div>
+      )}
 
       {hasMoreReviews && (
         <div className="mt-6 text-center">
