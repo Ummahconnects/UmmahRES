@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue 
 } from "@/components/ui/select";
-import { Filter, List, Grid, MapPin } from "lucide-react";
+import { Filter, List, Grid, MapPin, Calendar } from "lucide-react";
 import Layout from "@/components/Layout";
 import SearchBar from "@/components/SearchBar";
 import MosqueCard, { MosqueProps } from "@/components/MosqueCard";
@@ -18,7 +19,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { perthMosques } from "@/data/perthMosques";
 
-const mockMosques: MosqueProps[] = [
+// Export mockMosques so it can be imported in other files
+export const mockMosques: MosqueProps[] = [
   {
     id: "1",
     name: "Masjid Al-Noor",

@@ -18,6 +18,7 @@ import {
 import Layout from "@/components/Layout";
 import { perthMosques } from "@/data/perthMosques";
 import { mockMosques } from "@/pages/Mosques";
+import { cn } from "@/lib/utils"; // Add cn import
 
 const MosqueDetail = () => {
   const { id } = useParams<{ id: string }>();
