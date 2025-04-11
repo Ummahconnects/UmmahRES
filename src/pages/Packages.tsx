@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import ReviewSection from "@/components/reviews/ReviewSection";
 import { Button } from "@/components/ui/button";
@@ -287,9 +286,7 @@ const PackagesPage = () => {
               <h3 className="text-xl font-semibold text-muslim-dark mb-4 text-center">What Customers Say About Our Listed Businesses</h3>
               <ReviewSection 
                 entityName="Listed Businesses" 
-                entityType="business" 
-                averageRating={4.8} 
-                totalReviews={42}
+                entityType="business"
                 reviewPrompt="Share your experience with this business..."
               />
             </div>
@@ -298,9 +295,7 @@ const PackagesPage = () => {
               <h3 className="text-xl font-semibold text-muslim-dark mb-4 text-center">Feedback From Our Business Partners</h3>
               <ReviewSection 
                 entityName="Ummah Connects Platform" 
-                entityType="business" 
-                averageRating={4.6} 
-                totalReviews={28} 
+                entityType="business"
                 reviewPrompt="How can we improve our service for your business?"
               />
             </div>

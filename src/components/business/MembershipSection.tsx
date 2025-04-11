@@ -25,6 +25,7 @@ interface MembershipSectionProps {
   businessId: string;
 }
 
+// Define the basic data structure for memberships
 interface Membership {
   id: string;
   plan_type: 'basic' | 'premium' | 'enterprise';
@@ -87,12 +88,13 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
       try {
         setLoading(true);
         
+        // Add type assertion to handle Supabase query
         const { data, error } = await supabase
           .from('memberships')
           .select('*')
           .eq('business_id', businessId)
           .order('created_at', { ascending: false })
-          .maybeSingle();
+          .maybeSingle() as { data: Membership | null; error: any };
           
         if (error) throw error;
         
@@ -123,7 +125,7 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
       endDate.setMonth(endDate.getMonth() + 1); // 1 month membership
       
       if (membership) {
-        // Update existing membership
+        // Update existing membership with type assertion
         const { error } = await supabase
           .from('memberships')
           .update({
@@ -132,11 +134,11 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
           })
-          .eq('id', membership.id);
+          .eq('id', membership.id) as { error: any };
           
         if (error) throw error;
       } else {
-        // Create new membership
+        // Create new membership with type assertion
         const { error } = await supabase
           .from('memberships')
           .insert({
@@ -145,7 +147,7 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
             status: 'active',
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
-          });
+          }) as { error: any };
           
         if (error) throw error;
       }
@@ -156,7 +158,7 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
         .select('*')
         .eq('business_id', businessId)
         .order('created_at', { ascending: false })
-        .maybeSingle();
+        .maybeSingle() as { data: Membership | null; error: any };
         
       if (error) throw error;
       

@@ -44,6 +44,19 @@ const profileSchema = z.object({
   website: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
 });
 
+// Define business profile type
+interface BusinessProfile {
+  id: string;
+  user_id: string;
+  business_name: string;
+  business_description: string;
+  category: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  website?: string;
+}
+
 type ProfileFormValues = z.infer<typeof profileSchema>;
 
 const BusinessProfilePage = () => {
@@ -54,7 +67,7 @@ const BusinessProfilePage = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [profileData, setProfileData] = useState<any>(null);
+  const [profileData, setProfileData] = useState<BusinessProfile | null>(null);
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -77,18 +90,18 @@ const BusinessProfilePage = () => {
       try {
         setLoading(true);
         
-        if (isEditing) {
-          // Fetch existing profile
+        if (isEditing && id) {
+          // Fetch existing profile with type assertion
           const { data, error } = await supabase
             .from("business_profiles")
             .select("*")
             .eq("id", id)
-            .single();
+            .single() as { data: BusinessProfile | null; error: any };
             
           if (error) throw error;
           
           // Verify ownership
-          if (data.user_id !== user.id) {
+          if (data && data.user_id !== user.id) {
             toast({
               title: "Unauthorized",
               description: "You don't have permission to edit this profile",
@@ -98,23 +111,25 @@ const BusinessProfilePage = () => {
             return;
           }
           
-          setProfileData(data);
-          form.reset({
-            business_name: data.business_name || "",
-            business_description: data.business_description || "",
-            category: data.category || "",
-            address: data.address || "",
-            phone: data.phone || "",
-            email: data.email || "",
-            website: data.website || "",
-          });
+          if (data) {
+            setProfileData(data);
+            form.reset({
+              business_name: data.business_name || "",
+              business_description: data.business_description || "",
+              category: data.category || "",
+              address: data.address || "",
+              phone: data.phone || "",
+              email: data.email || "",
+              website: data.website || "",
+            });
+          }
         } else {
           // Check if user already has a business profile
           const { data, error } = await supabase
             .from("business_profiles")
             .select("id")
             .eq("user_id", user.id)
-            .maybeSingle();
+            .maybeSingle() as { data: { id: string } | null; error: any };
             
           if (!error && data) {
             toast({
@@ -146,12 +161,12 @@ const BusinessProfilePage = () => {
     try {
       setSaving(true);
       
-      if (isEditing) {
-        // Update existing profile
+      if (isEditing && id) {
+        // Update existing profile with type assertion
         const { error } = await supabase
           .from("business_profiles")
           .update(values)
-          .eq("id", id);
+          .eq("id", id) as { error: any };
           
         if (error) throw error;
         
@@ -160,14 +175,14 @@ const BusinessProfilePage = () => {
           description: "Your business profile has been updated successfully",
         });
       } else {
-        // Create new profile
+        // Create new profile with type assertion
         const { data, error } = await supabase
           .from("business_profiles")
           .insert({
             ...values,
             user_id: user.id,
           })
-          .select();
+          .select() as { data: BusinessProfile[]; error: any };
           
         if (error) throw error;
         
@@ -176,7 +191,9 @@ const BusinessProfilePage = () => {
           description: "Your business profile has been created successfully",
         });
         
-        navigate(`/business-profile/${data[0].id}`);
+        if (data && data[0]) {
+          navigate(`/business-profile/${data[0].id}`);
+        }
       }
     } catch (error: any) {
       console.error("Error saving profile:", error);

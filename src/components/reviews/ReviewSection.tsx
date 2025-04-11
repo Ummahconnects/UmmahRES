@@ -19,6 +19,20 @@ interface ReviewSectionProps {
   entityId?: string; // Optional for mock data
   className?: string;
   reviewPrompt?: string;
+  averageRating?: number; // Added prop
+  totalReviews?: number; // Added prop
+}
+
+// Define the basic structure for review data from Supabase
+interface ReviewData {
+  id: string;
+  rating: number;
+  comment: string;
+  created_at: string;
+  user_id: string;
+  users?: {
+    email?: string;
+  };
 }
 
 const ReviewSection = ({
@@ -26,15 +40,17 @@ const ReviewSection = ({
   entityType,
   entityId,
   className,
-  reviewPrompt = "Share your experience..."
+  reviewPrompt = "Share your experience...",
+  averageRating: initialAverageRating,
+  totalReviews: initialTotalReviews
 }: ReviewSectionProps) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [reviews, setReviews] = useState<ReviewItemProps[]>([]);
   const [isWritingReview, setIsWritingReview] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [averageRating, setAverageRating] = useState(0);
-  const [totalReviews, setTotalReviews] = useState(0);
+  const [averageRating, setAverageRating] = useState(initialAverageRating || 0);
+  const [totalReviews, setTotalReviews] = useState(initialTotalReviews || 0);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -93,9 +109,13 @@ const ReviewSection = ({
           }
         ]);
         
-        // Calculate average
-        setAverageRating(4.5);
-        setTotalReviews(5);
+        // Calculate average if not provided
+        if (initialAverageRating === undefined) {
+          setAverageRating(4.5);
+        }
+        if (initialTotalReviews === undefined) {
+          setTotalReviews(5);
+        }
         setLoading(false);
         return;
       }
@@ -103,7 +123,7 @@ const ReviewSection = ({
       try {
         setLoading(true);
         
-        // Get user profile data for author names
+        // Get user profile data for author names with type assertion
         const { data: reviewsData, error } = await supabase
           .from("reviews")
           .select(`
@@ -114,8 +134,7 @@ const ReviewSection = ({
             user_id,
             auth.users (email)
           `)
-          .eq("business_id", entityId)
-          .order("created_at", { ascending: false });
+          .eq("business_id", entityId) as { data: ReviewData[]; error: any };
           
         if (error) throw error;
         
@@ -132,15 +151,15 @@ const ReviewSection = ({
         
         setReviews(formattedReviews);
         
-        // Calculate average rating
-        if (formattedReviews.length > 0) {
+        // Calculate average rating if not provided
+        if (initialAverageRating === undefined && formattedReviews.length > 0) {
           const sum = formattedReviews.reduce((acc, review) => acc + review.rating, 0);
           setAverageRating(sum / formattedReviews.length);
-        } else {
-          setAverageRating(0);
         }
         
-        setTotalReviews(formattedReviews.length);
+        if (initialTotalReviews === undefined) {
+          setTotalReviews(formattedReviews.length);
+        }
       } catch (error: any) {
         console.error("Error fetching reviews:", error);
       } finally {
@@ -149,7 +168,7 @@ const ReviewSection = ({
     };
     
     fetchReviews();
-  }, [entityId]);
+  }, [entityId, initialAverageRating, initialTotalReviews]);
 
   const handleReviewSubmit = async (review: { rating: number; comment: string }) => {
     if (!user) {
@@ -185,7 +204,7 @@ const ReviewSection = ({
     }
     
     try {
-      // Add review to database
+      // Add review to database with type assertion
       const { data, error } = await supabase
         .from("reviews")
         .insert({
@@ -194,7 +213,7 @@ const ReviewSection = ({
           rating: review.rating,
           comment: review.comment
         })
-        .select();
+        .select() as { data: any[]; error: any };
         
       if (error) throw error;
       

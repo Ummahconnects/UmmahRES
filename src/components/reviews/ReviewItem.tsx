@@ -47,10 +47,11 @@ const ReviewItem = ({
     if (!canDelete || !entityId) return;
     
     try {
+      // Add type assertion for Supabase query
       const { error } = await supabase
         .from("reviews")
         .delete()
-        .eq("id", id);
+        .eq("id", id) as { error: any };
         
       if (error) throw error;
       
