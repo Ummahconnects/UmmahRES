@@ -14,6 +14,7 @@ import SalesPage from "./pages/Sales";
 import AffiliatesPage from "./pages/Affiliates";
 import CommunityEventsPage from "./pages/CommunityEvents";
 import HelpPage from "./pages/Help";
+import MembershipPage from "./pages/Membership";
 import NotFound from "./pages/NotFound";
 import React from 'react'; // Explicitly import React
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/affiliates" element={<AffiliatesPage />} />
           <Route path="/community-events" element={<CommunityEventsPage />} />
           <Route path="/help" element={<HelpPage />} />
+          <Route path="/membership" element={<MembershipPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
