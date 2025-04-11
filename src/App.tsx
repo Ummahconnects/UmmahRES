@@ -10,6 +10,7 @@ import MosquesPage from "./pages/Mosques";
 import MosqueDetail from "./pages/MosqueDetail";
 import AboutPage from "./pages/About";
 import PackagesPage from "./pages/Packages";
+import SalesPage from "./pages/Sales";
 import NotFound from "./pages/NotFound";
 import React from 'react'; // Explicitly import React
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/mosque/:id" element={<MosqueDetail />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/packages" element={<PackagesPage />} />
+          <Route path="/sales" element={<SalesPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

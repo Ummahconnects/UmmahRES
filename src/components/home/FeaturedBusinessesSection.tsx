@@ -102,7 +102,7 @@ const FeaturedBusinessesSection = () => {
           <div className="inline-block">
             <div className="relative overflow-hidden">
               <Link 
-                to="/packages" 
+                to="/sales" 
                 className="relative z-10 inline-flex items-center bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 text-muslim-dark px-6 py-3 rounded-md font-bold transition-all hover:shadow-lg"
               >
                 Become a Featured Sponsor <ArrowRight className="ml-1 h-4 w-4" />
