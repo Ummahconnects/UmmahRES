@@ -33,10 +33,10 @@ const BusinessProfilePage = () => {
         if (isEditing && id) {
           // Fetch existing profile with type assertion
           const { data, error } = await supabase
-            .from("business_profiles")
+            .from("business_profiles" as any)
             .select("*")
             .eq("id", id)
-            .single() as unknown as { data: BusinessProfile | null; error: any };
+            .single() as any;
             
           if (error) throw error;
           
@@ -59,10 +59,10 @@ const BusinessProfilePage = () => {
         } else {
           // Check if user already has a business profile
           const { data, error } = await supabase
-            .from("business_profiles")
+            .from("business_profiles" as any)
             .select("id")
             .eq("user_id", user.id)
-            .maybeSingle() as unknown as { data: { id: string } | null; error: any };
+            .maybeSingle() as any;
             
           if (!error && data) {
             toast({
@@ -99,7 +99,9 @@ const BusinessProfilePage = () => {
   if (!user) {
     return (
       <Layout>
-        <AuthRequired />
+        <AuthRequired>
+          <p>You need to be logged in to access this page.</p>
+        </AuthRequired>
       </Layout>
     );
   }

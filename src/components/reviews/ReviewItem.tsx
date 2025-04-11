@@ -49,9 +49,9 @@ const ReviewItem = ({
     try {
       // Add type assertion for Supabase query
       const { error } = await supabase
-        .from("reviews")
+        .from("reviews" as any)
         .delete()
-        .eq("id", id) as unknown as { error: any };
+        .eq("id", id) as any;
         
       if (error) throw error;
       
