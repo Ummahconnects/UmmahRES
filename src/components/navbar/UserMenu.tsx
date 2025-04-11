@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -119,25 +118,25 @@ const UserMenu = ({ isMobile = false, onItemClick }: UserMenuProps) => {
       </DropdownMenuContent>
     </DropdownMenu>
   ) : (
-    <>
+    <div className="flex items-center space-x-2">
       <Button 
         variant="outline" 
         size="sm" 
-        className="mr-2"
+        className="border-muslim-teal text-muslim-teal hover:bg-muslim-teal/10"
         onClick={() => navigate("/auth")}
       >
-        <LogIn className="h-4 w-4 mr-1" />
+        <LogIn className="mr-2 h-4 w-4" />
         Sign In
       </Button>
       <Button
         variant="default"
         size="sm"
-        className="bg-muslim-teal hover:bg-muslim-teal/90"
+        className="bg-muslim-teal hover:bg-muslim-teal/90 text-white"
         onClick={() => navigate("/auth?tab=signup")}
       >
         Register
       </Button>
-    </>
+    </div>
   );
 };
 
