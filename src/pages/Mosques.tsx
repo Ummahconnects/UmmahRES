@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,20 @@ import {
   SelectTrigger,
   SelectValue 
 } from "@/components/ui/select";
-import { Filter, List, Grid, MapPin, Calendar } from "lucide-react";
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Filter, List, Grid, MapPin, Calendar, Plus } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import SearchBar from "@/components/SearchBar";
 import MosqueCard, { MosqueProps } from "@/components/MosqueCard";
@@ -85,6 +97,17 @@ export const mockMosques: MosqueProps[] = [
   ...perthMosques
 ];
 
+// Type for the mosque submission form
+type MosqueSubmissionForm = {
+  name: string;
+  type: string;
+  address: string;
+  jumuahTime: string;
+  facilities: string;
+  additionalInfo: string;
+  contactEmail: string;
+};
+
 const MosquesPage = () => {
   const [searchParams] = useSearchParams();
   const [mosques, setMosques] = useState<MosqueProps[]>(mockMosques);
@@ -92,6 +115,21 @@ const MosquesPage = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("featured");
   const [isFilterSidebarVisible, setIsFilterSidebarVisible] = useState(false);
+  const [isAddMosqueDialogOpen, setIsAddMosqueDialogOpen] = useState(false);
+  const { toast } = useToast();
+
+  // Initialize form
+  const form = useForm<MosqueSubmissionForm>({
+    defaultValues: {
+      name: "",
+      type: "Islamic Center",
+      address: "",
+      jumuahTime: "",
+      facilities: "",
+      additionalInfo: "",
+      contactEmail: "",
+    },
+  });
 
   useEffect(() => {
     const keyword = searchParams.get("keyword");
@@ -176,6 +214,26 @@ const MosquesPage = () => {
     setIsFilterSidebarVisible(!isFilterSidebarVisible);
   };
 
+  const handleSubmitMosque = (data: MosqueSubmissionForm) => {
+    const facilitiesArray = data.facilities
+      .split(',')
+      .map(facility => facility.trim())
+      .filter(facility => facility !== '');
+
+    toast({
+      title: "Mosque submitted for approval",
+      description: "Thank you for your contribution. Your submission will be reviewed by our team.",
+    });
+
+    console.log("Mosque submission:", {
+      ...data,
+      facilities: facilitiesArray,
+    });
+
+    setIsAddMosqueDialogOpen(false);
+    form.reset();
+  };
+
   return (
     <Layout>
       <div className="bg-gray-50 py-6">
@@ -229,6 +287,14 @@ const MosquesPage = () => {
                 </div>
                 
                 <div className="flex items-center gap-4 w-full sm:w-auto">
+                  <Button 
+                    onClick={() => setIsAddMosqueDialogOpen(true)}
+                    className="bg-muslim-teal text-white hover:bg-muslim-teal/90 flex items-center mr-auto sm:mr-0"
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Mosque
+                  </Button>
+                  
                   <Select value={sortBy} onValueChange={handleSortChange}>
                     <SelectTrigger className="w-full sm:w-[180px]">
                       <SelectValue placeholder="Sort by" />
@@ -340,6 +406,160 @@ const MosquesPage = () => {
           </div>
         </div>
       </div>
+
+      <Dialog open={isAddMosqueDialogOpen} onOpenChange={setIsAddMosqueDialogOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Add a Mosque or Islamic Center</DialogTitle>
+            <DialogDescription>
+              Submit mosque details for review. Once approved, it will appear in the directory.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleSubmitMosque)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Mosque Name*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter mosque name" required {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type*</FormLabel>
+                    <Select 
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Islamic Center">Islamic Center</SelectItem>
+                        <SelectItem value="Sunni Mosque">Sunni Mosque</SelectItem>
+                        <SelectItem value="Shia Mosque">Shia Mosque</SelectItem>
+                        <SelectItem value="Sufi Center">Sufi Center</SelectItem>
+                        <SelectItem value="Prayer Space">Prayer Space</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Address*</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Full address" required {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="jumuahTime"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Jumu'ah Prayer Time</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g., 1:30 PM" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="facilities"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Facilities</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="e.g., Women's Section, Parking, Wheelchair Access" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Separate facilities with commas
+                    </p>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="additionalInfo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Additional Information</FormLabel>
+                    <FormControl>
+                      <Textarea 
+                        placeholder="Add any additional details about the mosque"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="contactEmail"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Contact Email*</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="email"
+                        placeholder="Your email for verification"
+                        required
+                        {...field}
+                      />
+                    </FormControl>
+                    <p className="text-xs text-gray-500 mt-1">
+                      We'll use this to contact you about your submission
+                    </p>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <DialogFooter className="mt-6">
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => setIsAddMosqueDialogOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit">Submit for Approval</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 };
