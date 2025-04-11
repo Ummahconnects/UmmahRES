@@ -1,4 +1,4 @@
-
+import React, { useState } from 'react';
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
 import { 
@@ -29,7 +29,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
 
 // Define form validation schema
 const formSchema = z.object({
@@ -112,11 +111,11 @@ const AffiliatesPage = () => {
                     </div>
                     <h2 className="text-2xl font-bold text-muslim-dark">Affiliate Program</h2>
                   </div>
-                  
+                
                   <p className="text-gray-700 mb-6">
-                    Our affiliate program allows you to earn commission by referring businesses and mosques 
-                    to UmmahConnects. Each successful referral that results in a paid subscription earns you
-                    a generous commission.
+                    Our affiliate program allows you to earn commission by referring businesses 
+                    to UmmahConnects. Each successful referral that results in a paid subscription 
+                    earns you a generous commission.
                   </p>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -169,7 +168,7 @@ const AffiliatesPage = () => {
                       <div className="h-6 w-6 flex-shrink-0 mt-1">
                         <CheckCircle2 className="h-6 w-6 text-muslim-teal" />
                       </div>
-                      <p>Share your referral link with businesses and mosques in your network</p>
+                      <p>Share your referral link with businesses in your network</p>
                     </li>
                     <li className="flex items-start gap-3">
                       <div className="h-6 w-6 flex-shrink-0 mt-1">
@@ -194,7 +193,7 @@ const AffiliatesPage = () => {
                       <Button onClick={copyReferralLink} className="bg-muslim-teal hover:bg-muslim-teal/90">Copy</Button>
                     </div>
                     <p className="mt-4 text-sm text-gray-600">
-                      Share this link with businesses and mosques. You'll earn 15% commission on 
+                      Share this link with businesses. You'll earn 15% commission on 
                       every paid subscription for a full year!
                     </p>
                   </div>
