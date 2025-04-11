@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, Calendar } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navbar = () => {
@@ -40,6 +40,12 @@ const Navbar = () => {
                 className="border-transparent text-gray-700 hover:text-muslim-teal inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 Mosques
+              </Link>
+              <Link
+                to="/community-events"
+                className="border-transparent text-gray-700 hover:text-muslim-teal inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+              >
+                <Calendar className="mr-1 h-4 w-4" /> Events
               </Link>
               <Link
                 to="/about"
@@ -120,6 +126,13 @@ const Navbar = () => {
             onClick={toggleMenu}
           >
             Mosques
+          </Link>
+          <Link
+            to="/community-events"
+            className="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            onClick={toggleMenu}
+          >
+            Events
           </Link>
           <Link
             to="/about"
