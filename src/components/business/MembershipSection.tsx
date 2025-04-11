@@ -1,8 +1,6 @@
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/hooks/use-toast";
 import { 
   Card, 
   CardContent, 
@@ -18,180 +16,28 @@ import {
   SelectTrigger, 
   SelectValue 
 } from "@/components/ui/select";
-import { Loader2, ShieldCheck, Check, Clock } from "lucide-react";
-import { format } from "date-fns";
+import { Loader2, ShieldCheck } from "lucide-react";
+import CurrentMembership from "./CurrentMembership";
+import PlanFeatures from "./PlanFeatures";
+import { useMembership } from "@/hooks/useMembership";
 
 interface MembershipSectionProps {
   businessId: string;
 }
 
-// Define the basic data structure for memberships
-interface Membership {
-  id: string;
-  plan_type: 'basic' | 'premium' | 'enterprise';
-  status: 'active' | 'expired' | 'cancelled' | 'pending';
-  start_date: string;
-  end_date: string | null;
-}
-
-const planDetails = {
-  basic: {
-    name: "Basic",
-    price: "$19.99/month",
-    color: "gray-500",
-    features: [
-      "Basic business profile",
-      "Community access",
-      "Verified member badge",
-      "Basic networking tools"
-    ]
-  },
-  premium: {
-    name: "Premium",
-    price: "$49.99/month",
-    color: "muslim-teal",
-    features: [
-      "Everything in Basic",
-      "Priority listing placement",
-      "Advanced networking tools",
-      "Monthly business insight reports",
-      "Featured in community newsletter"
-    ]
-  },
-  enterprise: {
-    name: "Enterprise",
-    price: "$99.99/month",
-    color: "muslim-blue",
-    features: [
-      "Everything in Premium",
-      "Dedicated account manager",
-      "Custom marketing campaigns",
-      "Priority support",
-      "Quarterly business strategy sessions",
-      "Featured in community events"
-    ]
-  }
-};
-
 const MembershipSection = ({ businessId }: MembershipSectionProps) => {
   const { user } = useAuth();
-  const { toast } = useToast();
-  const [loading, setLoading] = useState(true);
-  const [membership, setMembership] = useState<Membership | null>(null);
   const [selectedPlan, setSelectedPlan] = useState<'basic' | 'premium' | 'enterprise'>('basic');
-  const [processingSubscription, setProcessingSubscription] = useState(false);
-
-  useEffect(() => {
-    const fetchMembership = async () => {
-      if (!businessId) return;
-      
-      try {
-        setLoading(true);
-        
-        // Add type assertion to handle Supabase query
-        const { data, error } = await supabase
-          .from('memberships')
-          .select('*')
-          .eq('business_id', businessId)
-          .order('created_at', { ascending: false })
-          .maybeSingle() as { data: Membership | null; error: any };
-          
-        if (error) throw error;
-        
-        setMembership(data);
-        if (data && data.plan_type) {
-          setSelectedPlan(data.plan_type);
-        }
-      } catch (error: any) {
-        console.error('Error fetching membership:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchMembership();
-  }, [businessId]);
+  const { 
+    membership, 
+    loading, 
+    processingSubscription, 
+    updateMembership 
+  } = useMembership(businessId);
   
   const handleSubscribe = async () => {
     if (!user || !businessId) return;
-    
-    try {
-      setProcessingSubscription(true);
-      
-      // For now, we'll just create a membership record
-      // In a real app, you would integrate with a payment provider like Stripe
-      
-      const endDate = new Date();
-      endDate.setMonth(endDate.getMonth() + 1); // 1 month membership
-      
-      if (membership) {
-        // Update existing membership with type assertion
-        const { error } = await supabase
-          .from('memberships')
-          .update({
-            plan_type: selectedPlan,
-            status: 'active',
-            start_date: new Date().toISOString(),
-            end_date: endDate.toISOString(),
-          })
-          .eq('id', membership.id) as { error: any };
-          
-        if (error) throw error;
-      } else {
-        // Create new membership with type assertion
-        const { error } = await supabase
-          .from('memberships')
-          .insert({
-            business_id: businessId,
-            plan_type: selectedPlan,
-            status: 'active',
-            start_date: new Date().toISOString(),
-            end_date: endDate.toISOString(),
-          }) as { error: any };
-          
-        if (error) throw error;
-      }
-      
-      // Fetch updated membership
-      const { data, error } = await supabase
-        .from('memberships')
-        .select('*')
-        .eq('business_id', businessId)
-        .order('created_at', { ascending: false })
-        .maybeSingle() as { data: Membership | null; error: any };
-        
-      if (error) throw error;
-      
-      setMembership(data);
-      
-      toast({
-        title: "Membership activated",
-        description: `Your ${planDetails[selectedPlan].name} membership has been activated successfully.`,
-      });
-    } catch (error: any) {
-      console.error('Error subscribing:', error);
-      toast({
-        title: "Error",
-        description: error.message || "Failed to activate membership",
-        variant: "destructive",
-      });
-    } finally {
-      setProcessingSubscription(false);
-    }
-  };
-  
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'text-green-500';
-      case 'pending':
-        return 'text-yellow-500';
-      case 'expired':
-      case 'cancelled':
-        return 'text-red-500';
-      default:
-        return 'text-gray-500';
-    }
+    await updateMembership(selectedPlan);
   };
   
   return (
@@ -213,29 +59,7 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
         ) : (
           <div className="space-y-6">
             {membership && (
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-semibold text-lg">Current Membership</h3>
-                    <p className="capitalize text-muslim-teal font-medium">
-                      {planDetails[membership.plan_type].name} Plan
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <div className={`font-medium ${getStatusColor(membership.status)}`}>
-                      {membership.status === 'active' && <span className="flex items-center"><Check className="h-4 w-4 mr-1" /> Active</span>}
-                      {membership.status === 'pending' && <span className="flex items-center"><Clock className="h-4 w-4 mr-1" /> Pending</span>}
-                      {membership.status === 'expired' && "Expired"}
-                      {membership.status === 'cancelled' && "Cancelled"}
-                    </div>
-                    {membership.end_date && (
-                      <p className="text-sm text-gray-500">
-                        Expires: {format(new Date(membership.end_date), 'MMM d, yyyy')}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <CurrentMembership membership={membership} />
             )}
             
             <div>
@@ -244,7 +68,10 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
               </h3>
               
               <div className="space-y-4">
-                <Select value={selectedPlan} onValueChange={(value: any) => setSelectedPlan(value)}>
+                <Select 
+                  value={selectedPlan} 
+                  onValueChange={(value: 'basic' | 'premium' | 'enterprise') => setSelectedPlan(value)}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a plan" />
                   </SelectTrigger>
@@ -255,18 +82,7 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
                   </SelectContent>
                 </Select>
                 
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-semibold mb-2">{planDetails[selectedPlan].name} Plan Features:</h4>
-                  <ul className="space-y-1">
-                    {planDetails[selectedPlan].features.map((feature, index) => (
-                      <li key={index} className="flex items-start">
-                        <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mt-4 font-semibold">{planDetails[selectedPlan].price}</p>
-                </div>
+                <PlanFeatures planType={selectedPlan} />
                 
                 <Button 
                   onClick={handleSubscribe} 
