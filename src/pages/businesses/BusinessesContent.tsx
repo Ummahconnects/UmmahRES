@@ -1,7 +1,5 @@
-
 import React, { useState } from "react";
 import { BusinessProps } from "@/components/BusinessCard";
-import SocialMediaSection from "@/components/business/SocialMediaSection";
 import FilterSection from "@/components/business/FilterSection";
 import BusinessContent from "@/components/business/BusinessContent";
 import PromotionalBanners from "@/components/business/PromotionalBanners";
@@ -64,8 +62,6 @@ const BusinessesContent = ({
       <PromotionalBanners />
       
       <div className="flex flex-col lg:flex-row gap-6">
-        <SocialMediaSection variant="desktop" />
-        
         <FilterSection 
           isFilterSidebarVisible={isFilterSidebarVisible}
           toggleFilterSidebar={toggleFilterSidebar}
@@ -86,10 +82,6 @@ const BusinessesContent = ({
           />
           
           <PromotionalBanners />
-
-          <div className="lg:hidden">
-            <SocialMediaSection variant="mobile" />
-          </div>
         </div>
       </div>
     </div>
