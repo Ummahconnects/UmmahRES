@@ -1,7 +1,7 @@
 
 import { Card } from "@/components/ui/card";
 
-const ContactInfoCard = () => {
+const ContactSidebar = () => {
   return (
     <Card className="p-6">
       <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
@@ -25,4 +25,4 @@ const ContactInfoCard = () => {
   );
 };
 
-export default ContactInfoCard;
+export default ContactSidebar;

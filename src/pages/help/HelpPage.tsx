@@ -2,9 +2,8 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ContactInfoCard from "@/components/help/ContactInfoCard";
-import ChatInterface from "@/components/help/ChatInterface";
-import FAQSection from "@/components/help/FAQSection";
+import ContactSidebar from "./components/ContactSidebar";
+import HelpContent from "./components/HelpContent";
 
 const HelpPage = () => {
   const [activeTab, setActiveTab] = useState("live-chat");
@@ -22,24 +21,11 @@ const HelpPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-1">
-            <ContactInfoCard />
+            <ContactSidebar />
           </div>
 
           <div className="lg:col-span-2">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="w-full mb-4 grid grid-cols-2">
-                <TabsTrigger value="live-chat">Live Chat Support</TabsTrigger>
-                <TabsTrigger value="faq">FAQs & Knowledge Base</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="live-chat">
-                <ChatInterface />
-              </TabsContent>
-              
-              <TabsContent value="faq" className="border rounded-lg p-6 h-[500px] overflow-y-auto">
-                <FAQSection />
-              </TabsContent>
-            </Tabs>
+            <HelpContent activeTab={activeTab} setActiveTab={setActiveTab} />
           </div>
         </div>
       </div>

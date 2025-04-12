@@ -11,7 +11,7 @@ interface ChatMessage {
   timestamp: Date;
 }
 
-const ChatInterface = () => {
+const LiveChatSupport = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "welcome",
@@ -149,4 +149,4 @@ const ChatInterface = () => {
   );
 };
 
-export default ChatInterface;
+export default LiveChatSupport;

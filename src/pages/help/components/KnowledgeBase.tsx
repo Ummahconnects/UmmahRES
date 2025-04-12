@@ -1,5 +1,5 @@
 
-const FAQSection = () => {
+const KnowledgeBase = () => {
   return (
     <div className="space-y-6">
       <div>
@@ -61,4 +61,4 @@ const FAQSection = () => {
   );
 };
 
-export default FAQSection;
+export default KnowledgeBase;

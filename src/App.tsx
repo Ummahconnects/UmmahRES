@@ -14,7 +14,7 @@ import PackagesPage from "./pages/Packages";
 import SalesPage from "./pages/Sales";
 import AffiliatesPage from "./pages/Affiliates";
 import CommunityEventsPage from "./pages/CommunityEvents";
-import HelpPage from "./pages/Help";
+import HelpPage from "./pages/help";
 import MembershipPage from "./pages/Membership";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/Auth";
