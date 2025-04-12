@@ -1,10 +1,8 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { ReviewItemProps, SubmitReviewData } from "@/types/reviewTypes";
 import { createNewReviewObject, calculateAverageRating } from "@/utils/reviewUtils";
-import { ReviewData } from "@/integrations/supabase/dbTypes";
 
 interface UseReviewMutationsProps {
   reviews: ReviewItemProps[];
@@ -54,7 +52,7 @@ export function useReviewMutations({
         return true;
       }
       
-      // Add review to database with type assertion
+      // Add review to database
       const { data, error } = await supabase
         .from("reviews")
         .insert({
@@ -63,7 +61,7 @@ export function useReviewMutations({
           rating: review.rating,
           comment: review.comment
         })
-        .select() as { data: ReviewData[]; error: any };
+        .select();
         
       if (error) throw error;
       

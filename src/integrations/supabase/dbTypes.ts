@@ -32,3 +32,26 @@ export interface Membership {
   start_date: string;
   end_date: string | null;
 }
+
+// Define custom Database type to use with Supabase client
+export type CustomDatabase = {
+  public: {
+    Tables: {
+      business_profiles: {
+        Row: BusinessProfile;
+        Insert: Omit<BusinessProfile, 'id'> & { id?: string };
+        Update: Partial<BusinessProfile>;
+      };
+      reviews: {
+        Row: ReviewData;
+        Insert: Omit<ReviewData, 'id' | 'created_at'> & { id?: string; created_at?: string };
+        Update: Partial<ReviewData>;
+      };
+      memberships: {
+        Row: Membership;
+        Insert: Omit<Membership, 'id'> & { id?: string };
+        Update: Partial<Membership>;
+      };
+    };
+  };
+};

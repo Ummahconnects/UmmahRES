@@ -20,16 +20,12 @@ export function useMembership(businessId: string) {
     try {
       setLoading(true);
       
-      // Use type assertion to handle the query
       const { data, error } = await supabase
         .from('memberships')
         .select('*')
         .eq('business_id', businessId)
         .order('created_at', { ascending: false })
-        .maybeSingle() as { 
-          data: Membership | null; 
-          error: any;
-        };
+        .maybeSingle();
         
       if (error) throw error;
       
@@ -50,7 +46,7 @@ export function useMembership(businessId: string) {
       endDate.setMonth(endDate.getMonth() + 1); // 1 month membership
       
       if (membership) {
-        // Update existing membership with type assertion
+        // Update existing membership
         const { error } = await supabase
           .from('memberships')
           .update({
@@ -59,11 +55,11 @@ export function useMembership(businessId: string) {
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
           })
-          .eq('id', membership.id) as { error: any };
+          .eq('id', membership.id);
           
         if (error) throw error;
       } else {
-        // Create new membership with type assertion
+        // Create new membership
         const { error } = await supabase
           .from('memberships')
           .insert({
@@ -72,7 +68,7 @@ export function useMembership(businessId: string) {
             status: 'active',
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
-          }) as { error: any };
+          });
           
         if (error) throw error;
       }

@@ -75,11 +75,11 @@ const ProfileForm = ({ user, profileData, isEditing, id, onProfileSaved }: Profi
       setSaving(true);
       
       if (isEditing && id) {
-        // Update existing profile with type assertion
+        // Update existing profile
         const { error } = await supabase
           .from("business_profiles")
           .update(values)
-          .eq("id", id) as { error: any };
+          .eq("id", id);
           
         if (error) throw error;
         
@@ -90,14 +90,14 @@ const ProfileForm = ({ user, profileData, isEditing, id, onProfileSaved }: Profi
         
         onProfileSaved(id);
       } else {
-        // Create new profile with type assertion
+        // Create new profile
         const { data, error } = await supabase
           .from("business_profiles")
           .insert({
             ...values,
             user_id: user.id,
           })
-          .select() as { data: BusinessProfile[]; error: any };
+          .select();
           
         if (error) throw error;
         

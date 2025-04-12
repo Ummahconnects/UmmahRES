@@ -31,12 +31,12 @@ const BusinessProfilePage = () => {
         setLoading(true);
         
         if (isEditing && id) {
-          // Fetch existing profile with type assertion
+          // Fetch existing profile
           const { data, error } = await supabase
             .from("business_profiles")
             .select("*")
             .eq("id", id)
-            .single() as { data: BusinessProfile; error: any };
+            .single();
             
           if (error) throw error;
           
@@ -62,7 +62,7 @@ const BusinessProfilePage = () => {
             .from("business_profiles")
             .select("id")
             .eq("user_id", user.id)
-            .maybeSingle() as { data: { id: string } | null; error: any };
+            .maybeSingle();
             
           if (!error && data) {
             toast({
