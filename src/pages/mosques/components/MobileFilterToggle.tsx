@@ -1,8 +1,8 @@
 
 import React from "react";
-import { Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import FilterSidebar from "@/components/filters/FilterSidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
+import FilterToggleButton from "./filter/FilterToggleButton";
+import MobileFilterContainer from "./filter/MobileFilterContainer";
 
 interface MobileFilterToggleProps {
   isFilterSidebarVisible: boolean;
@@ -15,22 +15,18 @@ const MobileFilterToggle = ({
   toggleFilterSidebar, 
   onFilterChange 
 }: MobileFilterToggleProps) => {
+  const isMobile = useIsMobile();
+
+  // If not on mobile, don't render anything
+  if (!isMobile) return null;
+  
   return (
     <div className="lg:hidden mb-4">
-      <Button 
-        variant="outline" 
-        onClick={toggleFilterSidebar}
-        className="w-full flex items-center justify-center"
-      >
-        <Filter className="h-4 w-4 mr-2" />
-        Filters
-      </Button>
-      
-      {isFilterSidebarVisible && (
-        <div className="mt-4">
-          <FilterSidebar type="mosque" onFilterChange={onFilterChange} />
-        </div>
-      )}
+      <FilterToggleButton onClick={toggleFilterSidebar} />
+      <MobileFilterContainer 
+        isVisible={isFilterSidebarVisible} 
+        onFilterChange={onFilterChange} 
+      />
     </div>
   );
 };
