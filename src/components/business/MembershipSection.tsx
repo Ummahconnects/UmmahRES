@@ -9,18 +9,13 @@ import {
   CardTitle
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select";
 import { Loader2, ShieldCheck, BarChart3 } from "lucide-react";
 import CurrentMembership from "./CurrentMembership";
-import PlanFeatures from "./PlanFeatures";
 import { useMembership } from "@/hooks/useMembership";
 import CustomerAnalytics from "../analytics/CustomerAnalytics";
+import PlanCard from "../membership/PlanCard";
+import BillingCycleTabs from "../membership/BillingCycleTabs";
+import { planDetails } from "@/types/membershipTypes";
 
 interface MembershipSectionProps {
   businessId: string;
@@ -29,6 +24,7 @@ interface MembershipSectionProps {
 const MembershipSection = ({ businessId }: MembershipSectionProps) => {
   const { user } = useAuth();
   const [selectedPlan, setSelectedPlan] = useState<'basic' | 'premium' | 'enterprise'>('basic');
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const { 
     membership, 
     loading, 
@@ -38,7 +34,7 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
   
   const handleSubscribe = async () => {
     if (!user || !businessId) return;
-    await updateMembership(selectedPlan);
+    await updateMembership(selectedPlan, billingCycle);
   };
   
   // Check if the user has a premium plan or higher
@@ -73,43 +69,53 @@ const MembershipSection = ({ businessId }: MembershipSectionProps) => {
                   {membership ? "Change Membership Plan" : "Select a Membership Plan"}
                 </h3>
                 
-                <div className="space-y-4">
-                  <Select 
-                    value={selectedPlan} 
-                    onValueChange={(value: 'basic' | 'premium' | 'enterprise') => setSelectedPlan(value)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a plan" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="basic">Basic - $19.99/month</SelectItem>
-                      <SelectItem value="premium">Premium - $49.99/month</SelectItem>
-                      <SelectItem value="enterprise">Enterprise - $99.99/month</SelectItem>
-                    </SelectContent>
-                  </Select>
+                <BillingCycleTabs 
+                  value={billingCycle}
+                  onChange={setBillingCycle}
+                />
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                  <PlanCard 
+                    planType="basic"
+                    plan={planDetails.basic}
+                    billingCycle={billingCycle}
+                    onSelect={() => setSelectedPlan('basic')}
+                  />
                   
-                  <PlanFeatures planType={selectedPlan} />
+                  <PlanCard 
+                    planType="premium"
+                    plan={planDetails.premium}
+                    billingCycle={billingCycle}
+                    onSelect={() => setSelectedPlan('premium')}
+                  />
                   
-                  <Button 
-                    onClick={handleSubscribe} 
-                    className="w-full bg-muslim-teal hover:bg-muslim-teal/90"
-                    disabled={processingSubscription}
-                  >
-                    {processingSubscription ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      `${membership ? 'Update' : 'Activate'} Membership`
-                    )}
-                  </Button>
-                  
-                  <p className="text-sm text-gray-500 text-center">
-                    By subscribing, you agree to our terms and conditions.
-                    Memberships are billed monthly and can be cancelled anytime.
-                  </p>
+                  <PlanCard 
+                    planType="enterprise"
+                    plan={planDetails.enterprise}
+                    billingCycle={billingCycle}
+                    onSelect={() => setSelectedPlan('enterprise')}
+                  />
                 </div>
+                
+                <Button 
+                  onClick={handleSubscribe} 
+                  className="w-full bg-muslim-teal hover:bg-muslim-teal/90"
+                  disabled={processingSubscription}
+                >
+                  {processingSubscription ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    `${membership ? 'Update' : 'Activate'} ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} Membership`
+                  )}
+                </Button>
+                
+                <p className="text-sm text-gray-500 text-center mt-4">
+                  By subscribing, you agree to our terms and conditions.
+                  Memberships are billed {billingCycle === 'monthly' ? 'monthly' : 'annually'} and can be cancelled anytime.
+                </p>
               </div>
             </div>
           )}
