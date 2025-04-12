@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue 
 } from "@/components/ui/select";
-import { Filter, List, Grid, MapPin, Star, Phone } from "lucide-react";
+import { Filter, List, Grid, MapPin, Star, Phone, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Layout from "@/components/Layout";
 import SearchBar from "@/components/SearchBar";
@@ -326,6 +326,34 @@ const BusinessesPage = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
+          {/* Social Media Follow Section */}
+          <div className="bg-white p-6 rounded-lg shadow-sm mb-6 w-full">
+            <h3 className="text-lg font-semibold text-muslim-dark mb-4">Follow Us on Social Media</h3>
+            <p className="text-gray-600 mb-4">Stay connected with the latest business updates and community news</p>
+            <div className="flex flex-wrap items-center gap-4">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#1877F2] text-white px-4 py-2 rounded-md hover:bg-[#1877F2]/90 transition-colors">
+                <Facebook size={20} />
+                <span>Facebook</span>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#1DA1F2] text-white px-4 py-2 rounded-md hover:bg-[#1DA1F2]/90 transition-colors">
+                <Twitter size={20} />
+                <span>Twitter</span>
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
+                <Instagram size={20} />
+                <span>Instagram</span>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#0A66C2] text-white px-4 py-2 rounded-md hover:bg-[#0A66C2]/90 transition-colors">
+                <Linkedin size={20} />
+                <span>LinkedIn</span>
+              </a>
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#FF0000] text-white px-4 py-2 rounded-md hover:bg-[#FF0000]/90 transition-colors">
+                <Youtube size={20} />
+                <span>YouTube</span>
+              </a>
+            </div>
+          </div>
+          
           <div className="hidden lg:block lg:w-64 shrink-0">
             <div className="sticky top-6">
               <FilterSidebar type="business" onFilterChange={handleFilterChange} />
@@ -545,6 +573,28 @@ const BusinessesPage = () => {
               >
                 View All Packages
               </Button>
+            </div>
+
+            {/* Social Media Follow Section (Mobile) */}
+            <div className="mt-6 bg-white p-6 rounded-lg shadow-sm lg:hidden">
+              <h3 className="text-lg font-semibold text-muslim-dark mb-4">Connect With Us</h3>
+              <div className="flex justify-center space-x-6">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-[#1877F2] hover:text-[#1877F2]/80">
+                  <Facebook size={28} />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-[#1DA1F2] hover:text-[#1DA1F2]/80">
+                  <Twitter size={28} />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-[#E4405F] hover:text-[#E4405F]/80">
+                  <Instagram size={28} />
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-[#0A66C2] hover:text-[#0A66C2]/80">
+                  <Linkedin size={28} />
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-[#FF0000] hover:text-[#FF0000]/80">
+                  <Youtube size={28} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
