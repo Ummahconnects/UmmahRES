@@ -1,10 +1,12 @@
 
 import React from "react";
-import { Check } from "lucide-react";
+import { Check, BarChart3, Sparkles } from "lucide-react";
 
 interface FeatureGridItem {
   title: string;
   features: string[];
+  highlight?: boolean;
+  icon?: React.ReactNode;
 }
 
 interface PackageFeatureGridProps {
@@ -21,12 +23,18 @@ const PackageFeatureGrid = ({ title, description, gridItems }: PackageFeatureGri
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {gridItems.map((item, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
-            <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+          <div 
+            key={index} 
+            className={`${item.highlight ? 'bg-gradient-to-br from-amber-50 to-white border-amber-200' : 'bg-white'} p-4 rounded-lg shadow-sm border`}
+          >
+            <div className="flex items-center mb-2">
+              {item.icon && <div className="mr-2">{item.icon}</div>}
+              <h3 className={`font-semibold text-lg ${item.highlight ? 'text-muslim-gold' : ''}`}>{item.title}</h3>
+            </div>
             <ul className="space-y-2">
               {item.features.map((feature, featureIndex) => (
                 <li key={featureIndex} className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <Check className={`h-5 w-5 ${item.highlight ? 'text-amber-500' : 'text-green-500'} mr-2 shrink-0`} />
                   <span>{feature}</span>
                 </li>
               ))}

@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Star } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export interface PackageFeature {
   text: string;
@@ -18,10 +19,12 @@ export interface PackageCardProps {
   banner?: string;
   primaryButtonText: string;
   secondaryButtonText?: string;
+  additionalInfo?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
   isHighlighted?: boolean;
   sparklePosition?: { top: number; left: number };
+  icon?: React.ReactNode;
 }
 
 const PackageCard = ({
@@ -33,10 +36,12 @@ const PackageCard = ({
   banner,
   primaryButtonText,
   secondaryButtonText,
+  additionalInfo,
   onPrimaryClick,
   onSecondaryClick,
   isHighlighted = false,
   sparklePosition,
+  icon,
 }: PackageCardProps) => {
   return (
     <Card className={`border-t-4 border-t-${color} relative ${isHighlighted ? 'md:scale-105 shadow-xl overflow-hidden' : ''}`}>
@@ -63,11 +68,19 @@ const PackageCard = ({
       )}
       
       <CardHeader className={`relative z-10 ${isHighlighted ? 'bg-gradient-to-b from-amber-50 to-transparent' : ''}`}>
-        <CardTitle>{title}</CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle>{title}</CardTitle>
+          {icon && <div>{icon}</div>}
+        </div>
         <CardDescription>{description}</CardDescription>
         <div className="text-3xl font-bold mt-2">
           {price}<span className="text-sm font-normal text-gray-500">/month</span>
         </div>
+        {additionalInfo && (
+          <Badge variant="custom" className={`mt-2 bg-${color}/10 text-${color} border border-${color}/20`}>
+            {additionalInfo}
+          </Badge>
+        )}
       </CardHeader>
       <CardContent className={`relative z-10 ${isHighlighted ? 'bg-white bg-opacity-90' : ''}`}>
         <ul className="space-y-2">

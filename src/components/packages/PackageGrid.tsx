@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Star } from "lucide-react";
+import { Star, Badge, Package, Award, Sparkles } from "lucide-react";
 import PackageCard from "./PackageCard";
 
 const PackageGrid = () => {
@@ -22,7 +22,8 @@ const PackageGrid = () => {
     { text: "Basic business listing" },
     { text: "Contact information" },
     { text: "Business hours" },
-    { text: "1 category listing" }
+    { text: "1 category listing" },
+    { text: "Standard search ranking" }
   ];
 
   const premiumFeatures = [
@@ -31,7 +32,8 @@ const PackageGrid = () => {
     { text: "Photo gallery (up to 10 images)" },
     { text: "Customer reviews & ratings" },
     { text: "3 category listings" },
-    { text: "Basic analytics" }
+    { text: "Basic analytics dashboard", highlight: true },
+    { text: "2 key performance metrics", highlight: true }
   ];
 
   const platinumFeatures = [
@@ -39,9 +41,10 @@ const PackageGrid = () => {
     { text: "Featured listing (6 per city page)" },
     { text: "Promotional offers & coupons" },
     { text: "Unlimited photo gallery" },
-    { text: "Advanced analytics dashboard" },
+    { text: "Full analytics dashboard", highlight: true },
     { text: "Unlimited category listings" },
-    { text: "City-specific promotion" }
+    { text: "City-specific promotion" },
+    { text: "Beta program access", highlight: true }
   ];
 
   const supremeFeatures = [
@@ -51,7 +54,9 @@ const PackageGrid = () => {
     { text: "Premium homepage placement" },
     { text: "Featured in newsletter" },
     { text: "Social media promotion" },
-    { text: "Global visibility across all regions" }
+    { text: "Global visibility across all regions" },
+    { text: "Early access to new features", highlight: true },
+    { text: "VIP Beta program membership", highlight: true }
   ];
 
   return (
@@ -63,6 +68,7 @@ const PackageGrid = () => {
         features={basicFeatures}
         color="gray-500"
         primaryButtonText="Get Started"
+        icon={<Package className="h-5 w-5 text-gray-500" />}
       />
 
       <PackageCard
@@ -72,6 +78,8 @@ const PackageGrid = () => {
         features={premiumFeatures}
         color="muslim-teal"
         primaryButtonText="Start Premium"
+        additionalInfo="Includes 2 analytics metrics"
+        icon={<Badge className="h-5 w-5 text-muslim-teal" />}
       />
 
       <PackageCard
@@ -81,6 +89,8 @@ const PackageGrid = () => {
         features={platinumFeatures}
         color="muslim-blue"
         primaryButtonText="Go Platinum"
+        additionalInfo="Full analytics dashboard included"
+        icon={<Award className="h-5 w-5 text-muslim-blue" />}
       />
 
       <PackageCard
@@ -92,8 +102,10 @@ const PackageGrid = () => {
         banner="Major Sponsor"
         primaryButtonText="Become a Major Sponsor"
         secondaryButtonText="Reserve Spot for Next Month"
+        additionalInfo="Only 2 spots available per month"
         isHighlighted={true}
         sparklePosition={sparklePosition}
+        icon={<Sparkles className="h-5 w-5 text-amber-500" />}
       />
     </div>
   );
