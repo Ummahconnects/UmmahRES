@@ -1,7 +1,8 @@
 
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
-import { Heart, Users, Globe, Shield, Facebook, Instagram, Twitter, Youtube, Linkedin } from "lucide-react";
+import { Heart, Users, Globe, Shield, Facebook, Instagram, Twitter, Youtube, Linkedin, Briefcase, Handshake, MapPin, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const AboutPage = () => {
   return (
@@ -10,25 +11,22 @@ const AboutPage = () => {
       <section className="bg-muslim-blue text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">About Muslim Directory</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Connecting the Ummah, One Need at a Time</h1>
             <p className="text-xl leading-relaxed mb-8">
-              Connecting the Muslim community with halal businesses, mosques, and services worldwide.
+              The bridge between struggle and solution—linking Muslims with halal, ethical, and believer-owned services.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Who We Are Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-muslim-dark mb-6">Our Mission</h2>
+              <h2 className="text-3xl font-bold text-muslim-dark mb-6">Who We Are</h2>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                At Muslim Directory, our mission is to strengthen the global Muslim community by creating a comprehensive platform that connects Muslims with the resources, businesses, and services they need.
-              </p>
-              <p className="text-gray-600 mb-4 leading-relaxed">
-                We believe in supporting Muslim-owned businesses and making it easier for Muslims worldwide to find halal options for food, services, education, healthcare, and more. By creating this network, we aim to foster economic growth within our community and make daily life more convenient for Muslims everywhere.
+                We are the bridge between struggle and solution—a trusted network linking Muslims in need with halal, ethical, and believer-owned services. Whether it's finding a Muslim financial advisor for a widow, a halal-certified mechanic for a traveler, or a brother-owned construction company after a disaster, we make the impossible search simple.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 Our goal is to be the most trusted and comprehensive resource for Muslims looking to connect with businesses and services that align with their values and needs.
@@ -56,23 +54,118 @@ const AboutPage = () => {
                 </div>
                 <div className="text-center p-4">
                   <div className="w-16 h-16 bg-muslim-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Globe className="h-8 w-8 text-muslim-teal" />
+                    <Briefcase className="h-8 w-8 text-muslim-teal" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Global</h3>
+                  <h3 className="font-semibold text-lg mb-2">Faith-Driven</h3>
                   <p className="text-sm text-gray-600">
-                    Connecting Muslims across countries and continents
+                    Promoting businesses that don't compromise on deen
                   </p>
                 </div>
                 <div className="text-center p-4">
                   <div className="w-16 h-16 bg-muslim-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Shield className="h-8 w-8 text-muslim-teal" />
+                    <Handshake className="h-8 w-8 text-muslim-teal" />
                   </div>
                   <h3 className="font-semibold text-lg mb-2">Trust</h3>
                   <p className="text-sm text-gray-600">
-                    Providing verified and reliable information
+                    Providing vetted and reliable services
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why We Exist Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-3xl font-bold text-muslim-dark mb-4">Why We Exist</h2>
+            <p className="text-gray-600">
+              Born from a moment of helplessness
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="prose prose-lg mx-auto">
+              <p className="italic text-center text-gray-600 mb-8">
+                "I still remember the brother—stranded, in need of a specific service, desperate to find someone who wouldn't compromise his deen. Hours of searching. Dead ends. 'They're out there,' I thought, 'but where?'"
+              </p>
+              
+              <p>
+                That day revealed a painful truth: The Ummah has everything we need to thrive, but we're disconnected. Meanwhile, brilliant Muslim entrepreneurs struggle to find clients who value their faith-driven work.
+              </p>
+              
+              <div className="my-8 bg-white p-6 rounded-lg shadow-sm">
+                <h3 className="text-xl font-semibold mb-4 text-muslim-blue">We exist to:</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <div className="mr-4 mt-1 bg-muslim-teal/10 p-1 rounded-full">
+                      <Users className="h-5 w-5 text-muslim-teal" />
+                    </div>
+                    <div>
+                      <span className="font-semibold">Break the Isolation:</span> No Muslim should ever say, "I couldn't find a believer to help."
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-4 mt-1 bg-muslim-teal/10 p-1 rounded-full">
+                      <Star className="h-5 w-5 text-muslim-teal" />
+                    </div>
+                    <div>
+                      <span className="font-semibold">Amplify Hidden Heroes:</span> From Muslim funeral directors to mental health therapists—we spotlight services you didn't know existed.
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="mr-4 mt-1 bg-muslim-teal/10 p-1 rounded-full">
+                      <Shield className="h-5 w-5 text-muslim-teal" />
+                    </div>
+                    <div>
+                      <span className="font-semibold">Build Trust First:</span> Every provider in our network is vetted for integrity (not just skill).
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Promise Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-muslim-dark mb-8">Our Promise</h2>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-10">
+              <div className="bg-muslim-light p-8 rounded-lg text-center">
+                <div className="w-16 h-16 bg-muslim-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="h-8 w-8 text-muslim-teal" />
+                </div>
+                <p className="text-lg font-medium text-muslim-dark">
+                  "If a Muslim offers it, we'll find them."
+                </p>
+              </div>
+              
+              <div className="bg-muslim-light p-8 rounded-lg text-center">
+                <div className="w-16 h-16 bg-muslim-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Briefcase className="h-8 w-8 text-muslim-teal" />
+                </div>
+                <p className="text-lg font-medium text-muslim-dark">
+                  "If they don't exist yet, we'll help build them."
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-10">
+              <h3 className="text-xl font-bold mb-6">Join Us</h3>
+              <p className="text-gray-600 mb-8">
+                Are you a Muslim business owner? Get listed and connect with the Ummah.
+              </p>
+              <Link to="/business-profile">
+                <Button className="bg-muslim-teal hover:bg-muslim-teal/90" size="lg">
+                  List Your Business
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -169,69 +262,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold text-muslim-dark mb-4">Meet Our Team</h2>
-            <p className="text-gray-600">
-              The dedicated people behind Muslim Directory
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="relative w-32 h-32 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-muslim-teal to-muslim-blue opacity-10"></div>
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-                  alt="Team Member"
-                  className="rounded-full w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-semibold text-lg">Sarah Ahmed</h3>
-              <p className="text-gray-500">Founder & CEO</p>
-            </div>
-            <div className="text-center">
-              <div className="relative w-32 h-32 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-muslim-teal to-muslim-blue opacity-10"></div>
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-                  alt="Team Member"
-                  className="rounded-full w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-semibold text-lg">Mohammed Ali</h3>
-              <p className="text-gray-500">CTO</p>
-            </div>
-            <div className="text-center">
-              <div className="relative w-32 h-32 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-muslim-teal to-muslim-blue opacity-10"></div>
-                <img
-                  src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-                  alt="Team Member"
-                  className="rounded-full w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-semibold text-lg">Yusuf Khan</h3>
-              <p className="text-gray-500">Head of Partnerships</p>
-            </div>
-            <div className="text-center">
-              <div className="relative w-32 h-32 mx-auto mb-4">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-muslim-teal to-muslim-blue opacity-10"></div>
-                <img
-                  src="https://images.unsplash.com/photo-1579626349272-a48c9a4388a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
-                  alt="Team Member"
-                  className="rounded-full w-full h-full object-cover"
-                />
-              </div>
-              <h3 className="font-semibold text-lg">Fatima Rahman</h3>
-              <p className="text-gray-500">Community Manager</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Contact CTA */}
       <section className="py-16 bg-muslim-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -240,12 +270,14 @@ const AboutPage = () => {
             <p className="text-gray-600 mb-8">
               Have questions, feedback, or want to partner with us? We'd love to hear from you!
             </p>
-            <Button
-              className="bg-muslim-teal hover:bg-muslim-teal/90"
-              size="lg"
-            >
-              Contact Us
-            </Button>
+            <Link to="/help">
+              <Button
+                className="bg-muslim-teal hover:bg-muslim-teal/90"
+                size="lg"
+              >
+                Contact Us
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
