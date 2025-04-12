@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -60,7 +61,7 @@ const MajorSponsorCampaign = () => {
 
   return (
     <section className="relative py-16 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-muslim-light via-white to-amber-50 opacity-90 z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-muslim-light via-white to-amber-50 opacity-80 z-0"></div>
       
       <div className="absolute inset-0 z-0">
         {[...Array(20)].map((_, i) => (
@@ -102,11 +103,11 @@ const MajorSponsorCampaign = () => {
           <div className="absolute inset-0 border-4 border-muslim-gold rounded-xl"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-            <div className="h-64 md:h-auto overflow-hidden relative flex items-center justify-center p-6 bg-gradient-to-br from-amber-400/10 to-muslim-gold/10">
+            <div className="h-64 md:h-auto overflow-hidden relative flex items-center justify-center p-6">
               <img 
                 src={currentSponsor.logo} 
                 alt={currentSponsor.name} 
-                className="object-contain max-h-full max-w-full rounded-lg"
+                className="object-contain max-h-full max-w-full rounded-lg shadow-md"
               />
               <div className="absolute top-4 left-4">
                 <div className="flex items-center bg-muslim-gold text-white px-3 py-1 rounded-full text-sm font-medium">
