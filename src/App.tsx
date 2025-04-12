@@ -18,7 +18,7 @@ import HelpPage from "./pages/Help";
 import MembershipPage from "./pages/Membership";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/Auth";
-import BusinessProfile from "./pages/BusinessProfile";
+import BusinessProfile from "./pages/business-profile";
 import CharitiesPage from "./pages/Charities";
 import StaffDashboard from "./pages/StaffDashboard";
 import React from 'react'; // Explicitly import React
