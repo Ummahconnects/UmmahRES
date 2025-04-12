@@ -9,7 +9,8 @@ import {
   SelectTrigger,
   SelectValue 
 } from "@/components/ui/select";
-import { Filter, List, Grid, MapPin } from "lucide-react";
+import { Filter, List, Grid, MapPin, Star, Phone } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import Layout from "@/components/Layout";
 import SearchBar from "@/components/SearchBar";
 import BusinessCard, { BusinessProps } from "@/components/BusinessCard";
