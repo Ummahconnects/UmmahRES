@@ -24,7 +24,7 @@ const PackagesPage = () => {
         icon: <Sparkles className="h-5 w-5 text-muslim-blue" />
       },
       {
-        title: "Supreme Sponsorship",
+        title: "Ultimate Sponsorship",
         features: [
           "Half-page premium placement",
           "Only 2 sponsors monthly per country",

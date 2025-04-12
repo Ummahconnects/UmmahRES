@@ -101,7 +101,7 @@ const PackageGrid = () => {
       />
 
       <PackageCard
-        title="Supreme"
+        title="Ultimate"
         description="Regional sponsorship opportunity"
         price="$299.99"
         annualPrice="$2,999.90"
