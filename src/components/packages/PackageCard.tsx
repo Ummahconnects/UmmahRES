@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { extractNumericPrice, useLocalCurrency } from "@/utils/currencyUtils";
 
 export interface PackageFeature {
   text: string;
@@ -45,6 +46,9 @@ const PackageCard = ({
   icon,
   showLocalCurrency = true,
 }: PackageCardProps) => {
+  const { convertAndFormat, localCurrencyInfo } = useLocalCurrency();
+  const priceValue = extractNumericPrice(price);
+  
   return (
     <Card className={`border-t-4 border-t-${color} relative ${isHighlighted ? 'md:scale-105 shadow-xl overflow-hidden' : ''}`}>
       {banner && (
@@ -79,9 +83,9 @@ const PackageCard = ({
           <div className="text-3xl font-bold">
             {price}<span className="text-sm font-normal text-gray-500">/month</span>
           </div>
-          {showLocalCurrency && (
+          {showLocalCurrency && localCurrencyInfo.code !== 'USD' && (
             <div className="text-sm text-gray-500 italic mt-1">
-              (or equivalent in your local currency)
+              {convertAndFormat(priceValue)}/month
             </div>
           )}
         </div>
