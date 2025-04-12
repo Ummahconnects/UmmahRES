@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { Separator } from "@/components/ui/separator";
 import PackageHeader from "@/components/packages/PackageHeader";
@@ -11,23 +10,23 @@ import { BarChart3, Church, Globe, HeartHandshake, Sparkles } from "lucide-react
 
 const PackagesPage = () => {
   const locationFeatures = {
-    title: "Corporate Sponsorship Opportunities",
-    description: "Our platform offers exclusive corporate sponsorship packages that provide maximum visibility and impact across our global business ecosystem.",
+    title: "Sponsorship Opportunities",
+    description: "Our platform offers exclusive sponsorship packages that provide maximum visibility and impact across our global business ecosystem.",
     gridItems: [
       {
-        title: "Corporate Sponsorship Benefits",
+        title: "Sponsorship Benefits",
         features: [
           "Featured on city and global business pages",
-          "Limited corporate sponsorship per month",
+          "Limited sponsorship per month",
           "Targeted exposure to Muslim business community"
         ],
         icon: <Sparkles className="h-5 w-5 text-muslim-blue" />
       },
       {
-        title: "Supreme Corporate Sponsorship",
+        title: "Supreme Sponsorship",
         features: [
           "Half-page premium placement",
-          "Only 2 corporate sponsors monthly per country",
+          "Only 2 sponsors monthly per country",
           "Global visibility across all platforms"
         ],
         highlight: true,

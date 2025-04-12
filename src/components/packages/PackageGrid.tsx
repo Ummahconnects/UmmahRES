@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Star, Badge, Package, Award, Sparkles, Globe } from "lucide-react";
 import PackageCard from "./PackageCard";
@@ -48,9 +47,9 @@ const PackageGrid = () => {
 
   const supremeFeatures = [
     { text: "Everything in Platinum" },
-    { text: "Corporate sponsorship opportunity", highlight: true },
+    { text: "Sponsorship opportunity", highlight: true },
     { text: "Half-page featured sponsor spot" },
-    { text: "Limited to only 2 corporate sponsors per month per country", highlight: true },
+    { text: "Limited to only 2 sponsors per month per country", highlight: true },
     { text: "Regional homepage placement" },
     { text: "Featured in regional newsletter" },
     { text: "Social media promotion" },
@@ -102,17 +101,17 @@ const PackageGrid = () => {
       />
 
       <PackageCard
-        title="Supreme Corporate"
-        description="Regional corporate sponsorship opportunity"
+        title="Supreme"
+        description="Regional sponsorship opportunity"
         price="$299.99"
         annualPrice="$2,999.90"
         annualSavings="Save $599.98"
         features={supremeFeatures}
         color="muslim-gold"
-        banner="Regional Corporate Sponsor"
-        primaryButtonText="Become a Corporate Sponsor"
+        banner="Regional Sponsor"
+        primaryButtonText="Become a Sponsor"
         secondaryButtonText="Reserve Sponsorship Spot"
-        additionalInfo="Only 2 corporate sponsorships available per month per country"
+        additionalInfo="Only 2 sponsorships available per month per country"
         isHighlighted={true}
         sparklePosition={sparklePosition}
         icon={<Sparkles className="h-5 w-5 text-amber-500" />}
