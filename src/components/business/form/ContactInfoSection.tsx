@@ -2,7 +2,7 @@
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
-import { ProfileFormValues } from "../ProfileForm";
+import { ProfileFormValues } from "@/hooks/useBusinessProfileForm";
 
 interface ContactInfoSectionProps {
   form: UseFormReturn<ProfileFormValues>;
