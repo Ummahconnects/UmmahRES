@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +9,8 @@ import BusinessesList from "@/components/business/BusinessesList";
 import BusinessesPagination from "./BusinessesPagination";
 import PremiumPackagesPromo from "@/components/business/PremiumPackagesPromo";
 import SocialMediaSection from "@/components/business/SocialMediaSection";
+import FlashingBanner from "@/components/FlashingBanner";
+import { Sparkles } from "lucide-react";
 
 interface BusinessesContentProps {
   businesses: BusinessProps[];
@@ -67,6 +70,13 @@ const BusinessesContent = ({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <FlashingBanner 
+        icon={<Sparkles className="h-4 w-4" />}
+        message="New users: Sign up today and get a FREE 3-day Platinum trial with all premium features!"
+        colorScheme="warning"
+        className="mb-6"
+      />
+      
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Social Media Section - Desktop */}
         <SocialMediaSection variant="desktop" />

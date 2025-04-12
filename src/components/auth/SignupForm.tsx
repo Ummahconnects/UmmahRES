@@ -1,12 +1,14 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, Sparkles } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 
 // Form validation schema
@@ -27,7 +29,10 @@ interface SignupFormProps {
 
 const SignupForm = ({ onSuccess }: SignupFormProps) => {
   const { signUp } = useAuth();
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [searchParams] = useSearchParams();
+  const isTrial = searchParams.get('trial') === 'platinum';
   
   // Signup form setup
   const form = useForm<SignupFormValues>({
@@ -44,9 +49,23 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
     setIsSubmitting(true);
     try {
       await signUp(values.email, values.password);
+      
+      if (isTrial) {
+        toast({
+          title: "Free trial activated!",
+          description: "Your 3-day Platinum trial has been activated. Enjoy all premium features!",
+          variant: "default",
+        });
+      }
+      
       if (onSuccess) onSuccess();
     } catch (error) {
       console.error("Signup error:", error);
+      toast({
+        title: "Signup failed",
+        description: error instanceof Error ? error.message : "Something went wrong",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -55,6 +74,15 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {isTrial && (
+          <div className="bg-amber-50 p-3 rounded-md border border-amber-200 mb-4 flex items-center">
+            <Sparkles className="h-4 w-4 text-amber-500 mr-2" />
+            <p className="text-sm text-amber-800">
+              You're signing up for the <span className="font-bold">3-day Platinum trial</span>
+            </p>
+          </div>
+        )}
+      
         <FormField
           control={form.control}
           name="email"
@@ -101,7 +129,7 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
               Creating account...
             </>
           ) : (
-            "Create Account"
+            isTrial ? "Create Account & Start Trial" : "Create Account"
           )}
         </Button>
       </form>
