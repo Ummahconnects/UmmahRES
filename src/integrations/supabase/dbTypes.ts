@@ -28,6 +28,7 @@ export interface Membership {
   id: string;
   business_id: string;
   plan_type: 'basic' | 'premium' | 'enterprise';
+  billing_cycle: 'monthly' | 'annual';
   status: 'active' | 'expired' | 'cancelled' | 'pending';
   start_date: string;
   end_date: string | null;
