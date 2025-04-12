@@ -8,7 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import Index from "./pages/Index";
 import BusinessesPage from "./pages/businesses";
 import MosquesPage from "./pages/mosques";
-import MosqueDetail from "./pages/MosqueDetail";
+import MosqueDetailPage from "./pages/mosque-detail/MosqueDetailPage";
 import AboutPage from "./pages/About";
 import PackagesPage from "./pages/Packages";
 import SalesPage from "./pages/Sales";
@@ -37,7 +37,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/businesses" element={<BusinessesPage />} />
             <Route path="/mosques" element={<MosquesPage />} />
-            <Route path="/mosque/:id" element={<MosqueDetail />} />
+            <Route path="/mosque/:id" element={<MosqueDetailPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/sales" element={<SalesPage />} />
