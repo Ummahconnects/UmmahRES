@@ -89,12 +89,12 @@ const MajorSponsorCampaign = () => {
         <div className="flex justify-center mb-8">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-400 to-muslim-gold text-white font-bold text-sm">
             <BadgeDollarSign className="h-4 w-4 mr-2" />
-            CORPORATE PARTNER SPOTLIGHT
+            SUPREME SPONSOR SPOTLIGHT
           </div>
         </div>
         
         <h2 className="text-3xl md:text-4xl font-bold text-center text-muslim-dark mb-4">
-          Our Major Corporate Sponsors
+          Our Supreme Corporate Sponsors
         </h2>
         
         <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
@@ -118,7 +118,7 @@ const MajorSponsorCampaign = () => {
               <div className="absolute top-4 left-4">
                 <div className="flex items-center bg-muslim-gold text-white px-3 py-1 rounded-full text-sm font-medium">
                   <Award className="h-4 w-4 mr-1" />
-                  Major Sponsor
+                  Supreme Sponsor
                 </div>
               </div>
             </div>

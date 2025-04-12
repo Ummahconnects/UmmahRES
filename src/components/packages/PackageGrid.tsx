@@ -110,8 +110,8 @@ const PackageGrid = () => {
         annualSavings="Save $599.98"
         features={supremeFeatures}
         color="muslim-gold"
-        banner="Major Sponsor"
-        primaryButtonText="Become a Major Sponsor"
+        banner="Supreme Sponsor"
+        primaryButtonText="Become a Supreme Sponsor"
         secondaryButtonText="Reserve Spot for Next Month"
         additionalInfo="Only 2 spots available per month per country"
         isHighlighted={true}
