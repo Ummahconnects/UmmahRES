@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ import BusinessesPagination from "./BusinessesPagination";
 import PremiumPackagesPromo from "@/components/business/PremiumPackagesPromo";
 import SocialMediaSection from "@/components/business/SocialMediaSection";
 import FlashingBanner from "@/components/FlashingBanner";
+import FreeMosqueCharityListingsBanner from "@/components/FreeMosqueCharityListingsBanner";
 import { Sparkles } from "lucide-react";
 
 interface BusinessesContentProps {
@@ -78,7 +78,6 @@ const BusinessesContent = ({
       />
       
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Social Media Section - Desktop */}
         <SocialMediaSection variant="desktop" />
         
         <div className="hidden lg:block lg:w-64 shrink-0">
@@ -125,8 +124,9 @@ const BusinessesContent = ({
           />
           
           <PremiumPackagesPromo />
+          
+          <FreeMosqueCharityListingsBanner />
 
-          {/* Social Media Section - Mobile */}
           <div className="lg:hidden">
             <SocialMediaSection variant="mobile" />
           </div>
