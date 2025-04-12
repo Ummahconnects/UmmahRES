@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from "react";
-import { Star, Badge, Package, Award, Sparkles } from "lucide-react";
+import { Star, Badge, Package, Award, Sparkles, Globe } from "lucide-react";
 import PackageCard from "./PackageCard";
 
 const PackageGrid = () => {
@@ -50,12 +51,11 @@ const PackageGrid = () => {
     { text: "Corporate sponsorship opportunity", highlight: true },
     { text: "Half-page featured sponsor spot" },
     { text: "Limited to only 2 corporate sponsors per month per country", highlight: true },
-    { text: "Premium homepage placement" },
-    { text: "Featured in newsletter" },
+    { text: "Regional homepage placement" },
+    { text: "Featured in regional newsletter" },
     { text: "Social media promotion" },
-    { text: "Global visibility across all regions" },
-    { text: "Early access to new features", highlight: true },
-    { text: "VIP Beta program membership", highlight: true }
+    { text: "Priority visibility in your region" },
+    { text: "Early access to new features", highlight: true }
   ];
 
   return (
@@ -103,13 +103,13 @@ const PackageGrid = () => {
 
       <PackageCard
         title="Supreme Corporate"
-        description="Exclusive corporate sponsorship opportunity"
+        description="Regional corporate sponsorship opportunity"
         price="$299.99"
         annualPrice="$2,999.90"
         annualSavings="Save $599.98"
         features={supremeFeatures}
         color="muslim-gold"
-        banner="Corporate Sponsor"
+        banner="Regional Corporate Sponsor"
         primaryButtonText="Become a Corporate Sponsor"
         secondaryButtonText="Reserve Sponsorship Spot"
         additionalInfo="Only 2 corporate sponsorships available per month per country"

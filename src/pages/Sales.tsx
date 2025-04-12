@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
 import { 
@@ -23,7 +22,6 @@ import { Star } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Define form validation schema
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   businessName: z.string().min(2, { message: "Business name is required" }),
@@ -39,7 +37,6 @@ const SalesPage = () => {
   const { toast } = useToast();
   const [sparklePosition, setSparklePosition] = useState({ top: 0, left: 0 });
   
-  // Animation for the sparkling stars
   useEffect(() => {
     const interval = setInterval(() => {
       setSparklePosition({
@@ -51,7 +48,6 @@ const SalesPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Initialize form
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,24 +60,20 @@ const SalesPage = () => {
     },
   });
 
-  // Form submission handler
   const onSubmit = (data: FormValues) => {
     console.log("Form data:", data);
     
-    // Show success message
     toast({
       title: "Inquiry Sent",
       description: "Thank you for your interest! Our sales team will contact you within 24 hours.",
     });
     
-    // Reset form
     form.reset();
   };
 
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
-        {/* Animated star that moves around */}
         <div 
           className="absolute h-6 w-6 text-amber-300 animate-pulse z-10"
           style={{ top: `${sparklePosition.top}%`, left: `${sparklePosition.left}%` }}
@@ -92,19 +84,19 @@ const SalesPage = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-muslim-dark mb-4">Strategic Business Opportunities</h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Join us in connecting the global Ummah through exclusive sponsorships and strategic partnerships.
-            Create Barakat with every transaction.
+            Join us in connecting the global Ummah through exclusive sponsorships and strategic partnerships,
+            from local business visibility to worldwide corporate reach.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Sales Information Column */}
           <div>
             <div className="bg-gradient-to-r from-muslim-teal/10 to-muslim-blue/10 p-8 rounded-lg mb-8">
-              <h2 className="text-2xl font-bold text-muslim-dark mb-4">Exclusive Sponsorship Opportunities</h2>
+              <h2 className="text-2xl font-bold text-muslim-dark mb-4">Major Corporate Sponsorships</h2>
               <p className="text-gray-700 mb-6">
-                As the premier Muslim business directory, UmmahConnects offers unparalleled visibility 
-                to millions of Muslims seeking halal services and products worldwide.
+                Exclusively designed for international corporations, banks, airlines, and major enterprises seeking 
+                global reach within the Muslim market. Our Major Sponsor program offers unparalleled visibility 
+                and impact across the worldwide Muslim community.
               </p>
               
               <div className="space-y-6">
@@ -112,10 +104,10 @@ const SalesPage = () => {
                   <div className="absolute left-0 top-1 h-7 w-7 rounded-full bg-muslim-gold flex items-center justify-center">
                     <span className="text-white font-bold">1</span>
                   </div>
-                  <h3 className="font-semibold text-lg text-muslim-dark">Major Sponsor Packages</h3>
+                  <h3 className="font-semibold text-lg text-muslim-dark">Global Market Access</h3>
                   <p className="text-gray-600">
-                    Secure one of only two exclusive half-page sponsor spots available each month.
-                    Gain global visibility across all regional pages.
+                    Premium full-page advertisements across all regional platforms, reaching millions of 
+                    Muslim consumers worldwide.
                   </p>
                 </div>
                 
@@ -123,10 +115,10 @@ const SalesPage = () => {
                   <div className="absolute left-0 top-1 h-7 w-7 rounded-full bg-muslim-gold flex items-center justify-center">
                     <span className="text-white font-bold">2</span>
                   </div>
-                  <h3 className="font-semibold text-lg text-muslim-dark">Regional Domination</h3>
+                  <h3 className="font-semibold text-lg text-muslim-dark">Exclusive Benefits</h3>
                   <p className="text-gray-600">
-                    Secure premium visibility in specific cities or regions with our Platinum local listings.
-                    Limited to 6 businesses per city page.
+                    Limited to only 5 Major Sponsors globally, ensuring maximum visibility and exclusivity 
+                    in your industry sector.
                   </p>
                 </div>
                 
@@ -136,14 +128,14 @@ const SalesPage = () => {
                   </div>
                   <h3 className="font-semibold text-lg text-muslim-dark">Strategic Partnerships</h3>
                   <p className="text-gray-600">
-                    For larger businesses looking to make a significant impact, we offer customized 
-                    strategic partnership opportunities.
+                    Direct access to our global Muslim consumer base through targeted campaigns and 
+                    exclusive promotional events.
                   </p>
                 </div>
               </div>
             </div>
             
-            <Card className="overflow-hidden relative border-muslim-gold">
+            <Card className="overflow-hidden relative border-muslim-gold mb-8">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400"></div>
               <CardContent className="p-6">
                 <div className="flex gap-4 mb-6">
@@ -151,15 +143,15 @@ const SalesPage = () => {
                     <SparklesIcon className="h-6 w-6 text-muslim-gold" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-xl text-muslim-dark">Investment Opportunities</h3>
-                    <p className="text-gray-600">Limited opportunity to invest in UmmahConnects' global growth</p>
+                    <h3 className="font-bold text-xl text-muslim-dark">Supreme Corporate Package</h3>
+                    <p className="text-gray-600">Regional visibility for growing enterprises</p>
                   </div>
                 </div>
                 
                 <p className="text-gray-700 mb-4">
-                  UmmahConnects is expanding rapidly and seeking strategic investors who share our vision of 
-                  connecting Muslims worldwide with halal services and products. Inquire about our investment 
-                  opportunities with potential for significant returns.
+                  Our Supreme Corporate package offers excellent regional visibility and promotional 
+                  opportunities for established businesses looking to expand their presence in specific markets.
+                  Limited to 2 corporate sponsors per country monthly.
                 </p>
                 
                 <Button 
@@ -168,11 +160,11 @@ const SalesPage = () => {
                     const messageField = document.getElementById('message');
                     if (messageField) {
                       (messageField as HTMLTextAreaElement).focus();
-                      form.setValue('investmentLevel', 'invest');
+                      form.setValue('investmentLevel', 'sponsor');
                     }
                   }}
                 >
-                  Learn About Investing
+                  Learn About Supreme Corporate Package
                 </Button>
               </CardContent>
             </Card>
@@ -209,7 +201,6 @@ const SalesPage = () => {
             </div>
           </div>
 
-          {/* Contact Form Column */}
           <div className="bg-white shadow-lg rounded-lg p-8 border border-gray-100">
             <h2 className="text-2xl font-bold text-muslim-dark mb-6">Get in Touch</h2>
             
@@ -351,7 +342,6 @@ const SalesPage = () => {
         
         <Separator className="my-16" />
         
-        {/* Testimonials Section */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-center text-muslim-dark mb-8">What Our Partners Say</h2>
           
