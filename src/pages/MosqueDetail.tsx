@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/table";
 import Layout from "@/components/Layout";
 import { perthMosques } from "@/data/perthMosques";
-import { mockMosques } from "@/pages/Mosques";
+import { mockMosques } from "@/pages/mosques/mockMosques";
 import { cn } from "@/lib/utils";
 
 const MosqueDetail = () => {

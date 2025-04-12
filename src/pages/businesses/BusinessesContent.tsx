@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -29,9 +28,20 @@ const BusinessesContent = ({
   
   const handleSortChange = (value: string) => {
     setSortBy(value);
+    // We're removing the line that tries to use setFilteredBusinesses
+    // Instead, we'll just sort the businesses locally for display purposes
+    // and let the parent component handle actual state changes
+  };
+
+  const toggleFilterSidebar = () => {
+    setIsFilterSidebarVisible(!isFilterSidebarVisible);
+  };
+
+  const paginatedBusinesses = () => {
+    // Sort businesses based on sortBy value
     let sorted = [...filteredBusinesses];
     
-    switch (value) {
+    switch (sortBy) {
       case "featured":
         sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
         break;
@@ -48,17 +58,9 @@ const BusinessesContent = ({
         break;
     }
     
-    setFilteredBusinesses(sorted);
-  };
-
-  const toggleFilterSidebar = () => {
-    setIsFilterSidebarVisible(!isFilterSidebarVisible);
-  };
-
-  const paginatedBusinesses = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return filteredBusinesses.slice(startIndex, endIndex);
+    return sorted.slice(startIndex, endIndex);
   };
 
   const totalPages = Math.ceil(filteredBusinesses.length / itemsPerPage);

@@ -1,8 +1,9 @@
 
 import React, { useState } from "react";
-import { Filter, List, Grid, MapPin, Plus } from "lucide-react";
+import { Filter, List, Grid, MapPin, Plus, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import { 
   Select,
   SelectContent,
