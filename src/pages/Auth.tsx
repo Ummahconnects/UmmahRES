@@ -1,12 +1,12 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Layout from "@/components/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import LoginForm from "@/components/auth/LoginForm";
 import SignupForm from "@/components/auth/SignupForm";
+import AuthCard from "@/components/auth/AuthCard";
 
 const AuthPage = () => {
   const [activeTab, setActiveTab] = useState("login");
@@ -35,32 +35,22 @@ const AuthPage = () => {
           
           {/* Login Tab */}
           <TabsContent value="login">
-            <Card>
-              <CardHeader>
-                <CardTitle>Login</CardTitle>
-                <CardDescription>
-                  Sign in to access your account
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <LoginForm />
-              </CardContent>
-            </Card>
+            <AuthCard 
+              title="Login" 
+              description="Sign in to access your account"
+            >
+              <LoginForm />
+            </AuthCard>
           </TabsContent>
           
           {/* Sign Up Tab */}
           <TabsContent value="signup">
-            <Card>
-              <CardHeader>
-                <CardTitle>Create an account</CardTitle>
-                <CardDescription>
-                  Join our community and connect with Muslim-owned businesses
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <SignupForm onSuccess={handleSignupSuccess} />
-              </CardContent>
-            </Card>
+            <AuthCard 
+              title="Create an account" 
+              description="Join our community and connect with Muslim-owned businesses"
+            >
+              <SignupForm onSuccess={handleSignupSuccess} />
+            </AuthCard>
           </TabsContent>
         </Tabs>
       </div>
