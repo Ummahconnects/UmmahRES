@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,6 @@ import BusinessCard, { BusinessProps } from "@/components/BusinessCard";
 import FilterSidebar from "@/components/FilterSidebar";
 import { cn } from "@/lib/utils";
 
-// Extended mock data for businesses
 const mockBusinesses: BusinessProps[] = [
   {
     id: "1",
@@ -118,7 +116,6 @@ const BusinessesPage = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [isFilterSidebarVisible, setIsFilterSidebarVisible] = useState(false);
 
-  // Handle initial search params
   useEffect(() => {
     const keyword = searchParams.get("keyword");
     const location = searchParams.get("location");
@@ -178,7 +175,6 @@ const BusinessesPage = () => {
   const handleFilterChange = (filters: Record<string, any>) => {
     let filtered = [...businesses];
     
-    // Filter by category
     if (filters.categories && filters.categories.length > 0) {
       filtered = filtered.filter(business => 
         filters.categories.some((cat: string) => 
@@ -187,7 +183,6 @@ const BusinessesPage = () => {
       );
     }
     
-    // Filter by service
     if (filters.services && filters.services.length > 0) {
       filtered = filtered.filter(business => 
         business.services?.some(service => 
@@ -196,7 +191,6 @@ const BusinessesPage = () => {
       );
     }
     
-    // Filter by rating
     if (filters.ratings && filters.ratings.length > 0) {
       filtered = filtered.filter(business => {
         return filters.ratings.some((rating: string) => {
@@ -206,7 +200,6 @@ const BusinessesPage = () => {
       });
     }
     
-    // Filter by open status
     if (filters.isOpen) {
       filtered = filtered.filter(business => business.isOpen);
     }
@@ -230,7 +223,7 @@ const BusinessesPage = () => {
                   Find halal restaurants, shops, professionals, and more
                 </p>
               </div>
-              <div className="ml-6 max-w-md italic text-sm text-gray-600">
+              <div className="ml-6 max-w-md font-arabic font-bold text-sm text-muslim-dark">
                 The fisherman's net and the programmer's code,
                 the mother's home bakery and the scientist's microscope—
                 each halal grain of rizq, when shared,
@@ -247,14 +240,12 @@ const BusinessesPage = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Filter Sidebar - Desktop */}
           <div className="hidden lg:block lg:w-64 shrink-0">
             <div className="sticky top-6">
               <FilterSidebar type="business" onFilterChange={handleFilterChange} />
             </div>
           </div>
 
-          {/* Mobile Filter Button */}
           <div className="lg:hidden mb-4">
             <Button 
               variant="outline" 
@@ -272,7 +263,6 @@ const BusinessesPage = () => {
             )}
           </div>
 
-          {/* Main Content */}
           <div className="flex-1">
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -401,4 +391,3 @@ const BusinessesPage = () => {
 };
 
 export default BusinessesPage;
-
