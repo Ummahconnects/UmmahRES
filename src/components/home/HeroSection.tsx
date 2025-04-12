@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building, Store } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
+import BetaProgramBanner from "./BetaProgramBanner";
 
 const HeroSection = () => {
   const [activeTab, setActiveTab] = useState("businesses");
@@ -30,6 +31,8 @@ const HeroSection = () => {
             </p>
             <p className="text-sm text-muslim-teal">www.ummah-connects.com</p>
           </div>
+          
+          <BetaProgramBanner />
           
           <Tabs 
             defaultValue="businesses" 
