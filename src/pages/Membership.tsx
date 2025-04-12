@@ -8,6 +8,7 @@ import MembershipForm from "@/components/membership/MembershipForm";
 import TestimonialsSection from "@/components/membership/TestimonialsSection";
 import MembershipHeader from "@/components/membership/MembershipHeader";
 import MembershipPlans from "@/components/membership/MembershipPlans";
+import MembershipFAQ from "@/components/membership/MembershipFAQ";
 
 const MembershipPage = () => {
   const [activeTab, setActiveTab] = useState("plans");
@@ -34,6 +35,7 @@ const MembershipPage = () => {
         <Tabs value={activeTab} className="w-full mb-16">
           <TabsContent value="plans">
             <MembershipPlans />
+            <MembershipFAQ />
           </TabsContent>
 
           <TabsContent value="benefits">
