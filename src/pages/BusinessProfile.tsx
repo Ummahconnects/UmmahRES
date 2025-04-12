@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -96,7 +95,7 @@ const BusinessProfilePage = () => {
       navigate(`/business-profile/${profileId}`);
     }
   };
-
+  
   if (!user) {
     return (
       <Layout>
