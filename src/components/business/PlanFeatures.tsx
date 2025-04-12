@@ -19,6 +19,7 @@ const PlanFeatures = ({ planType }: PlanFeaturesProps) => {
         ))}
       </ul>
       <p className="mt-4 font-semibold">{planDetails[planType].price}</p>
+      <p className="text-sm text-gray-500 italic">(or equivalent in your local currency)</p>
     </div>
   );
 };

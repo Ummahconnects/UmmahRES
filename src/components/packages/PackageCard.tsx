@@ -25,6 +25,7 @@ export interface PackageCardProps {
   isHighlighted?: boolean;
   sparklePosition?: { top: number; left: number };
   icon?: React.ReactNode;
+  showLocalCurrency?: boolean;
 }
 
 const PackageCard = ({
@@ -42,6 +43,7 @@ const PackageCard = ({
   isHighlighted = false,
   sparklePosition,
   icon,
+  showLocalCurrency = true,
 }: PackageCardProps) => {
   return (
     <Card className={`border-t-4 border-t-${color} relative ${isHighlighted ? 'md:scale-105 shadow-xl overflow-hidden' : ''}`}>
@@ -73,8 +75,15 @@ const PackageCard = ({
           {icon && <div>{icon}</div>}
         </div>
         <CardDescription>{description}</CardDescription>
-        <div className="text-3xl font-bold mt-2">
-          {price}<span className="text-sm font-normal text-gray-500">/month</span>
+        <div className="mt-2">
+          <div className="text-3xl font-bold">
+            {price}<span className="text-sm font-normal text-gray-500">/month</span>
+          </div>
+          {showLocalCurrency && (
+            <div className="text-sm text-gray-500 italic mt-1">
+              (or equivalent in your local currency)
+            </div>
+          )}
         </div>
         {additionalInfo && (
           <Badge variant="custom" className={`mt-2 bg-${color}/10 text-${color} border border-${color}/20`}>

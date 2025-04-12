@@ -69,6 +69,7 @@ const PackageGrid = () => {
         color="gray-500"
         primaryButtonText="Get Started"
         icon={<Package className="h-5 w-5 text-gray-500" />}
+        showLocalCurrency={true}
       />
 
       <PackageCard
@@ -80,6 +81,7 @@ const PackageGrid = () => {
         primaryButtonText="Start Premium"
         additionalInfo="Includes 2 analytics metrics"
         icon={<Badge className="h-5 w-5 text-muslim-teal" />}
+        showLocalCurrency={true}
       />
 
       <PackageCard
@@ -91,6 +93,7 @@ const PackageGrid = () => {
         primaryButtonText="Go Platinum"
         additionalInfo="Full analytics dashboard included"
         icon={<Award className="h-5 w-5 text-muslim-blue" />}
+        showLocalCurrency={true}
       />
 
       <PackageCard
@@ -106,6 +109,7 @@ const PackageGrid = () => {
         isHighlighted={true}
         sparklePosition={sparklePosition}
         icon={<Sparkles className="h-5 w-5 text-amber-500" />}
+        showLocalCurrency={true}
       />
     </div>
   );

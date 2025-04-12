@@ -59,6 +59,9 @@ const MembershipPage = () => {
                   <div className="text-3xl font-bold mt-2">
                     $19.99<span className="text-sm font-normal text-gray-500">/month</span>
                   </div>
+                  <div className="text-sm text-gray-500 italic mt-1">
+                    (or equivalent in your local currency)
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
@@ -94,6 +97,9 @@ const MembershipPage = () => {
                   <CardDescription>For growing businesses</CardDescription>
                   <div className="text-3xl font-bold mt-2">
                     $49.99<span className="text-sm font-normal text-gray-500">/month</span>
+                  </div>
+                  <div className="text-sm text-gray-500 italic mt-1">
+                    (or equivalent in your local currency)
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -134,6 +140,9 @@ const MembershipPage = () => {
                   <CardDescription>For established businesses</CardDescription>
                   <div className="text-3xl font-bold mt-2">
                     $99.99<span className="text-sm font-normal text-gray-500">/month</span>
+                  </div>
+                  <div className="text-sm text-gray-500 italic mt-1">
+                    (or equivalent in your local currency)
                   </div>
                 </CardHeader>
                 <CardContent>
