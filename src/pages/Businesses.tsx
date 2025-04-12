@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -223,11 +223,19 @@ const BusinessesPage = () => {
       <div className="bg-gray-50 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-muslim-dark">Muslim Businesses</h1>
-              <p className="text-gray-600">
-                Find halal restaurants, shops, professionals, and more
-              </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-muslim-dark">Muslim Businesses</h1>
+                <p className="text-gray-600">
+                  Find halal restaurants, shops, professionals, and more
+                </p>
+              </div>
+              <div className="ml-6 max-w-md italic text-sm text-gray-600">
+                The fisherman's net and the programmer's code,
+                the mother's home bakery and the scientist's microscope—
+                each halal grain of rizq, when shared,
+                becomes mountains of barakah.
+              </div>
             </div>
             
             <div className="bg-white p-4 rounded-lg shadow-sm">
@@ -392,8 +400,5 @@ const BusinessesPage = () => {
   );
 };
 
-// Import for the Star icon (used in list view)
-import { Badge } from "@/components/ui/badge";
-import { Star, Phone } from "lucide-react";
-
 export default BusinessesPage;
+
