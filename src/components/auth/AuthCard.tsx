@@ -10,10 +10,10 @@ interface AuthCardProps {
 
 const AuthCard = ({ title, description, children }: AuthCardProps) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
+    <Card className="shadow-md border-t-4 border-t-muslim-teal">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-2xl font-bold">{title}</CardTitle>
+        <CardDescription className="text-gray-600">{description}</CardDescription>
       </CardHeader>
       <CardContent>{children}</CardContent>
     </Card>
