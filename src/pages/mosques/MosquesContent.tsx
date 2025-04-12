@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Filter, List, Grid, MapPin, Plus, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -56,7 +55,19 @@ const MosquesContent = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div 
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative"
+      style={{
+        backgroundImage: `
+          linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.95)),
+          url("/lovable-uploads/d4232037-f592-44d2-a32d-58dd19c46688.png")
+        `,
+        backgroundSize: 'cover, 300px 300px',
+        backgroundPosition: 'center, top left',
+        backgroundBlendMode: 'soft-light, normal',
+        backgroundRepeat: 'no-repeat, repeat'
+      }}
+    >
       <div className="flex flex-col lg:flex-row gap-6">
         <div className="hidden lg:block lg:w-64 shrink-0">
           <div className="sticky top-6">
