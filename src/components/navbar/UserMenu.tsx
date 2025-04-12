@@ -131,7 +131,7 @@ const UserMenu = ({ isMobile = false, onItemClick }: UserMenuProps) => {
       <Button
         variant="default"
         size="sm"
-        className="bg-muslim-teal hover:bg-muslim-teal/90 text-white"
+        className="bg-muslim-teal text-white hover:bg-muslim-teal/90"
         onClick={() => navigate("/auth?tab=signup")}
       >
         Register
