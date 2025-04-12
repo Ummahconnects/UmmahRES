@@ -7,7 +7,7 @@ const EventsBanner = () => {
   return (
     <FlashingBanner 
       icon={<Calendar className="h-4 w-4" />}
-      message="Submit your community event with a small $5 donation to support local initiatives!"
+      message="Submit your community event with a small $5 (or equivalent in your local currency) donation to support local initiatives!"
       colorScheme="warning"
     />
   );
