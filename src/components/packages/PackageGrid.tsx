@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Star, Badge, Package, Award, Sparkles } from "lucide-react";
 import PackageCard from "./PackageCard";
@@ -6,7 +5,6 @@ import PackageCard from "./PackageCard";
 const PackageGrid = () => {
   const [sparklePosition, setSparklePosition] = useState({ top: 0, left: 0 });
   
-  // Animation for the sparkling stars
   useEffect(() => {
     const interval = setInterval(() => {
       setSparklePosition({
@@ -49,8 +47,9 @@ const PackageGrid = () => {
 
   const supremeFeatures = [
     { text: "Everything in Platinum" },
+    { text: "Corporate sponsorship opportunity", highlight: true },
     { text: "Half-page featured sponsor spot" },
-    { text: "Limited to only 2 businesses per month per country", highlight: true },
+    { text: "Limited to only 2 corporate sponsors per month per country", highlight: true },
     { text: "Premium homepage placement" },
     { text: "Featured in newsletter" },
     { text: "Social media promotion" },
@@ -103,17 +102,17 @@ const PackageGrid = () => {
       />
 
       <PackageCard
-        title="Supreme"
-        description="Exclusive sponsorship opportunity"
+        title="Supreme Corporate"
+        description="Exclusive corporate sponsorship opportunity"
         price="$299.99"
         annualPrice="$2,999.90"
         annualSavings="Save $599.98"
         features={supremeFeatures}
         color="muslim-gold"
-        banner="Supreme Sponsor"
-        primaryButtonText="Become a Supreme Sponsor"
-        secondaryButtonText="Reserve Spot for Next Month"
-        additionalInfo="Only 2 spots available per month per country"
+        banner="Corporate Sponsor"
+        primaryButtonText="Become a Corporate Sponsor"
+        secondaryButtonText="Reserve Sponsorship Spot"
+        additionalInfo="Only 2 corporate sponsorships available per month per country"
         isHighlighted={true}
         sparklePosition={sparklePosition}
         icon={<Sparkles className="h-5 w-5 text-amber-500" />}

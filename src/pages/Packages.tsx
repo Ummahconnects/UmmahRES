@@ -11,24 +11,24 @@ import { BarChart3, Church, Globe, HeartHandshake, Sparkles } from "lucide-react
 
 const PackagesPage = () => {
   const locationFeatures = {
-    title: "Location-Based Advertising",
-    description: "Our platform features city-specific pages that showcase local businesses to users in their area. When users log in, they are automatically directed to their local city page.",
+    title: "Corporate Sponsorship Opportunities",
+    description: "Our platform offers exclusive corporate sponsorship packages that provide maximum visibility and impact across our global business ecosystem.",
     gridItems: [
       {
-        title: "Platinum Listing Features",
+        title: "Corporate Sponsorship Benefits",
         features: [
-          "Featured on your city's local business page",
-          "Limited to 6 businesses per city page",
-          "Rotate through multiple pages as needed"
+          "Featured on city and global business pages",
+          "Limited corporate sponsorship per month",
+          "Targeted exposure to Muslim business community"
         ],
         icon: <Sparkles className="h-5 w-5 text-muslim-blue" />
       },
       {
-        title: "Supreme Sponsor Benefits",
+        title: "Supreme Corporate Sponsorship",
         features: [
           "Half-page premium placement",
-          "Only 2 major sponsors featured monthly per country",
-          "Global visibility across all city pages"
+          "Only 2 corporate sponsors monthly per country",
+          "Global visibility across all platforms"
         ],
         highlight: true,
         icon: <Globe className="h-5 w-5 text-muslim-gold" />

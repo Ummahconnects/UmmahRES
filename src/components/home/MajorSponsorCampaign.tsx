@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,6 @@ interface SponsorData {
   tagline: string;
 }
 
-// Sample sponsor data - in a real app, this would come from an API or database
 const sponsorData: SponsorData[] = [
   {
     id: "1",
@@ -44,7 +42,6 @@ const MajorSponsorCampaign = () => {
   const [currentSponsor, setCurrentSponsor] = useState<SponsorData>(sponsorData[0]);
   const [animating, setAnimating] = useState(false);
   
-  // Rotate between sponsors automatically
   useEffect(() => {
     if (sponsorData.length <= 1) return;
     
@@ -56,17 +53,15 @@ const MajorSponsorCampaign = () => {
         setCurrentSponsor(sponsorData[nextIndex]);
         setTimeout(() => setAnimating(false), 100);
       }, 500);
-    }, 15000); // Change sponsor every 15 seconds
+    }, 15000);
     
     return () => clearInterval(interval);
   }, [currentSponsor]);
 
   return (
     <section className="relative py-16 overflow-hidden">
-      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-muslim-light via-white to-amber-50 opacity-90 z-0"></div>
       
-      {/* Animated stars */}
       <div className="absolute inset-0 z-0">
         {[...Array(20)].map((_, i) => (
           <Star
@@ -89,26 +84,24 @@ const MajorSponsorCampaign = () => {
         <div className="flex justify-center mb-8">
           <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-400 to-muslim-gold text-white font-bold text-sm">
             <BadgeDollarSign className="h-4 w-4 mr-2" />
-            SUPREME SPONSOR SPOTLIGHT
+            CORPORATE SPONSOR SPOTLIGHT
           </div>
         </div>
         
         <h2 className="text-3xl md:text-4xl font-bold text-center text-muslim-dark mb-4">
-          Our Supreme Corporate Sponsors
+          Our Distinguished Corporate Sponsors
         </h2>
         
         <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
-          Showcasing organizations committed to supporting the Muslim community and businesses worldwide
+          Showcasing organizations committed to supporting the Muslim business ecosystem worldwide
         </p>
         
         <div 
           className={`relative bg-white rounded-xl shadow-xl overflow-hidden transition-all duration-500 ${animating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}
         >
-          {/* Gold border effect */}
           <div className="absolute inset-0 border-4 border-muslim-gold rounded-xl"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-            {/* Logo/Image Section */}
             <div className="h-64 md:h-auto overflow-hidden relative flex items-center justify-center p-6 bg-gradient-to-br from-amber-400/10 to-muslim-gold/10">
               <img 
                 src={currentSponsor.logo} 
@@ -118,12 +111,11 @@ const MajorSponsorCampaign = () => {
               <div className="absolute top-4 left-4">
                 <div className="flex items-center bg-muslim-gold text-white px-3 py-1 rounded-full text-sm font-medium">
                   <Award className="h-4 w-4 mr-1" />
-                  Supreme Sponsor
+                  Corporate Sponsor
                 </div>
               </div>
             </div>
             
-            {/* Content Section */}
             <div className="p-8 flex flex-col justify-between">
               <div>
                 <div className="flex items-start justify-between mb-4">
@@ -165,7 +157,6 @@ const MajorSponsorCampaign = () => {
             </div>
           </div>
           
-          {/* Sponsor indicator dots */}
           {sponsorData.length > 1 && (
             <div className="flex justify-center p-4">
               {sponsorData.map((sponsor) => (
