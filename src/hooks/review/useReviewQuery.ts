@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ReviewItemProps, mockReviews } from "@/types/reviewTypes";
 import { formatReviewData, calculateAverageRating } from "@/utils/reviewUtils";
+import { ReviewData } from "@/integrations/supabase/dbTypes";
 
 export function useReviewQuery(entityId?: string) {
   const [reviews, setReviews] = useState<ReviewItemProps[]>([]);
@@ -29,7 +30,7 @@ export function useReviewQuery(entityId?: string) {
       
       // Get user profile data for author names with type assertion
       const { data, error } = await supabase
-        .from("reviews" as any)
+        .from("reviews")
         .select(`
           id,
           rating,
@@ -38,7 +39,7 @@ export function useReviewQuery(entityId?: string) {
           user_id,
           auth.users (email)
         `)
-        .eq("business_id", entityId) as any;
+        .eq("business_id", entityId) as { data: ReviewData[]; error: any };
         
       if (error) throw error;
       

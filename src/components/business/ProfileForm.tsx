@@ -1,4 +1,3 @@
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,6 +26,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { BusinessProfile } from "@/integrations/supabase/dbTypes";
 
 // Form validation schema
 const profileSchema = z.object({
@@ -40,19 +40,7 @@ const profileSchema = z.object({
 });
 
 // Define business profile type
-export interface BusinessProfile {
-  id: string;
-  user_id: string;
-  business_name: string;
-  business_description: string;
-  category: string;
-  address?: string;
-  phone?: string;
-  email?: string;
-  website?: string;
-}
-
-type ProfileFormValues = z.infer<typeof profileSchema>;
+export type ProfileFormValues = z.infer<typeof profileSchema>;
 
 interface ProfileFormProps {
   user: { id: string };
@@ -91,7 +79,7 @@ const ProfileForm = ({ user, profileData, isEditing, id, onProfileSaved }: Profi
         const { error } = await supabase
           .from("business_profiles")
           .update(values)
-          .eq("id", id) as unknown as { error: any };
+          .eq("id", id) as { error: any };
           
         if (error) throw error;
         
@@ -109,7 +97,7 @@ const ProfileForm = ({ user, profileData, isEditing, id, onProfileSaved }: Profi
             ...values,
             user_id: user.id,
           })
-          .select() as unknown as { data: BusinessProfile[]; error: any };
+          .select() as { data: BusinessProfile[]; error: any };
           
         if (error) throw error;
         

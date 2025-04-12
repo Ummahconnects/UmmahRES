@@ -7,9 +7,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import MembershipSection from "@/components/business/MembershipSection";
 import ReviewSection from "@/components/reviews/ReviewSection";
-import ProfileForm, { BusinessProfile } from "@/components/business/ProfileForm";
+import ProfileForm from "@/components/business/ProfileForm";
 import ProfileFormSkeleton from "@/components/business/ProfileFormSkeleton";
 import AuthRequired from "@/components/auth/AuthRequired";
+import { BusinessProfile } from "@/integrations/supabase/dbTypes";
 
 const BusinessProfilePage = () => {
   const { id } = useParams();
@@ -33,10 +34,10 @@ const BusinessProfilePage = () => {
         if (isEditing && id) {
           // Fetch existing profile with type assertion
           const { data, error } = await supabase
-            .from("business_profiles" as any)
+            .from("business_profiles")
             .select("*")
             .eq("id", id)
-            .single() as any;
+            .single() as { data: BusinessProfile; error: any };
             
           if (error) throw error;
           
@@ -59,10 +60,10 @@ const BusinessProfilePage = () => {
         } else {
           // Check if user already has a business profile
           const { data, error } = await supabase
-            .from("business_profiles" as any)
+            .from("business_profiles")
             .select("id")
             .eq("user_id", user.id)
-            .maybeSingle() as any;
+            .maybeSingle() as { data: { id: string } | null; error: any };
             
           if (!error && data) {
             toast({

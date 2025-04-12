@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Membership } from "@/types/membershipTypes";
+import { Membership } from "@/integrations/supabase/dbTypes";
 
 export function useMembership(businessId: string) {
   const { toast } = useToast();
@@ -26,7 +26,7 @@ export function useMembership(businessId: string) {
         .select('*')
         .eq('business_id', businessId)
         .order('created_at', { ascending: false })
-        .maybeSingle() as unknown as { 
+        .maybeSingle() as { 
           data: Membership | null; 
           error: any;
         };
@@ -59,7 +59,7 @@ export function useMembership(businessId: string) {
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
           })
-          .eq('id', membership.id) as unknown as { error: any };
+          .eq('id', membership.id) as { error: any };
           
         if (error) throw error;
       } else {
@@ -72,7 +72,7 @@ export function useMembership(businessId: string) {
             status: 'active',
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
-          }) as unknown as { error: any };
+          }) as { error: any };
           
         if (error) throw error;
       }
