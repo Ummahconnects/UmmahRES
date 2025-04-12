@@ -7,8 +7,20 @@ import { Check, ShieldCheck, UserCheck, Users } from "lucide-react";
 import MembershipForm from "@/components/membership/MembershipForm";
 import MembershipBenefits from "@/components/membership/MembershipBenefits";
 import TestimonialsSection from "@/components/membership/TestimonialsSection";
+import BetaOfferBanner from "@/components/membership/BetaOfferBanner";
+import { useState, useEffect } from "react";
 
 const MembershipPage = () => {
+  const [userCity, setUserCity] = useState<string>("your city");
+  
+  // Simulate getting user's city - in a real app this would come from geolocation or user profile
+  useEffect(() => {
+    // Simulated cities for demo
+    const cities = ["London", "New York", "Dubai", "Sydney", "Toronto", "Kuala Lumpur"];
+    const randomCity = cities[Math.floor(Math.random() * cities.length)];
+    setUserCity(randomCity);
+  }, []);
+
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -18,6 +30,8 @@ const MembershipPage = () => {
             Join our business membership program to connect with the Ummah and grow your business while supporting the Muslim community.
           </p>
         </div>
+
+        <BetaOfferBanner city={userCity} />
 
         <Tabs defaultValue="plans" className="w-full mb-16">
           <TabsList className="grid w-full grid-cols-3 mb-8">

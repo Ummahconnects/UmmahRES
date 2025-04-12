@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
-import { Calendar, Heart, HelpCircle } from "lucide-react";
+import { Calendar, Heart, HelpCircle, BarChart3 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface NavLinksProps {
   isMobile?: boolean;
@@ -20,11 +21,21 @@ const navItems = [
   { path: "/help", label: "Help", icon: HelpCircle },
 ];
 
+// Staff-only nav item
+const staffNavItem = { path: "/staff-dashboard", label: "Analytics", icon: BarChart3 };
+
 const NavLinks = ({ isMobile = false, onLinkClick }: NavLinksProps) => {
+  const { user } = useAuth();
+  
+  // Check if user is staff (you would replace this with your actual staff check)
+  const isStaff = user?.email?.endsWith('@ummahconnects.com') || false;
+  
+  const allNavItems = isStaff ? [...navItems, staffNavItem] : navItems;
+  
   if (isMobile) {
     return (
       <div className="pt-2 pb-3 space-y-1">
-        {navItems.map((item) => (
+        {allNavItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
@@ -40,7 +51,7 @@ const NavLinks = ({ isMobile = false, onLinkClick }: NavLinksProps) => {
 
   return (
     <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-      {navItems.map((item) => (
+      {allNavItems.map((item) => (
         <Link
           key={item.path}
           to={item.path}
