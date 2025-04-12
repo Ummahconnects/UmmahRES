@@ -27,7 +27,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-blue-500",
         textColor: "text-blue-500",
         accentColor: "border-blue-500",
-        icon: <ShoppingBag />,
+        icon: <ShoppingBag size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1600&auto=format"
       };
     case "restaurant":
@@ -35,7 +35,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-amber-500",
         textColor: "text-amber-500",
         accentColor: "border-amber-500",
-        icon: <Store />,
+        icon: <Store size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1600&auto=format"
       };
     case "professional":
@@ -43,7 +43,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-green-500",
         textColor: "text-green-500",
         accentColor: "border-green-500",
-        icon: <Briefcase />,
+        icon: <Briefcase size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600&auto=format"
       };
     case "healthcare":
@@ -51,7 +51,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-purple-500",
         textColor: "text-purple-500",
         accentColor: "border-purple-500",
-        icon: <Users />,
+        icon: <Users size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1504813184591-01572f98c85f?q=80&w=1600&auto=format"
       };
     case "education":
@@ -59,7 +59,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-indigo-500",
         textColor: "text-indigo-500",
         accentColor: "border-indigo-500",
-        icon: <Users />,
+        icon: <Users size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=1600&auto=format"
       };
     case "technology":
@@ -67,7 +67,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-cyan-500",
         textColor: "text-cyan-500",
         accentColor: "border-cyan-500",
-        icon: <Briefcase />,
+        icon: <Briefcase size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1600&auto=format"
       };
     case "manufacturing":
@@ -75,7 +75,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-orange-500",
         textColor: "text-orange-500",
         accentColor: "border-orange-500",
-        icon: <Building />,
+        icon: <Building size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1565374738333-9b93be87313c?q=80&w=1600&auto=format"
       };
     default:
@@ -83,7 +83,7 @@ export const getTemplateStyles = (category: BusinessCategory): TemplateStyles =>
         bgColor: "bg-muslim-teal",
         textColor: "text-muslim-teal",
         accentColor: "border-muslim-teal",
-        icon: <MapPin />,
+        icon: <MapPin size={24} />,
         bannerUrl: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1600&auto=format"
       };
   }
