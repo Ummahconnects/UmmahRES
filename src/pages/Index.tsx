@@ -6,9 +6,7 @@ import FeaturedBusinessesSection from "@/components/home/FeaturedBusinessesSecti
 import MosquesSection from "@/components/home/MosquesSection";
 import CTASection from "@/components/home/CTASection";
 import FeaturesSection from "@/components/home/FeaturesSection";
-import FlashingBanner from "@/components/FlashingBanner";
 import MajorSponsorCampaign from "@/components/home/MajorSponsorCampaign";
-import { HeartHandshake } from "lucide-react";
 
 const HomePage = () => {
   return (
@@ -21,13 +19,6 @@ const HomePage = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <FlashingBanner 
-          icon={<HeartHandshake className="h-4 w-4" />}
-          message="Supporting our Ummah: Free listings for mosques and charities! Community events for just a $5 (or equivalent in local currency) donation."
-          colorScheme="info"
-        />
-      </div>
       <HeroSection />
       <CategoriesSection />
       <MajorSponsorCampaign />

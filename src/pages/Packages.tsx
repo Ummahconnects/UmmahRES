@@ -1,3 +1,4 @@
+
 import Layout from "@/components/Layout";
 import { Separator } from "@/components/ui/separator";
 import PackageHeader from "@/components/packages/PackageHeader";
@@ -70,7 +71,7 @@ const PackagesPage = () => {
         <div className="mb-6">
           <FlashingBanner 
             icon={<HeartHandshake className="h-4 w-4" />}
-            message="We support our community! Listing charities and mosques is completely FREE. Events listings just request a small donation of $5 (or equivalent in local currency) to support community initiatives."
+            message="We support our community! Listing charities and mosques is completely FREE. Events listings just request a small donation of $5 to support community initiatives."
             colorScheme="primary"
           />
         </div>

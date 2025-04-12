@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Calendar, DollarSign } from "lucide-react";
+import { Calendar } from "lucide-react";
 import FlashingBanner from './FlashingBanner';
 
 const EventsBanner = () => {

@@ -1,9 +1,10 @@
 
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Building, Store } from "lucide-react";
+import { Building, Store, HeartHandshake } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import BetaProgramBanner from "./BetaProgramBanner";
+import FlashingBanner from "@/components/FlashingBanner";
 
 const HeroSection = () => {
   const [activeTab, setActiveTab] = useState("businesses");
@@ -57,6 +58,14 @@ const HeroSection = () => {
               <SearchBar type="mosque" />
             </TabsContent>
           </Tabs>
+          
+          <div className="mt-4">
+            <FlashingBanner 
+              icon={<HeartHandshake className="h-4 w-4" />}
+              message="Supporting our Ummah: Free listings for mosques and charities! Community events for just a $5 donation."
+              colorScheme="info"
+            />
+          </div>
         </div>
       </div>
     </section>

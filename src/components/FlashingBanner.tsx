@@ -1,7 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
-import { AlertTriangle } from "lucide-react";
+import React, { useState } from 'react';
+import { AlertTriangle, Circle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { cn } from "@/lib/utils";
 
 interface FlashingBannerProps {
   message: string;
@@ -17,15 +18,6 @@ const FlashingBanner = ({
   className = '' 
 }: FlashingBannerProps) => {
   const [visible, setVisible] = useState(true);
-  const [isFlashing, setIsFlashing] = useState(false);
-
-  useEffect(() => {
-    const flashInterval = setInterval(() => {
-      setIsFlashing(prev => !prev);
-    }, 800);
-
-    return () => clearInterval(flashInterval);
-  }, []);
 
   if (!visible) return null;
 
@@ -42,15 +34,16 @@ const FlashingBanner = ({
 
   return (
     <Alert 
-      className={`transition-all duration-300 ${isFlashing ? 'opacity-100 scale-[1.01]' : 'opacity-90 scale-100'} 
-                 flex items-center p-3 rounded-md ${getColorClasses()} ${className}`}
+      className={`flex items-center p-3 rounded-md ${getColorClasses()} ${className}`}
     >
       <div className="flex items-center w-full">
+        <Circle className="h-4 w-4 text-red-500 mr-2 animate-[spin_3s_linear_infinite]" />
         <span className="mr-2">{icon}</span>
         <AlertDescription className="text-sm font-medium m-0">{message}</AlertDescription>
+        <Circle className="h-4 w-4 text-red-500 ml-auto mr-2 animate-[spin_3s_linear_infinite]" />
         <button 
           onClick={() => setVisible(false)} 
-          className="ml-auto text-sm font-medium hover:opacity-75"
+          className="text-sm font-medium hover:opacity-75"
           aria-label="Close"
         >
           ✕
