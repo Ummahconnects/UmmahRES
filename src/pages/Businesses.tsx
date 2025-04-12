@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,15 @@ import SearchBar from "@/components/SearchBar";
 import BusinessCard, { BusinessProps } from "@/components/BusinessCard";
 import FilterSidebar from "@/components/FilterSidebar";
 import { cn } from "@/lib/utils";
+import { 
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from "@/components/ui/pagination";
 
 const mockBusinesses: BusinessProps[] = [
   {
@@ -39,6 +49,7 @@ const mockBusinesses: BusinessProps[] = [
     phone: "(555) 234-5678",
     image: "https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80",
     isOpen: true,
+    featured: true,
     services: ["Halal Meat", "Fresh Produce", "International Foods"]
   },
   {
@@ -50,6 +61,7 @@ const mockBusinesses: BusinessProps[] = [
     phone: "(555) 345-6789",
     image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     isOpen: false,
+    featured: true,
     services: ["Family Medicine", "Women's Health", "Pediatrics"]
   },
   {
@@ -61,6 +73,7 @@ const mockBusinesses: BusinessProps[] = [
     phone: "(555) 456-7890",
     image: "https://images.unsplash.com/photo-1556742393-d75f468bfcb0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     isOpen: true,
+    featured: true,
     services: ["Islamic Finance", "Halal Investments", "Financial Planning"]
   },
   {
@@ -72,6 +85,7 @@ const mockBusinesses: BusinessProps[] = [
     phone: "(555) 567-8901",
     image: "https://images.unsplash.com/photo-1578916171728-46686eac8d58?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
     isOpen: true,
+    featured: true,
     services: ["Halal Meat", "Imported Goods", "Fresh Produce"]
   },
   {
@@ -83,6 +97,7 @@ const mockBusinesses: BusinessProps[] = [
     phone: "(555) 678-9012",
     image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     isOpen: true,
+    featured: true,
     services: ["Modest Fashion", "Islamic Attire", "Gifts"]
   },
   {
@@ -94,6 +109,7 @@ const mockBusinesses: BusinessProps[] = [
     phone: "(555) 789-0123",
     image: "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     isOpen: false,
+    featured: true,
     services: ["Immigration Law", "Family Law", "Business Law"]
   },
   {
@@ -105,7 +121,31 @@ const mockBusinesses: BusinessProps[] = [
     phone: "(555) 890-1234",
     image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1422&q=80",
     isOpen: true,
+    featured: true,
     services: ["Islamic Education", "Quran Classes", "Arabic Language"]
+  },
+  {
+    id: "9",
+    name: "Amina's Modest Fashion",
+    category: "Retail",
+    address: "606 Style Street, Miami, FL",
+    rating: 4.7,
+    phone: "(555) 901-2345",
+    image: "https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80",
+    isOpen: true,
+    featured: true,
+    services: ["Modest Fashion", "Hijabs", "Accessories"]
+  },
+  {
+    id: "10",
+    name: "Halal Butcher Shop",
+    category: "Grocery",
+    address: "707 Meat Avenue, Phoenix, AZ",
+    rating: 4.4,
+    phone: "(555) 012-3456",
+    image: "https://images.unsplash.com/photo-1560781290-7dc94c0f8f4f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+    isOpen: true,
+    services: ["Halal Meat", "Custom Cuts", "Local Produce"]
   }
 ];
 
@@ -113,11 +153,18 @@ const BusinessesPage = () => {
   const [searchParams] = useSearchParams();
   const [businesses, setBusinesses] = useState<BusinessProps[]>(mockBusinesses);
   const [filteredBusinesses, setFilteredBusinesses] = useState<BusinessProps[]>(mockBusinesses);
+  const [featuredBusinesses, setFeaturedBusinesses] = useState<BusinessProps[]>([]);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("featured");
   const [isFilterSidebarVisible, setIsFilterSidebarVisible] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
   useEffect(() => {
+    // Extract featured businesses
+    const featured = businesses.filter(business => business.featured);
+    setFeaturedBusinesses(featured.slice(0, 9)); // Get first 9 featured businesses
+    
     const keyword = searchParams.get("keyword");
     const location = searchParams.get("location");
     const category = searchParams.get("category");
@@ -212,6 +259,14 @@ const BusinessesPage = () => {
     setIsFilterSidebarVisible(!isFilterSidebarVisible);
   };
 
+  const paginatedBusinesses = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredBusinesses.slice(startIndex, endIndex);
+  };
+
+  const totalPages = Math.ceil(filteredBusinesses.length / itemsPerPage);
+
   return (
     <Layout>
       <div className="bg-gray-50 py-6">
@@ -238,6 +293,36 @@ const BusinessesPage = () => {
           </div>
         </div>
       </div>
+
+      {featuredBusinesses.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-muslim-dark">Featured Businesses</h2>
+              <p className="text-gray-600">Our top sponsors and partners</p>
+            </div>
+            <div className="text-sm text-muslim-teal">
+              <a href="/packages" className="flex items-center hover:underline">
+                Become featured <span className="ml-1">→</span>
+              </a>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredBusinesses.map((business) => (
+              <BusinessCard key={business.id} {...business} />
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <Button
+              variant="outline"
+              className="border-muslim-teal text-muslim-teal hover:bg-muslim-teal/10"
+              onClick={() => window.location.href = '/packages'}
+            >
+              View Premium Business Packages
+            </Button>
+          </div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-6">
@@ -320,14 +405,14 @@ const BusinessesPage = () => {
                 <p className="text-gray-500">Try adjusting your search or filter criteria</p>
               </div>
             ) : viewMode === "grid" ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredBusinesses.map((business) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedBusinesses().map((business) => (
                   <BusinessCard key={business.id} {...business} />
                 ))}
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredBusinesses.map((business) => (
+                {paginatedBusinesses().map((business) => (
                   <div key={business.id} className="flex flex-col sm:flex-row bg-white rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow">
                     <div className="sm:w-48 h-48 sm:h-auto overflow-hidden">
                       <img
@@ -384,6 +469,83 @@ const BusinessesPage = () => {
                 ))}
               </div>
             )}
+            
+            {/* Pagination */}
+            {filteredBusinesses.length > itemsPerPage && (
+              <div className="mt-8">
+                <Pagination>
+                  <PaginationContent>
+                    {currentPage > 1 && (
+                      <PaginationItem>
+                        <PaginationPrevious onClick={() => setCurrentPage(currentPage - 1)} />
+                      </PaginationItem>
+                    )}
+                    
+                    {Array.from({ length: Math.min(totalPages, 5) }).map((_, i) => {
+                      let pageNum = i + 1;
+                      
+                      // Logic for showing pagination around current page
+                      if (totalPages > 5) {
+                        if (currentPage > 3) {
+                          pageNum = currentPage - 3 + i;
+                        }
+                        
+                        if (currentPage > totalPages - 2) {
+                          pageNum = totalPages - 4 + i;
+                        }
+                      }
+                      
+                      return pageNum <= totalPages ? (
+                        <PaginationItem key={pageNum}>
+                          <PaginationLink 
+                            isActive={currentPage === pageNum}
+                            onClick={() => setCurrentPage(pageNum)}
+                          >
+                            {pageNum}
+                          </PaginationLink>
+                        </PaginationItem>
+                      ) : null;
+                    })}
+                    
+                    {currentPage < totalPages && (
+                      <PaginationItem>
+                        <PaginationNext onClick={() => setCurrentPage(currentPage + 1)} />
+                      </PaginationItem>
+                    )}
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            )}
+            
+            <div className="mt-10 bg-gradient-to-r from-muslim-teal/10 to-muslim-blue/10 p-6 rounded-lg">
+              <h3 className="text-xl font-bold text-muslim-dark mb-3">Premium Business Packages</h3>
+              <p className="text-gray-700 mb-4">
+                Upgrade your business listing with our premium packages and reach more customers!
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                <div className="bg-white p-4 rounded-md shadow-sm">
+                  <h4 className="font-semibold mb-2">Basic</h4>
+                  <p className="text-sm text-gray-600">Enhanced visibility and basic analytics</p>
+                  <p className="mt-2 font-medium">$9.99/month</p>
+                </div>
+                <div className="bg-white p-4 rounded-md shadow-sm border-2 border-muslim-gold">
+                  <h4 className="font-semibold mb-2">Premium</h4>
+                  <p className="text-sm text-gray-600">Featured listings, advanced analytics</p>
+                  <p className="mt-2 font-medium">$19.99/month</p>
+                </div>
+                <div className="bg-white p-4 rounded-md shadow-sm">
+                  <h4 className="font-semibold mb-2">Enterprise</h4>
+                  <p className="text-sm text-gray-600">Global sponsorship, full analytics suite</p>
+                  <p className="mt-2 font-medium">$49.99/month</p>
+                </div>
+              </div>
+              <Button
+                className="bg-muslim-teal hover:bg-muslim-teal/90"
+                onClick={() => window.location.href = '/packages'}
+              >
+                View All Packages
+              </Button>
+            </div>
           </div>
         </div>
       </div>
