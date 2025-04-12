@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import Layout from "@/components/Layout";
@@ -38,12 +38,6 @@ const AuthPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const location = useLocation();
   
-  // If the user is already logged in, redirect to home
-  if (user && !loading) {
-    const from = (location.state as any)?.from?.pathname || "/";
-    return <Navigate to={from} replace />;
-  }
-
   // Login form setup
   const loginForm = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -87,6 +81,12 @@ const AuthPage = () => {
       setIsSubmitting(false);
     }
   };
+
+  // If the user is already logged in, redirect to home
+  if (user && !loading) {
+    const from = (location.state as any)?.from?.pathname || "/";
+    return <Navigate to={from} replace />;
+  }
 
   return (
     <Layout>
