@@ -5,6 +5,7 @@ import PackageHeader from "@/components/packages/PackageHeader";
 import PackageGrid from "@/components/packages/PackageGrid";
 import PackageFeatureGrid from "@/components/packages/PackageFeatureGrid";
 import ReviewsComparisonSection from "@/components/packages/ReviewsComparisonSection";
+import CustomPackageForm from "@/components/packages/CustomPackageForm";
 import { BarChart3, Globe, Sparkles } from "lucide-react";
 
 const PackagesPage = () => {
@@ -84,6 +85,15 @@ const PackagesPage = () => {
         />
         
         <Separator className="my-16" />
+        
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-muslim-dark mb-6 text-center">Need a Custom Solution?</h2>
+          <p className="text-gray-600 mb-10 text-center max-w-3xl mx-auto">
+            If our standard packages don't meet your specific requirements, we'd be happy to create a 
+            tailored solution for your business. Tell us what you need below.
+          </p>
+          <CustomPackageForm />
+        </div>
         
         <ReviewsComparisonSection />
       </div>
