@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Clock, Users, CalendarCheck, AlertCircle } from "lucide-react";
+import { Calendar, Clock, Users, CalendarCheck, AlertCircle, Globe } from "lucide-react";
 import { toast } from "sonner";
+import { useLocalCurrency } from "@/utils/currencyUtils";
 
 interface EventBookingCardProps {
   eventId: string;
@@ -29,6 +30,7 @@ const EventBookingCard = ({
   const [isBooking, setIsBooking] = useState(false);
   const [numTickets, setNumTickets] = useState(1);
   const [isBooked, setIsBooked] = useState(false);
+  const { localCurrencyInfo, convertAndFormat, pricingFactor } = useLocalCurrency();
   
   const handleBook = () => {
     setIsBooking(true);
@@ -49,6 +51,8 @@ const EventBookingCard = ({
   };
   
   const isPaidEvent = price !== undefined && price > 0;
+  const hasRegionalPricing = pricingFactor !== 1 && isPaidEvent;
+  const originalPrice = price && pricingFactor !== 1 ? price / pricingFactor : price;
   
   return (
     <Card className="overflow-hidden">
@@ -88,8 +92,29 @@ const EventBookingCard = ({
         </div>
         
         {isPaidEvent && (
-          <div className="mt-4 text-lg font-semibold">
-            ${price.toFixed(2)} per ticket
+          <div className="mt-4">
+            {hasRegionalPricing && originalPrice && (
+              <div className="flex items-center mb-1 gap-1 text-sm">
+                <Globe className="h-3 w-3 text-muslim-blue" />
+                <span className="text-gray-500 line-through">${originalPrice.toFixed(2)}</span>
+                <span className="text-muslim-teal font-medium text-xs">
+                  ({pricingFactor < 1 ? `${Math.round((1 - pricingFactor) * 100)}% off` : `Regional pricing`})
+                </span>
+              </div>
+            )}
+            
+            <div className="text-lg font-semibold flex items-center">
+              {localCurrencyInfo.code === 'USD' ? (
+                <>${price?.toFixed(2)} per ticket</>
+              ) : (
+                <>
+                  {convertAndFormat(price || 0)} per ticket
+                  <span className="text-xs text-gray-500 ml-1">
+                    (${price?.toFixed(2)})
+                  </span>
+                </>
+              )}
+            </div>
           </div>
         )}
         
@@ -114,7 +139,10 @@ const EventBookingCard = ({
             
             {isPaidEvent && (
               <div className="text-sm text-gray-600 mb-2">
-                Total: ${(price * numTickets).toFixed(2)}
+                Total: {localCurrencyInfo.code === 'USD' 
+                  ? `$${(price! * numTickets).toFixed(2)}` 
+                  : convertAndFormat(price! * numTickets)
+                }
               </div>
             )}
           </div>
