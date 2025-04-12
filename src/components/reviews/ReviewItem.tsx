@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import VerificationBadge from "@/components/business/VerificationBadge";
 
 export interface ReviewItemProps {
   id: string;
@@ -85,9 +86,7 @@ const ReviewItem = ({
                 {formatDistanceToNow(date, { addSuffix: true })}
               </span>
               {verified && (
-                <span className="text-xs bg-muslim-teal/10 text-muslim-teal px-2 py-0.5 rounded-full">
-                  Verified
-                </span>
+                <VerificationBadge size="sm" />
               )}
             </div>
           </div>

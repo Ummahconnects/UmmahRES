@@ -7,7 +7,7 @@ import PackageFeatureGrid from "@/components/packages/PackageFeatureGrid";
 import ReviewsComparisonSection from "@/components/packages/ReviewsComparisonSection";
 import CustomPackageForm from "@/components/packages/CustomPackageForm";
 import FlashingBanner from "@/components/FlashingBanner";
-import { BarChart3, Church, Globe, HeartHandshake, Sparkles } from "lucide-react";
+import { BarChart3, BadgeCheck, Church, Globe, HeartHandshake, Sparkles } from "lucide-react";
 
 const PackagesPage = () => {
   const locationFeatures = {
@@ -51,7 +51,7 @@ const PackagesPage = () => {
         icon: <BarChart3 className="h-5 w-5 text-muslim-teal" />
       },
       {
-        title: "Platinum & Supreme Analytics",
+        title: "Platinum & Ultimate Analytics",
         features: [
           "Full analytics dashboard",
           "Comprehensive visitor data",
@@ -61,6 +61,35 @@ const PackagesPage = () => {
         ],
         highlight: true,
         icon: <BarChart3 className="h-5 w-5 text-muslim-gold" />
+      }
+    ]
+  };
+
+  const verificationFeatures = {
+    title: "Building Trust Through Verification",
+    description: "Every provider in our network is verified for integrity by the people they provided services for. This builds trust and confidence in our marketplace.",
+    gridItems: [
+      {
+        title: "Verification Process",
+        features: [
+          "Minimum of 3 customer verifications required",
+          "Customers confirm service quality",
+          "Transparent review system",
+          "Public verification badge display"
+        ],
+        icon: <BadgeCheck className="h-5 w-5 text-muslim-teal" />
+      },
+      {
+        title: "Verified Business Benefits",
+        features: [
+          "Increased trust and credibility",
+          "Higher click-through rates",
+          "Badge displayed prominently",
+          "Priority in search results",
+          "Featured in verified business section"
+        ],
+        highlight: true,
+        icon: <BadgeCheck className="h-5 w-5 text-muslim-gold fill-amber-100" />
       }
     ]
   };
@@ -80,6 +109,12 @@ const PackagesPage = () => {
         <PackageGrid />
         
         <Separator className="my-16" />
+        
+        <PackageFeatureGrid 
+          title={verificationFeatures.title}
+          description={verificationFeatures.description}
+          gridItems={verificationFeatures.gridItems}
+        />
         
         <PackageFeatureGrid 
           title={analyticsFeatures.title}

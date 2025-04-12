@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MapPin, Phone, Clock, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import VerificationBadge from "./business/VerificationBadge";
 
 export interface BusinessProps {
   id: string;
@@ -15,6 +16,8 @@ export interface BusinessProps {
   isOpen?: boolean;
   featured?: boolean;
   services?: string[];
+  verified?: boolean;
+  verifiedCount?: number;
 }
 
 const BusinessCard = ({
@@ -27,7 +30,9 @@ const BusinessCard = ({
   phone,
   isOpen = true,
   featured = false,
-  services = []
+  services = [],
+  verified = false,
+  verifiedCount = 3
 }: BusinessProps) => {
   return (
     <Link to={`/business/${id}`} className={cn(
@@ -56,12 +61,17 @@ const BusinessCard = ({
         <div className="flex items-start justify-between">
           <div>
             <h3 className="font-semibold text-lg line-clamp-1">{name}</h3>
-            <Badge
-              variant="outline"
-              className="mt-1 text-xs"
-            >
-              {category}
-            </Badge>
+            <div className="flex flex-wrap gap-1 mt-1">
+              <Badge
+                variant="outline"
+                className="text-xs"
+              >
+                {category}
+              </Badge>
+              {verified && (
+                <VerificationBadge size="sm" verifiedCount={verifiedCount} />
+              )}
+            </div>
           </div>
           <div className={cn(
             "text-xs font-medium px-2 py-1 rounded",

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MapPin, Clock, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import VerificationBadge from "./business/VerificationBadge";
 
 export interface MosqueProps {
   id: string;
@@ -21,7 +22,9 @@ export interface MosqueProps {
   isOpen?: boolean;
   featured?: boolean;
   facilities?: string[];
-  communityImages?: string[]; // Add community images property
+  communityImages?: string[];
+  verified?: boolean;
+  verifiedCount?: number;
 }
 
 const MosqueCard = ({
@@ -34,7 +37,9 @@ const MosqueCard = ({
   jumuahTime,
   isOpen = true,
   featured = false,
-  facilities = []
+  facilities = [],
+  verified = false,
+  verifiedCount = 3
 }: MosqueProps) => {
   return (
     <Link to={`/mosque/${id}`} className={cn(
@@ -57,12 +62,17 @@ const MosqueCard = ({
         <div className="flex items-start justify-between">
           <div>
             <h3 className="font-semibold text-lg line-clamp-1">{name}</h3>
-            <Badge
-              variant="outline"
-              className="mt-1 text-xs"
-            >
-              {type}
-            </Badge>
+            <div className="flex flex-wrap gap-1 mt-1">
+              <Badge
+                variant="outline"
+                className="text-xs"
+              >
+                {type}
+              </Badge>
+              {verified && (
+                <VerificationBadge size="sm" verifiedCount={verifiedCount} />
+              )}
+            </div>
           </div>
           <div className={cn(
             "text-xs font-medium px-2 py-1 rounded",
