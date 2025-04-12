@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
 import Layout from "@/components/Layout";
 import { BusinessProps } from "@/components/BusinessCard";
-import FilterSidebar from "@/components/FilterSidebar";
+import FilterSidebar from "@/components/filters/FilterSidebar";
 import { 
   Pagination,
   PaginationContent,
