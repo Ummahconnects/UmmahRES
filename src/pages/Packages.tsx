@@ -26,7 +26,7 @@ const PackagesPage = () => {
         title: "Supreme Sponsor Benefits",
         features: [
           "Half-page premium placement",
-          "Only 2 major sponsors featured monthly",
+          "Only 2 major sponsors featured monthly per country",
           "Global visibility across all city pages"
         ],
         highlight: true,

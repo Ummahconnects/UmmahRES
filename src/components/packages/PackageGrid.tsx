@@ -50,7 +50,7 @@ const PackageGrid = () => {
   const supremeFeatures = [
     { text: "Everything in Platinum" },
     { text: "Half-page featured sponsor spot" },
-    { text: "Limited to only 2 businesses per month", highlight: true },
+    { text: "Limited to only 2 businesses per month per country", highlight: true },
     { text: "Premium homepage placement" },
     { text: "Featured in newsletter" },
     { text: "Social media promotion" },
@@ -102,7 +102,7 @@ const PackageGrid = () => {
         banner="Major Sponsor"
         primaryButtonText="Become a Major Sponsor"
         secondaryButtonText="Reserve Spot for Next Month"
-        additionalInfo="Only 2 spots available per month"
+        additionalInfo="Only 2 spots available per month per country"
         isHighlighted={true}
         sparklePosition={sparklePosition}
         icon={<Sparkles className="h-5 w-5 text-amber-500" />}
