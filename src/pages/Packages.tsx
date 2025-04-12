@@ -6,7 +6,8 @@ import PackageGrid from "@/components/packages/PackageGrid";
 import PackageFeatureGrid from "@/components/packages/PackageFeatureGrid";
 import ReviewsComparisonSection from "@/components/packages/ReviewsComparisonSection";
 import CustomPackageForm from "@/components/packages/CustomPackageForm";
-import { BarChart3, Globe, Sparkles } from "lucide-react";
+import FlashingBanner from "@/components/FlashingBanner";
+import { BarChart3, Church, Globe, HeartHandshake, Sparkles } from "lucide-react";
 
 const PackagesPage = () => {
   const locationFeatures = {
@@ -67,6 +68,14 @@ const PackagesPage = () => {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-6">
+          <FlashingBanner 
+            icon={<HeartHandshake className="h-4 w-4" />}
+            message="We support our community! Listing charities and mosques is completely FREE. Events listings just request a small donation of $5 to support community initiatives."
+            colorScheme="primary"
+          />
+        </div>
+        
         <PackageHeader />
         <PackageGrid />
         

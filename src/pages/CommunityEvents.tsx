@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import Layout from "@/components/Layout";
+import EventsBanner from "@/components/EventsBanner";
 import { Calendar, MapPin, Users, Clock, DollarSign, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,7 +38,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
-// Mock data for events
 const mockEvents = [
   {
     id: 1,
@@ -156,7 +155,6 @@ const categories = [
   { value: "Religious", label: "Religious" }
 ];
 
-// Form schema for event submission
 const eventFormSchema = z.object({
   title: z.string().min(5, { message: "Title must be at least 5 characters" }),
   description: z.string().min(20, { message: "Description must be at least 20 characters" }),
@@ -203,7 +201,6 @@ const CommunityEventsPage = () => {
     },
   });
 
-  // Filter events based on selected state, category, and search query
   const filteredEvents = mockEvents.filter(event => {
     const matchesState = selectedState === "all" || event.state === selectedState;
     const matchesCategory = selectedCategory === "all" || event.category === selectedCategory;
@@ -217,13 +214,11 @@ const CommunityEventsPage = () => {
   function onSubmit(values: z.infer<typeof eventFormSchema>) {
     console.log(values);
     
-    // Show success toast
     toast({
       title: "Event Submitted!",
       description: "Your event has been submitted for review. We'll notify you once it's approved.",
     });
     
-    // Close dialog and reset form
     setIsDialogOpen(false);
     form.reset();
   }
@@ -231,17 +226,20 @@ const CommunityEventsPage = () => {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-6">
+          <EventsBanner />
+        </div>
+        
         <div className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold text-muslim-blue mb-4">
             Local Community Events
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Discover and promote events in your local community. A small donation is requested 
-            for event listings to support our community engagement initiatives.
+            Discover and promote events in your local community. A small donation of $5
+            is requested for event listings to support our community engagement initiatives.
           </p>
         </div>
 
-        {/* Search and Filter Section */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
@@ -583,7 +581,6 @@ const CommunityEventsPage = () => {
           </div>
         </div>
 
-        {/* Events Listing */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredEvents.length > 0 ? (
             filteredEvents.map((event) => (
@@ -649,7 +646,6 @@ const CommunityEventsPage = () => {
           )}
         </div>
 
-        {/* Pagination */}
         {filteredEvents.length > 0 && (
           <Pagination className="mt-12">
             <PaginationContent>
@@ -675,14 +671,14 @@ const CommunityEventsPage = () => {
           </Pagination>
         )}
 
-        {/* Information Box */}
         <div className="bg-muslim-teal/10 border border-muslim-teal/20 rounded-lg p-6 mt-12">
           <h3 className="text-xl font-bold text-muslim-teal mb-4">About Community Event Listings</h3>
           <p className="text-gray-700 mb-4">
             Our community events page is a dedicated space for local organizations, businesses, and individuals 
-            to share upcoming events with the community. We ask for a small donation ($5-$10) for each listing 
+            to share upcoming events with the community. We ask for a small donation of $5 for each listing 
             to maintain this service and support our community engagement initiatives.
           </p>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
             <div className="bg-white rounded-lg p-4 border border-gray-200">
               <div className="text-center text-muslim-teal text-2xl mb-2">📅</div>
