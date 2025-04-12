@@ -10,10 +10,20 @@ const HeroSection = () => {
   const [activeTab, setActiveTab] = useState("businesses");
 
   return (
-    <section className="pattern-bg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+    <section className="pattern-bg relative">
+      {/* Mosque image background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-15 z-0" 
+        style={{
+          backgroundImage: `url("/lovable-uploads/c1c38c3c-c49d-4b52-9e08-dadc5d7c4e2c.png")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 relative z-10">
         <div className="md:w-3/4 mx-auto text-center">
-          <div className="mb-8">
+          <div className="mb-8 bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
             <h2 className="text-3xl md:text-4xl font-arabic font-bold text-muslim-teal mb-4 tracking-wide">
               بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
             </h2>
@@ -42,7 +52,7 @@ const HeroSection = () => {
             defaultValue="businesses" 
             value={activeTab} 
             onValueChange={setActiveTab}
-            className="w-full bg-white p-1 rounded-lg shadow-sm"
+            className="w-full bg-white/90 backdrop-blur-sm p-1 rounded-lg shadow-sm mt-6"
           >
             <TabsList className="w-full mb-4 grid grid-cols-2">
               <TabsTrigger value="businesses">

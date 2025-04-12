@@ -58,7 +58,7 @@ const EventBookingGrid = () => {
   return (
     <div>
       {userCountry !== 'US' && pricingFactor !== 1 && (
-        <div className="mb-6 p-3 bg-muslim-teal/10 rounded-md text-center">
+        <div className="mb-6 p-3 bg-muslim-teal/10 rounded-md text-center backdrop-blur-sm">
           <p className="text-muslim-dark">
             {pricingFactor < 1 
               ? `Special pricing for your region! Enjoy ${Math.round((1 - pricingFactor) * 100)}% off standard prices.` 

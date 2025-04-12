@@ -7,23 +7,18 @@ import MosquesSection from "@/components/home/MosquesSection";
 import CTASection from "@/components/home/CTASection";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import MajorSponsorCampaign from "@/components/home/MajorSponsorCampaign";
+import FeaturedEventsSection from "@/components/events/FeaturedEventsSection";
 
 const HomePage = () => {
   return (
     <Layout>
-      <div 
-        className="fixed inset-0 bg-cover bg-center opacity-30 z-[-1]" 
-        style={{
-          backgroundImage: `url("/lovable-uploads/798a3755-657f-45d1-a681-0d4bf3476213.png")`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+      {/* Remove the fixed background pattern since we now have mosque images in components */}
       <HeroSection />
       <CategoriesSection />
       <MajorSponsorCampaign />
       <FeaturedBusinessesSection />
       <MosquesSection />
+      <FeaturedEventsSection />
       <CTASection />
       <FeaturesSection />
     </Layout>
