@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Calendar, HelpCircle } from "lucide-react";
+import { Calendar, Heart, HelpCircle } from "lucide-react";
 
 interface NavLinksProps {
   isMobile?: boolean;
@@ -12,6 +12,7 @@ const navItems = [
   { path: "/businesses", label: "Businesses", icon: null },
   { path: "/mosques", label: "Mosques", icon: null },
   { path: "/community-events", label: "Events", icon: Calendar },
+  { path: "/charities", label: "Charities", icon: Heart },
   { path: "/about", label: "About", icon: null },
   { path: "/packages", label: "Packages", icon: null },
   { path: "/sales", label: "Sponsorships", icon: null },

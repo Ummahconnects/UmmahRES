@@ -19,6 +19,7 @@ import MembershipPage from "./pages/Membership";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/Auth";
 import BusinessProfile from "./pages/BusinessProfile";
+import CharitiesPage from "./pages/Charities";
 import React from 'react'; // Explicitly import React
 
 // Create a new QueryClient instance outside the component
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/business-profile" element={<BusinessProfile />} />
             <Route path="/business-profile/:id" element={<BusinessProfile />} />
+            <Route path="/charities" element={<CharitiesPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
