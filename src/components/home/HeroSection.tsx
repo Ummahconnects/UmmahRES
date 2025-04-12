@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Building, Store, HeartHandshake } from "lucide-react";
@@ -24,6 +23,9 @@ const HeroSection = () => {
             <h1 className="text-4xl md:text-5xl font-montserrat font-bold text-muslim-dark mb-4">
               <span className="tracking-wide">UMMAH-CONNECTS</span>
             </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-2 font-arabic">
+              مكان تتصل فيه جميع الخدمات - للمسلمين من قبل المسلمين
+            </p>
             <p className="text-lg md:text-xl text-gray-600 mb-2">
               A place where all services connects — for Muslims by Muslims.
             </p>
