@@ -7,6 +7,7 @@ import MosquesSection from "@/components/home/MosquesSection";
 import CTASection from "@/components/home/CTASection";
 import FeaturesSection from "@/components/home/FeaturesSection";
 import FlashingBanner from "@/components/FlashingBanner";
+import MajorSponsorCampaign from "@/components/home/MajorSponsorCampaign";
 import { HeartHandshake } from "lucide-react";
 
 const HomePage = () => {
@@ -29,6 +30,7 @@ const HomePage = () => {
       </div>
       <HeroSection />
       <CategoriesSection />
+      <MajorSponsorCampaign />
       <FeaturedBusinessesSection />
       <MosquesSection />
       <CTASection />
