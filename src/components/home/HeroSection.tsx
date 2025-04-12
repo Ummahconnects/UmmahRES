@@ -13,7 +13,7 @@ const HeroSection = () => {
     <section className="pattern-bg relative">
       {/* Mosque image background */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-15 z-0" 
+        className="absolute inset-0 bg-cover bg-center opacity-20 z-0 brightness-75 contrast-125 saturate-150" 
         style={{
           backgroundImage: `url("/lovable-uploads/c1c38c3c-c49d-4b52-9e08-dadc5d7c4e2c.png")`,
           backgroundSize: "cover",
@@ -86,3 +86,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
