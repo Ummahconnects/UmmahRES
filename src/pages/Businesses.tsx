@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,7 @@ import {
   PaginationPrevious
 } from "@/components/ui/pagination";
 
-// Import our new components
+// Import our components
 import BusinessPageHeader from "@/components/business/BusinessPageHeader";
 import FeaturedBusinesses from "@/components/business/FeaturedBusinesses";
 import BusinessListControls from "@/components/business/BusinessListControls";
@@ -44,7 +43,6 @@ const BusinessesPage = () => {
     setFeaturedBusinesses(featured.slice(0, 9)); // Get first 9 featured businesses
     
     const keyword = searchParams.get("keyword");
-    const location = searchParams.get("location");
     const category = searchParams.get("category");
     
     let filtered = [...businesses];
@@ -56,12 +54,6 @@ const BusinessesPage = () => {
         business.services?.some(service => 
           service.toLowerCase().includes(keyword.toLowerCase())
         )
-      );
-    }
-    
-    if (location) {
-      filtered = filtered.filter(business => 
-        business.address.toLowerCase().includes(location.toLowerCase())
       );
     }
     

@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, MapPin, Filter } from "lucide-react";
+import { Search, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -20,7 +20,6 @@ interface SearchBarProps {
 const SearchBar = ({ type = "business", className }: SearchBarProps) => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
-  const [location, setLocation] = useState("");
   const [category, setCategory] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
@@ -28,7 +27,6 @@ const SearchBar = ({ type = "business", className }: SearchBarProps) => {
     
     const searchParams = new URLSearchParams();
     if (keyword) searchParams.append("keyword", keyword);
-    if (location) searchParams.append("location", location);
     if (category) searchParams.append("category", category);
     
     navigate(`/${type === "business" ? "businesses" : "mosques"}?${searchParams.toString()}`);
@@ -65,16 +63,6 @@ const SearchBar = ({ type = "business", className }: SearchBarProps) => {
             placeholder={`Search ${type === "business" ? "businesses" : "mosques"}...`}
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            className="pl-9"
-          />
-        </div>
-
-        <div className="relative md:w-48">
-          <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-          <Input
-            placeholder="Location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
             className="pl-9"
           />
         </div>
