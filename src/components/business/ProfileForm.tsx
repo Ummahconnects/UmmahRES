@@ -1,7 +1,8 @@
+
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +28,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BusinessProfile } from "@/integrations/supabase/dbTypes";
+import { BusinessTemplate } from "./BusinessTemplates";
 
 // Form validation schema
 const profileSchema = z.object({
@@ -48,9 +50,19 @@ interface ProfileFormProps {
   isEditing: boolean;
   id?: string;
   onProfileSaved: (profileId: string) => void;
+  templateData?: BusinessTemplate | null;
+  initialBusinessName?: string;
 }
 
-const ProfileForm = ({ user, profileData, isEditing, id, onProfileSaved }: ProfileFormProps) => {
+const ProfileForm = ({ 
+  user, 
+  profileData, 
+  isEditing, 
+  id, 
+  onProfileSaved,
+  templateData,
+  initialBusinessName
+}: ProfileFormProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
@@ -58,15 +70,29 @@ const ProfileForm = ({ user, profileData, isEditing, id, onProfileSaved }: Profi
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      business_name: profileData?.business_name || "",
+      business_name: profileData?.business_name || initialBusinessName || "",
       business_description: profileData?.business_description || "",
-      category: profileData?.category || "",
+      category: profileData?.category || templateData?.id || "",
       address: profileData?.address || "",
       phone: profileData?.phone || "",
       email: profileData?.email || "",
       website: profileData?.website || "",
     },
   });
+
+  // Update form values when initialBusinessName changes
+  useEffect(() => {
+    if (initialBusinessName && !profileData?.business_name) {
+      form.setValue('business_name', initialBusinessName);
+    }
+  }, [initialBusinessName, form, profileData?.business_name]);
+
+  // Update form values when templateData changes
+  useEffect(() => {
+    if (templateData?.id && !profileData?.category) {
+      form.setValue('category', templateData.id);
+    }
+  }, [templateData, form, profileData?.category]);
 
   const onSubmit = async (values: ProfileFormValues) => {
     if (!user) return;
@@ -164,11 +190,12 @@ const ProfileForm = ({ user, profileData, isEditing, id, onProfileSaved }: Profi
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="retail">Retail</SelectItem>
-                      <SelectItem value="food">Food & Restaurant</SelectItem>
+                      <SelectItem value="restaurant">Food & Restaurant</SelectItem>
                       <SelectItem value="professional">Professional Services</SelectItem>
                       <SelectItem value="healthcare">Healthcare</SelectItem>
-                      <SelectItem value="educational">Educational</SelectItem>
-                      <SelectItem value="tech">Technology</SelectItem>
+                      <SelectItem value="education">Educational</SelectItem>
+                      <SelectItem value="technology">Technology</SelectItem>
+                      <SelectItem value="manufacturing">Manufacturing</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
