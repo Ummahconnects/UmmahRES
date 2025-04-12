@@ -65,6 +65,8 @@ const PackageGrid = () => {
         title="Basic Listing"
         description="Perfect for small businesses"
         price="$9.99"
+        annualPrice="$99.90"
+        annualSavings="Save $19.98"
         features={basicFeatures}
         color="gray-500"
         primaryButtonText="Get Started"
@@ -76,6 +78,8 @@ const PackageGrid = () => {
         title="Premium"
         description="Ideal for growing businesses"
         price="$24.99"
+        annualPrice="$249.90"
+        annualSavings="Save $49.98"
         features={premiumFeatures}
         color="muslim-teal"
         primaryButtonText="Start Premium"
@@ -88,6 +92,8 @@ const PackageGrid = () => {
         title="Platinum"
         description="For established businesses"
         price="$49.99"
+        annualPrice="$499.90"
+        annualSavings="Save $99.98"
         features={platinumFeatures}
         color="muslim-blue"
         primaryButtonText="Go Platinum"
@@ -100,6 +106,8 @@ const PackageGrid = () => {
         title="Supreme"
         description="Exclusive sponsorship opportunity"
         price="$299.99"
+        annualPrice="$2,999.90"
+        annualSavings="Save $599.98"
         features={supremeFeatures}
         color="muslim-gold"
         banner="Major Sponsor"

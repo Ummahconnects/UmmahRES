@@ -37,13 +37,19 @@ export function useMembership(businessId: string) {
     }
   };
 
-  const updateMembership = async (planType: 'basic' | 'premium' | 'enterprise') => {
+  const updateMembership = async (planType: 'basic' | 'premium' | 'enterprise', billingCycle: 'monthly' | 'annual' = 'monthly') => {
     try {
       setProcessingSubscription(true);
       
       // For a real app, you would integrate with a payment provider like Stripe
       const endDate = new Date();
-      endDate.setMonth(endDate.getMonth() + 1); // 1 month membership
+      
+      // Set the end date based on billing cycle
+      if (billingCycle === 'monthly') {
+        endDate.setMonth(endDate.getMonth() + 1); // 1 month membership
+      } else {
+        endDate.setFullYear(endDate.getFullYear() + 1); // 12 month membership
+      }
       
       if (membership) {
         // Update existing membership
@@ -51,6 +57,7 @@ export function useMembership(businessId: string) {
           .from('memberships')
           .update({
             plan_type: planType,
+            billing_cycle: billingCycle,
             status: 'active',
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
@@ -65,6 +72,7 @@ export function useMembership(businessId: string) {
           .insert({
             business_id: businessId,
             plan_type: planType,
+            billing_cycle: billingCycle,
             status: 'active',
             start_date: new Date().toISOString(),
             end_date: endDate.toISOString(),
@@ -78,7 +86,7 @@ export function useMembership(businessId: string) {
       
       toast({
         title: "Membership activated",
-        description: `Your ${planType.charAt(0).toUpperCase() + planType.slice(1)} membership has been activated successfully.`,
+        description: `Your ${planType.charAt(0).toUpperCase() + planType.slice(1)} ${billingCycle} membership has been activated successfully.`,
       });
     } catch (error: any) {
       console.error('Error subscribing:', error);

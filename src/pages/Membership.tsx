@@ -9,9 +9,13 @@ import MembershipBenefits from "@/components/membership/MembershipBenefits";
 import TestimonialsSection from "@/components/membership/TestimonialsSection";
 import BetaOfferBanner from "@/components/membership/BetaOfferBanner";
 import { useState, useEffect } from "react";
+import { planDetails } from "@/types/membershipTypes";
+import { extractNumericPrice, useLocalCurrency } from "@/utils/currencyUtils";
 
 const MembershipPage = () => {
   const [userCity, setUserCity] = useState<string>("your city");
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+  const { convertAndFormat, localCurrencyInfo } = useLocalCurrency();
   
   // Simulate getting user's city - in a real app this would come from geolocation or user profile
   useEffect(() => {
@@ -50,6 +54,19 @@ const MembershipPage = () => {
           </TabsList>
           
           <TabsContent value="plans">
+            <div className="mb-6">
+              <Tabs 
+                defaultValue="monthly" 
+                className="w-full max-w-md mx-auto"
+                onValueChange={(value) => setBillingCycle(value as "monthly" | "annual")}
+              >
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="monthly">Monthly Billing</TabsTrigger>
+                  <TabsTrigger value="annual">Annual Billing (Save)</TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Basic Membership */}
               <Card className="border-t-4 border-t-gray-400">
@@ -57,30 +74,37 @@ const MembershipPage = () => {
                   <CardTitle>Basic Membership</CardTitle>
                   <CardDescription>For new businesses</CardDescription>
                   <div className="text-3xl font-bold mt-2">
-                    $19.99<span className="text-sm font-normal text-gray-500">/month</span>
+                    {billingCycle === "monthly" ? (
+                      <>{planDetails.basic.price}</>
+                    ) : (
+                      <>{planDetails.basic.annualPrice}</>
+                    )}
                   </div>
-                  <div className="text-sm text-gray-500 italic mt-1">
-                    (or equivalent in your local currency)
-                  </div>
+                  
+                  {billingCycle === "annual" && (
+                    <div className="text-sm text-green-600 font-medium mt-1">
+                      {planDetails.basic.annualSavings}
+                    </div>
+                  )}
+                  
+                  {localCurrencyInfo.code !== 'USD' && (
+                    <div className="text-sm text-gray-500 italic mt-1">
+                      {billingCycle === "monthly" ? (
+                        <>{convertAndFormat(extractNumericPrice(planDetails.basic.price))}/month</>
+                      ) : (
+                        <>{convertAndFormat(extractNumericPrice(planDetails.basic.annualPrice))}/year</>
+                      )}
+                    </div>
+                  )}
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Basic business profile</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Community access</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Verified member badge</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Basic networking tools</span>
-                    </li>
+                    {planDetails.basic.features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
                   </ul>
                 </CardContent>
                 <CardFooter>
@@ -96,34 +120,37 @@ const MembershipPage = () => {
                   <CardTitle>Premium Membership</CardTitle>
                   <CardDescription>For growing businesses</CardDescription>
                   <div className="text-3xl font-bold mt-2">
-                    $49.99<span className="text-sm font-normal text-gray-500">/month</span>
+                    {billingCycle === "monthly" ? (
+                      <>{planDetails.premium.price}</>
+                    ) : (
+                      <>{planDetails.premium.annualPrice}</>
+                    )}
                   </div>
-                  <div className="text-sm text-gray-500 italic mt-1">
-                    (or equivalent in your local currency)
-                  </div>
+                  
+                  {billingCycle === "annual" && (
+                    <div className="text-sm text-green-600 font-medium mt-1">
+                      {planDetails.premium.annualSavings}
+                    </div>
+                  )}
+                  
+                  {localCurrencyInfo.code !== 'USD' && (
+                    <div className="text-sm text-gray-500 italic mt-1">
+                      {billingCycle === "monthly" ? (
+                        <>{convertAndFormat(extractNumericPrice(planDetails.premium.price))}/month</>
+                      ) : (
+                        <>{convertAndFormat(extractNumericPrice(planDetails.premium.annualPrice))}/year</>
+                      )}
+                    </div>
+                  )}
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Everything in Basic</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Priority listing placement</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Advanced networking tools</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Monthly business insight reports</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Featured in community newsletter</span>
-                    </li>
+                    {planDetails.premium.features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
                   </ul>
                 </CardContent>
                 <CardFooter>
@@ -139,38 +166,37 @@ const MembershipPage = () => {
                   <CardTitle>Enterprise Membership</CardTitle>
                   <CardDescription>For established businesses</CardDescription>
                   <div className="text-3xl font-bold mt-2">
-                    $99.99<span className="text-sm font-normal text-gray-500">/month</span>
+                    {billingCycle === "monthly" ? (
+                      <>{planDetails.enterprise.price}</>
+                    ) : (
+                      <>{planDetails.enterprise.annualPrice}</>
+                    )}
                   </div>
-                  <div className="text-sm text-gray-500 italic mt-1">
-                    (or equivalent in your local currency)
-                  </div>
+                  
+                  {billingCycle === "annual" && (
+                    <div className="text-sm text-green-600 font-medium mt-1">
+                      {planDetails.enterprise.annualSavings}
+                    </div>
+                  )}
+                  
+                  {localCurrencyInfo.code !== 'USD' && (
+                    <div className="text-sm text-gray-500 italic mt-1">
+                      {billingCycle === "monthly" ? (
+                        <>{convertAndFormat(extractNumericPrice(planDetails.enterprise.price))}/month</>
+                      ) : (
+                        <>{convertAndFormat(extractNumericPrice(planDetails.enterprise.annualPrice))}/year</>
+                      )}
+                    </div>
+                  )}
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Everything in Premium</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Dedicated account manager</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Custom marketing campaigns</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Priority support</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Quarterly business strategy sessions</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
-                      <span>Featured in community events</span>
-                    </li>
+                    {planDetails.enterprise.features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
                   </ul>
                 </CardContent>
                 <CardFooter>

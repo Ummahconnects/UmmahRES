@@ -1,10 +1,11 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { extractNumericPrice, useLocalCurrency } from "@/utils/currencyUtils";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export interface PackageFeature {
   text: string;
@@ -15,6 +16,8 @@ export interface PackageCardProps {
   title: string;
   description: string;
   price: string;
+  annualPrice?: string;
+  annualSavings?: string;
   features: PackageFeature[];
   color: string;
   banner?: string;
@@ -33,6 +36,8 @@ const PackageCard = ({
   title,
   description,
   price,
+  annualPrice,
+  annualSavings,
   features,
   color,
   banner,
@@ -46,8 +51,10 @@ const PackageCard = ({
   icon,
   showLocalCurrency = true,
 }: PackageCardProps) => {
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const { convertAndFormat, localCurrencyInfo } = useLocalCurrency();
-  const priceValue = extractNumericPrice(price);
+  const monthlyPriceValue = extractNumericPrice(price);
+  const annualPriceValue = annualPrice ? extractNumericPrice(annualPrice) : monthlyPriceValue * 10;
   
   return (
     <Card className={`border-t-4 border-t-${color} relative ${isHighlighted ? 'md:scale-105 shadow-xl overflow-hidden' : ''}`}>
@@ -79,13 +86,42 @@ const PackageCard = ({
           {icon && <div>{icon}</div>}
         </div>
         <CardDescription>{description}</CardDescription>
+        
+        {annualPrice && (
+          <div className="mt-2">
+            <Tabs 
+              defaultValue="monthly" 
+              className="w-full"
+              onValueChange={(value) => setBillingCycle(value as 'monthly' | 'annual')}
+            >
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="monthly">Monthly</TabsTrigger>
+                <TabsTrigger value="annual">Annual</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+        )}
+        
         <div className="mt-2">
           <div className="text-3xl font-bold">
-            {price}<span className="text-sm font-normal text-gray-500">/month</span>
+            {billingCycle === 'monthly' || !annualPrice ? (
+              <>{price}<span className="text-sm font-normal text-gray-500">/month</span></>
+            ) : (
+              <>{annualPrice}<span className="text-sm font-normal text-gray-500">/year</span></>
+            )}
           </div>
+          {billingCycle === 'annual' && annualSavings && (
+            <div className="text-sm text-green-600 font-medium mt-1">
+              {annualSavings}
+            </div>
+          )}
           {showLocalCurrency && localCurrencyInfo.code !== 'USD' && (
             <div className="text-sm text-gray-500 italic mt-1">
-              {convertAndFormat(priceValue)}/month
+              {billingCycle === 'monthly' || !annualPrice ? (
+                <>{convertAndFormat(monthlyPriceValue)}/month</>
+              ) : (
+                <>{convertAndFormat(annualPriceValue)}/year</>
+              )}
             </div>
           )}
         </div>
