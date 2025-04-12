@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ReviewItemProps, mockReviews } from "@/types/reviewTypes";
 import { formatReviewData, calculateAverageRating } from "@/utils/reviewUtils";
+import { ReviewData } from "@/integrations/supabase/dbTypes";
 
 export function useReviewQuery(entityId?: string) {
   const [reviews, setReviews] = useState<ReviewItemProps[]>([]);
@@ -27,7 +28,7 @@ export function useReviewQuery(entityId?: string) {
     try {
       setLoading(true);
       
-      // Get user profile data for author names
+      // Modify the query to avoid the dot operator issue
       const { data, error } = await supabase
         .from("reviews")
         .select(`
@@ -36,14 +37,17 @@ export function useReviewQuery(entityId?: string) {
           comment,
           created_at,
           user_id,
-          auth.users (email)
+          users:user_id(email)
         `)
         .eq("business_id", entityId);
         
       if (error) throw error;
       
+      // Make sure the data is properly typed
+      const reviewData = data as unknown as ReviewData[];
+      
       // Transform data for our component
-      const formattedReviews = formatReviewData(data);
+      const formattedReviews = formatReviewData(reviewData);
       
       setReviews(formattedReviews);
       
