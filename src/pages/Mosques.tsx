@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,7 @@ import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import SearchBar from "@/components/SearchBar";
 import MosqueCard, { MosqueProps } from "@/components/MosqueCard";
-import FilterSidebar from "@/components/FilterSidebar";
+import FilterSidebar from "@/components/filters/FilterSidebar";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { perthMosques } from "@/data/perthMosques";
