@@ -8,22 +8,27 @@ import MosqueToolbar from "./components/MosqueToolbar";
 import MobileFilterToggle from "./components/MobileFilterToggle";
 import MosqueGrid from "./components/MosqueGrid";
 import EmptyMosqueState from "./components/EmptyMosqueState";
+import { MapPin } from "lucide-react";
+import { useLocation } from "@/contexts/LocationContext";
 
 interface MosquesContentProps {
   mosques: MosqueProps[];
   filteredMosques: MosqueProps[];
   onFilterChange: (filters: Record<string, any>) => void;
+  isLocalFiltered?: boolean;
 }
 
 const MosquesContent = ({ 
   mosques, 
   filteredMosques, 
-  onFilterChange 
+  onFilterChange,
+  isLocalFiltered = false
 }: MosquesContentProps) => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("featured");
   const [isFilterSidebarVisible, setIsFilterSidebarVisible] = useState(false);
   const [isAddMosqueDialogOpen, setIsAddMosqueDialogOpen] = useState(false);
+  const { userLocation } = useLocation();
 
   const handleSortChange = (value: string) => {
     setSortBy(value);
@@ -51,6 +56,16 @@ const MosquesContent = ({
   return (
     <div className="relative bg-muslim-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white/80 relative z-10">
+        {isLocalFiltered && userLocation.city && (
+          <div className="bg-muslim-light/40 p-4 rounded-lg mb-6 flex items-center text-muslim-dark">
+            <MapPin className="h-4 w-4 mr-2 text-muslim-teal" />
+            <span>
+              Showing mosques near{" "}
+              <strong>{userLocation.city}{userLocation.state ? `, ${userLocation.state}` : ""}</strong>
+            </span>
+          </div>
+        )}
+        
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="hidden lg:block lg:w-64 shrink-0">
             <div className="sticky top-6">

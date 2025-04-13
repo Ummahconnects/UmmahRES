@@ -5,6 +5,7 @@ import { Building, Store, HeartHandshake } from "lucide-react";
 import SearchBar from "@/components/SearchBar";
 import BetaProgramBanner from "./BetaProgramBanner";
 import FlashingBanner from "@/components/FlashingBanner";
+import LocationIndicator from "@/components/LocationIndicator";
 
 const HeroSection = () => {
   const [activeTab, setActiveTab] = useState("businesses");
@@ -38,15 +39,19 @@ const HeroSection = () => {
               "The best of you are those who are best to their people"
             </p>
             <p className="text-lg md:text-xl text-gray-600 mb-2">
-              A place where all services connects — for Muslims by Muslims.
+              <strong>For Muslims, By Muslims</strong> — A place where all services connect.
             </p>
             <p className="text-lg md:text-xl text-gray-600 mb-8">
-              Find Muslim-Owned Businesses Worldwide
+              Find Muslim-Owned Businesses from your local community and worldwide.
             </p>
             <p className="text-sm text-muslim-teal">www.ummah-connects.com</p>
           </div>
           
           <BetaProgramBanner />
+          
+          <div className="flex justify-center mb-2">
+            <LocationIndicator />
+          </div>
           
           <Tabs 
             defaultValue="businesses" 

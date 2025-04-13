@@ -1,6 +1,7 @@
 
 import React from "react";
 import SearchBar from "@/components/SearchBar";
+import LocationIndicator from "@/components/LocationIndicator";
 
 const MosquesHeader = () => {
   return (
@@ -13,6 +14,9 @@ const MosquesHeader = () => {
               <p className="text-gray-500">
                 Find masjids, prayer spaces, and Islamic centers in Perth, Australia and other locations
               </p>
+              <div className="mt-2">
+                <LocationIndicator />
+              </div>
             </div>
             
             <div className="bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-sm">

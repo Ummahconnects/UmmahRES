@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { BusinessProps } from "@/components/BusinessCard";
+import { useLocation } from "@/contexts/LocationContext";
+import { filterByLocation } from "@/utils/locationUtils";
 
 // Import our components
 import BusinessPageHeader from "@/components/business/BusinessPageHeader";
@@ -11,12 +13,17 @@ import BusinessesContent from "./BusinessesContent";
 
 // Import mock data - in a real app, this would come from an API
 import { mockBusinesses } from "@/data/mockBusinesses";
+import { useToast } from "@/hooks/use-toast";
 
 const BusinessesPage = () => {
   const [searchParams] = useSearchParams();
+  const { userLocation } = useLocation();
+  const { toast } = useToast();
+  
   const [businesses] = useState<BusinessProps[]>(mockBusinesses);
   const [filteredBusinesses, setFilteredBusinesses] = useState<BusinessProps[]>(mockBusinesses);
   const [featuredBusinesses, setFeaturedBusinesses] = useState<BusinessProps[]>([]);
+  const [isLocalFiltered, setIsLocalFiltered] = useState(false);
 
   useEffect(() => {
     // Extract featured businesses
@@ -25,6 +32,7 @@ const BusinessesPage = () => {
     
     const keyword = searchParams.get("keyword");
     const category = searchParams.get("category");
+    const localOnly = searchParams.get("localOnly") === "true";
     
     let filtered = [...businesses];
     
@@ -38,14 +46,49 @@ const BusinessesPage = () => {
       );
     }
     
-    if (category) {
+    if (category && category !== "all categories") {
       filtered = filtered.filter(business => 
         business.category.toLowerCase() === category.toLowerCase()
       );
     }
     
-    setFilteredBusinesses(filtered);
-  }, [searchParams, businesses]);
+    // Apply location filtering if requested
+    if (localOnly && userLocation.coordinates) {
+      // For demo purposes, let's assume some of the businesses have lat/lng
+      // In a real app, all businesses would have proper coordinates
+      const businessesWithLocation = filtered.map(business => ({
+        ...business,
+        // Add mock coordinates based on business ID for demonstration
+        latitude: business.id ? parseFloat(`${business.id.charCodeAt(0)}.${business.id.charCodeAt(1)}`) : undefined,
+        longitude: business.id ? parseFloat(`${business.id.charCodeAt(2)}.${business.id.charCodeAt(3)}`) : undefined
+      }));
+      
+      const localFiltered = filterByLocation(
+        businessesWithLocation, 
+        userLocation.coordinates, 
+        50 // 50km radius
+      );
+      
+      if (localFiltered.length === 0) {
+        toast({
+          title: "No local businesses found",
+          description: `We couldn't find any businesses in ${userLocation.city || 'your area'}. Showing all results instead.`,
+        });
+        setFilteredBusinesses(filtered);
+        setIsLocalFiltered(false);
+      } else {
+        setFilteredBusinesses(localFiltered);
+        setIsLocalFiltered(true);
+        toast({
+          title: "Showing local businesses",
+          description: `Showing businesses near ${userLocation.city || 'your location'}`,
+        });
+      }
+    } else {
+      setFilteredBusinesses(filtered);
+      setIsLocalFiltered(false);
+    }
+  }, [searchParams, businesses, userLocation, toast]);
 
   const handleFilterChange = (filters: Record<string, any>) => {
     let filtered = [...businesses];
@@ -79,12 +122,27 @@ const BusinessesPage = () => {
       filtered = filtered.filter(business => business.isOpen);
     }
     
+    // Maintain local filtering if it was previously applied
+    if (isLocalFiltered && userLocation.coordinates) {
+      const businessesWithLocation = filtered.map(business => ({
+        ...business,
+        latitude: business.id ? parseFloat(`${business.id.charCodeAt(0)}.${business.id.charCodeAt(1)}`) : undefined,
+        longitude: business.id ? parseFloat(`${business.id.charCodeAt(2)}.${business.id.charCodeAt(3)}`) : undefined
+      }));
+      
+      filtered = filterByLocation(
+        businessesWithLocation, 
+        userLocation.coordinates, 
+        50
+      );
+    }
+    
     setFilteredBusinesses(filtered);
   };
 
   return (
     <Layout>
-      <BusinessPageHeader />
+      <BusinessPageHeader showLocationIndicator={true} />
 
       <FeaturedBusinesses businesses={featuredBusinesses} />
 
@@ -92,6 +150,7 @@ const BusinessesPage = () => {
         businesses={businesses}
         filteredBusinesses={filteredBusinesses}
         onFilterChange={handleFilterChange}
+        isLocalFiltered={isLocalFiltered}
       />
     </Layout>
   );

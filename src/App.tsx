@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LocationProvider } from "./contexts/LocationContext"; // Add this import
 import Index from "./pages/Index";
 import BusinessesPage from "./pages/businesses";
 import MosquesPage from "./pages/mosques";
@@ -21,7 +22,7 @@ import AuthPage from "./pages/Auth";
 import BusinessProfile from "./pages/business-profile";
 import CharitiesPage from "./pages/Charities";
 import StaffDashboard from "./pages/StaffDashboard";
-import React from 'react'; // Explicitly import React
+import React from 'react';
 
 // Create a new QueryClient instance outside the component
 const queryClient = new QueryClient();
@@ -29,32 +30,34 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/businesses" element={<BusinessesPage />} />
-            <Route path="/mosques" element={<MosquesPage />} />
-            <Route path="/mosque/:id" element={<MosqueDetailPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/packages" element={<PackagesPage />} />
-            <Route path="/sales" element={<SalesPage />} />
-            <Route path="/affiliates" element={<AffiliatesPage />} />
-            <Route path="/community-events" element={<CommunityEventsPage />} />
-            <Route path="/help" element={<HelpPage />} />
-            <Route path="/membership" element={<MembershipPage />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/business-profile" element={<BusinessProfile />} />
-            <Route path="/business-profile/:id" element={<BusinessProfile />} />
-            <Route path="/charities" element={<CharitiesPage />} />
-            <Route path="/staff-dashboard" element={<StaffDashboard />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <LocationProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/businesses" element={<BusinessesPage />} />
+              <Route path="/mosques" element={<MosquesPage />} />
+              <Route path="/mosque/:id" element={<MosqueDetailPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/packages" element={<PackagesPage />} />
+              <Route path="/sales" element={<SalesPage />} />
+              <Route path="/affiliates" element={<AffiliatesPage />} />
+              <Route path="/community-events" element={<CommunityEventsPage />} />
+              <Route path="/help" element={<HelpPage />} />
+              <Route path="/membership" element={<MembershipPage />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/business-profile" element={<BusinessProfile />} />
+              <Route path="/business-profile/:id" element={<BusinessProfile />} />
+              <Route path="/charities" element={<CharitiesPage />} />
+              <Route path="/staff-dashboard" element={<StaffDashboard />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </LocationProvider>
     </AuthProvider>
   </QueryClientProvider>
 );

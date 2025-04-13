@@ -1,7 +1,12 @@
 
 import SearchBar from "@/components/SearchBar";
+import LocationIndicator from "@/components/LocationIndicator";
 
-const BusinessPageHeader = () => {
+interface BusinessPageHeaderProps {
+  showLocationIndicator?: boolean;
+}
+
+const BusinessPageHeader = ({ showLocationIndicator = false }: BusinessPageHeaderProps) => {
   return (
     <div className="bg-gray-50 py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,6 +17,11 @@ const BusinessPageHeader = () => {
               <p className="text-gray-600">
                 Find halal restaurants, shops, professionals, and more
               </p>
+              {showLocationIndicator && (
+                <div className="mt-2">
+                  <LocationIndicator />
+                </div>
+              )}
             </div>
             <div className="ml-6 max-w-md font-arabic font-bold text-sm text-muslim-dark">
               The fisherman's net and the programmer's code,
