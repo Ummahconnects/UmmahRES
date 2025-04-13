@@ -4,17 +4,7 @@ import SearchBar from "@/components/SearchBar";
 
 const MosquesHeader = () => {
   return (
-    <div className="relative">
-      {/* Background mosque image - header specific */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center" 
-        style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.9)), url("/lovable-uploads/dd2a74c3-e074-459f-9def-97e120fccfda.png")`,
-          backgroundSize: "cover",
-          backgroundPosition: "center"
-        }}
-      />
-      
+    <div className="relative bg-muslim-light">
       <div className="bg-transparent py-6 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4">

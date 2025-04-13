@@ -49,17 +49,7 @@ const MosquesContent = ({
   };
 
   return (
-    <div className="relative">
-      <div 
-        className="fixed inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url("/lovable-uploads/dd2a74c3-e074-459f-9def-97e120fccfda.png")`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.15
-        }}
-      />
-      
+    <div className="relative bg-muslim-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white/80 relative z-10">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="hidden lg:block lg:w-64 shrink-0">
