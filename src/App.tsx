@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import { LocationProvider } from "./contexts/LocationContext"; // Add this import
+import { LocationProvider } from "./contexts/LocationContext";
 import Index from "./pages/Index";
 import BusinessesPage from "./pages/businesses";
 import MosquesPage from "./pages/mosques";
@@ -15,6 +15,8 @@ import PackagesPage from "./pages/Packages";
 import SalesPage from "./pages/Sales";
 import AffiliatesPage from "./pages/Affiliates";
 import CommunityEventsPage from "./pages/CommunityEvents";
+import CommunityPage from "./pages/community"; // Add the new community page
+import DashboardPage from "./pages/dashboard"; // Add the new dashboard page
 import HelpPage from "./pages/help";
 import MembershipPage from "./pages/Membership";
 import NotFound from "./pages/NotFound";
@@ -45,6 +47,8 @@ const App = () => (
               <Route path="/sales" element={<SalesPage />} />
               <Route path="/affiliates" element={<AffiliatesPage />} />
               <Route path="/community-events" element={<CommunityEventsPage />} />
+              <Route path="/community" element={<CommunityPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/help" element={<HelpPage />} />
               <Route path="/membership" element={<MembershipPage />} />
               <Route path="/auth" element={<AuthPage />} />
