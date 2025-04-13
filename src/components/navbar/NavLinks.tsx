@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface NavLinkItem {
   text: string;
@@ -9,26 +9,37 @@ interface NavLinkItem {
   variant: "link" | "ghost";
 }
 
+interface NavLinksProps {
+  isMobile?: boolean;
+  onLinkClick?: () => void;
+}
+
 const navItems: NavLinkItem[] = [
   { text: "Home", href: "/", variant: "ghost" },
   { text: "Businesses", href: "/businesses", variant: "ghost" },
   { text: "Mosques", href: "/mosques", variant: "ghost" },
-  { text: "Community", href: "/community", variant: "ghost" }, // Add new Community link
-  { text: "Dashboard", href: "/dashboard", variant: "ghost" }, // Add new Dashboard link
+  { text: "Community", href: "/community", variant: "ghost" }, 
+  { text: "Dashboard", href: "/dashboard", variant: "ghost" }, 
   { text: "Events", href: "/community-events", variant: "ghost" }
 ];
 
-const NavLinks = () => {
-  const isMobile = useMobile();
+const NavLinks = ({ isMobile, onLinkClick }: NavLinksProps = {}) => {
+  const isSmallScreen = useIsMobile();
 
-  if (isMobile) {
+  if (isSmallScreen && !isMobile) {
     return null;
   }
 
   return (
-    <div className="hidden sm:ml-6 sm:flex sm:space-x-2">
+    <div className={isMobile ? "py-2 px-2 space-y-1" : "hidden sm:ml-6 sm:flex sm:space-x-2"}>
       {navItems.map((item) => (
-        <Button key={item.href} asChild variant={item.variant} className="text-gray-600">
+        <Button 
+          key={item.href} 
+          asChild 
+          variant={item.variant} 
+          className="text-gray-600"
+          onClick={onLinkClick}
+        >
           <Link to={item.href}>{item.text}</Link>
         </Button>
       ))}

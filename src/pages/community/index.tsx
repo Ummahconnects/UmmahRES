@@ -4,14 +4,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ForumSection from "./components/ForumSection";
 import EducationalContent from "./components/EducationalContent";
 import { useAuth } from "@/contexts/AuthContext";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const CommunityPage = () => {
   const { user } = useAuth();
   
   // Optional: Require login for community features
   if (!user) {
-    return <Redirect to="/auth?redirect=/community" />;
+    return <Navigate to="/auth?redirect=/community" />;
   }
 
   return (
