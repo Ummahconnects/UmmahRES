@@ -5,8 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import VerificationBadge from "./business/VerificationBadge";
 
-// Importing a default placeholder image
-import placeholderMosque from '@/assets/placeholder-mosque.jpg';
+// Default placeholder image from Unsplash
+const placeholderMosque = "https://images.unsplash.com/photo-1466442929976-97f336a657be?q=80&w=1924&auto=format&fit=crop";
 
 export interface MosqueProps {
   id: string;
