@@ -1,4 +1,3 @@
-
 // Define the basic data structure for memberships
 export interface Membership {
   id: string;
@@ -36,7 +35,9 @@ export const planDetails: PlanDetails = {
       "Basic business profile",
       "Community access",
       "Verified member badge",
-      "Basic networking tools"
+      "Basic networking tools",
+      "Limited profile views",
+      "No review features"
     ]
   },
   premium: {
