@@ -38,8 +38,8 @@ const ReviewSection = ({
   } = useReviews(businessId);
   
   const handleSubmitReview = async (reviewData: { rating: number; comment: string }) => {
-    if (!businessId) return;
-    await submitReview({ ...reviewData, entityId: businessId });
+    if (!businessId || !user) return;
+    await submitReview(reviewData, user.id);
     setIsWritingReview(false);
   };
 
