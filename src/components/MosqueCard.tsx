@@ -5,6 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import VerificationBadge from "./business/VerificationBadge";
 
+// Importing a default placeholder image
+import placeholderMosque from '@/assets/placeholder-mosque.jpg';
+
 export interface MosqueProps {
   id: string;
   name: string;
@@ -32,7 +35,7 @@ const MosqueCard = ({
   name,
   type,
   address,
-  image,
+  image = placeholderMosque, // Use placeholder if no image provided
   prayerTimes,
   jumuahTime,
   isOpen = true,
@@ -43,15 +46,25 @@ const MosqueCard = ({
 }: MosqueProps) => {
   return (
     <Link to={`/mosque/${id}`} className={cn(
-      "block rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow",
+      "block rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow relative group",
       featured && "ring-2 ring-muslim-gold"
     )}>
       <div className="relative h-48 w-full overflow-hidden">
         <img
           src={image}
           alt={name}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
+        {/* Watermark overlay */}
+        <div 
+          className="absolute inset-0 bg-black/10 flex items-center justify-center pointer-events-none"
+        >
+          <span 
+            className="text-white/30 text-lg sm:text-2xl font-bold tracking-widest transform -rotate-12 select-none"
+          >
+            TEMPORARY IMAGE
+          </span>
+        </div>
         {featured && (
           <div className="absolute top-2 right-2">
             <Badge className="bg-muslim-gold text-white">Featured</Badge>
