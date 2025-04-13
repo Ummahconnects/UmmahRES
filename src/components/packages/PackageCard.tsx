@@ -30,6 +30,7 @@ export interface PackageCardProps {
   sparklePosition?: { top: number; left: number };
   icon?: React.ReactNode;
   showLocalCurrency?: boolean;
+  isFree?: boolean;
 }
 
 const PackageCard = ({
@@ -50,6 +51,7 @@ const PackageCard = ({
   sparklePosition,
   icon,
   showLocalCurrency = true,
+  isFree = false,
 }: PackageCardProps) => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const { convertAndFormat, localCurrencyInfo } = useLocalCurrency();
@@ -61,6 +63,12 @@ const PackageCard = ({
       {banner && (
         <div className="absolute -top-4 right-0 left-0 mx-auto w-max px-4 py-1 bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-400 text-muslim-dark text-sm font-bold rounded-full border border-amber-300 shadow-md animate-pulse">
           {banner}
+        </div>
+      )}
+      
+      {isFree && (
+        <div className="absolute -top-4 right-0 left-0 mx-auto w-max px-4 py-1 bg-green-500 text-white text-sm font-bold rounded-full border border-green-400 shadow-md">
+          FREE
         </div>
       )}
       
@@ -87,7 +95,7 @@ const PackageCard = ({
         </div>
         <CardDescription>{description}</CardDescription>
         
-        {annualPrice && (
+        {!isFree && annualPrice && (
           <div className="mt-2">
             <Tabs 
               defaultValue="monthly" 
@@ -103,19 +111,29 @@ const PackageCard = ({
         )}
         
         <div className="mt-2">
-          <div className="text-3xl font-bold">
-            {billingCycle === 'monthly' || !annualPrice ? (
-              <>{price}<span className="text-sm font-normal text-gray-500">/month</span></>
-            ) : (
-              <>{annualPrice}<span className="text-sm font-normal text-gray-500">/year</span></>
-            )}
-          </div>
-          {billingCycle === 'annual' && annualSavings && (
-            <div className="text-sm text-green-600 font-medium mt-1">
-              {annualSavings}
+          {isFree ? (
+            <div className="text-3xl font-bold text-green-600">
+              Free
+              <span className="text-sm font-normal text-gray-500 ml-1">forever</span>
             </div>
+          ) : (
+            <>
+              <div className="text-3xl font-bold">
+                {billingCycle === 'monthly' || !annualPrice ? (
+                  <>{price}<span className="text-sm font-normal text-gray-500">/month</span></>
+                ) : (
+                  <>{annualPrice}<span className="text-sm font-normal text-gray-500">/year</span></>
+                )}
+              </div>
+              {billingCycle === 'annual' && annualSavings && (
+                <div className="text-sm text-green-600 font-medium mt-1">
+                  {annualSavings}
+                </div>
+              )}
+            </>
           )}
-          {showLocalCurrency && localCurrencyInfo.code !== 'USD' && (
+          
+          {!isFree && showLocalCurrency && localCurrencyInfo.code !== 'USD' && (
             <div className="text-sm text-gray-500 italic mt-1">
               {billingCycle === 'monthly' || !annualPrice ? (
                 <>{convertAndFormat(monthlyPriceValue)}/month</>
@@ -143,7 +161,7 @@ const PackageCard = ({
       </CardContent>
       <CardFooter className={`${isHighlighted ? 'flex flex-col gap-2' : ''} relative z-10 ${isHighlighted ? 'bg-white' : ''}`}>
         <Button 
-          className={`w-full bg-${color} hover:bg-${color === 'muslim-gold' ? 'amber-500' : color + '/90'} ${isHighlighted ? 'font-bold' : ''}`}
+          className={`w-full ${isFree ? 'bg-green-500 hover:bg-green-600' : `bg-${color} hover:bg-${color === 'muslim-gold' ? 'amber-500' : color + '/90'}`} ${isHighlighted ? 'font-bold' : ''}`}
           onClick={onPrimaryClick}
         >
           {primaryButtonText}

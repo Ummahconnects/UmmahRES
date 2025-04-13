@@ -28,9 +28,9 @@ export interface PlanDetails {
 export const planDetails: PlanDetails = {
   basic: {
     name: "Basic",
-    price: "$19.99/month",
-    annualPrice: "$199.90/year",
-    annualSavings: "Save $40",
+    price: "$0/month",
+    annualPrice: "$0/year",
+    annualSavings: "",
     color: "gray-500",
     features: [
       "Basic business profile",
@@ -41,9 +41,9 @@ export const planDetails: PlanDetails = {
   },
   premium: {
     name: "Premium",
-    price: "$49.99/month",
-    annualPrice: "$499.90/year",
-    annualSavings: "Save $100",
+    price: "$19.99/month",
+    annualPrice: "$199.90/year",
+    annualSavings: "Save $39.98",
     color: "muslim-teal",
     features: [
       "Everything in Basic",
@@ -55,9 +55,9 @@ export const planDetails: PlanDetails = {
   },
   enterprise: {
     name: "Enterprise",
-    price: "$99.99/month",
-    annualPrice: "$999.90/year",
-    annualSavings: "Save $200",
+    price: "$39.99/month",
+    annualPrice: "$399.90/year",
+    annualSavings: "Save $79.98",
     color: "muslim-blue",
     features: [
       "Everything in Premium",

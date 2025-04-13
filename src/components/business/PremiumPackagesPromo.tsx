@@ -13,18 +13,18 @@ const PremiumPackagesPromo = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
           <div className="bg-white p-4 rounded-md shadow-sm">
             <h4 className="font-semibold mb-2">Basic</h4>
-            <p className="text-sm text-gray-600">Enhanced visibility and basic analytics</p>
-            <p className="mt-2 font-medium">$9.99/month</p>
+            <p className="text-sm text-gray-600">Standard visibility</p>
+            <p className="mt-2 font-medium text-green-600">FREE</p>
           </div>
           <div className="bg-white p-4 rounded-md shadow-sm border-2 border-muslim-gold">
             <h4 className="font-semibold mb-2">Premium</h4>
-            <p className="text-sm text-gray-600">Featured listings, advanced analytics</p>
+            <p className="text-sm text-gray-600">Featured listings, analytics</p>
             <p className="mt-2 font-medium">$19.99/month</p>
           </div>
           <div className="bg-white p-4 rounded-md shadow-sm">
-            <h4 className="font-semibold mb-2">Enterprise</h4>
-            <p className="text-sm text-gray-600">Global sponsorship, full analytics suite</p>
-            <p className="mt-2 font-medium">$49.99/month</p>
+            <h4 className="font-semibold mb-2">Platinum</h4>
+            <p className="text-sm text-gray-600">Global sponsorship, full analytics</p>
+            <p className="mt-2 font-medium">$39.99/month</p>
           </div>
         </div>
         <Button

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Star, Badge, Package, Award, Sparkles, Globe } from "lucide-react";
 import PackageCard from "./PackageCard";
@@ -62,22 +63,23 @@ const PackageGrid = () => {
       <PackageCard
         title="Basic Listing"
         description="Perfect for small businesses"
-        price="$9.99"
-        annualPrice="$99.90"
-        annualSavings="Save $19.98"
+        price="$0"
+        annualPrice="$0"
+        annualSavings=""
         features={basicFeatures}
         color="gray-500"
-        primaryButtonText="Get Started"
+        primaryButtonText="Get Started Free"
         icon={<Package className="h-5 w-5 text-gray-500" />}
         showLocalCurrency={true}
+        isFree={true}
       />
 
       <PackageCard
         title="Premium"
         description="Ideal for growing businesses"
-        price="$24.99"
-        annualPrice="$249.90"
-        annualSavings="Save $49.98"
+        price="$19.99"
+        annualPrice="$199.90"
+        annualSavings="Save $39.98"
         features={premiumFeatures}
         color="muslim-teal"
         primaryButtonText="Start Premium"
@@ -89,9 +91,9 @@ const PackageGrid = () => {
       <PackageCard
         title="Platinum"
         description="For established businesses"
-        price="$49.99"
-        annualPrice="$499.90"
-        annualSavings="Save $99.98"
+        price="$39.99"
+        annualPrice="$399.90"
+        annualSavings="Save $79.98"
         features={platinumFeatures}
         color="muslim-blue"
         primaryButtonText="Go Platinum"
@@ -103,9 +105,9 @@ const PackageGrid = () => {
       <PackageCard
         title="Ultimate"
         description="Regional sponsorship opportunity"
-        price="$299.99"
-        annualPrice="$2,999.90"
-        annualSavings="Save $599.98"
+        price="$249.99"
+        annualPrice="$2,499.90"
+        annualSavings="Save $499.98"
         features={supremeFeatures}
         color="muslim-gold"
         banner="Regional Sponsor"

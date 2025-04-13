@@ -23,7 +23,7 @@ const REGIONAL_PRICING: Record<string, number> = {
   US: 1,     // Base price (USA)
   GB: 0.95,  // UK slight discount
   EU: 0.9,   // Europe bigger discount
-  AU: 0.9,   // Australia discount
+  AU: 1.1,   // Australia slight premium (increased from 0.9)
   CA: 0.95,  // Canada slight discount
   JP: 1.1,   // Japan premium
   IN: 0.7,   // India significant discount
@@ -84,7 +84,11 @@ export function getCurrencyInfo(currencyCode: string): CurrencyInfo {
   };
 }
 
+// Special handling for free pricing
 export function convertPrice(priceInUSD: number, targetCurrency: string): number {
+  // Handle free pricing
+  if (priceInUSD === 0) return 0;
+  
   if (!EXCHANGE_RATES[targetCurrency]) {
     console.warn(`Exchange rate not found for ${targetCurrency}, using USD`);
     return priceInUSD;
@@ -97,6 +101,9 @@ export function convertPrice(priceInUSD: number, targetCurrency: string): number
 }
 
 export function formatPrice(amount: number, currencyCode: string): string {
+  // Handle free pricing
+  if (amount === 0) return 'Free';
+  
   const currencyInfo = CURRENCIES[currencyCode] || CURRENCIES.USD;
   
   // Format based on currency conventions
