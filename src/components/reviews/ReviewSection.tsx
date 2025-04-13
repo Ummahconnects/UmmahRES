@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useReviews } from "@/hooks/useReviews";
 import ReviewTabs from "./ReviewTabs";
@@ -20,7 +21,7 @@ const ReviewSection = ({
   businessId 
 }: ReviewSectionProps) => {
   const { user } = useAuth();
-  const { membership } = useMembership(businessId);
+  const { membership } = useMembership(businessId || '');
   const [isWritingReview, setIsWritingReview] = useState(false);
   
   // Determine if user can access reviews based on membership

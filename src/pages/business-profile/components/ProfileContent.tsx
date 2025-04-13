@@ -56,7 +56,7 @@ const AdditionalSections = ({ businessId, businessName }: AdditionalSectionsProp
         <ReviewSection 
           entityName={businessName} 
           entityType="business"
-          entityId={businessId}
+          businessId={businessId}
           reviewPrompt="Share your experience with this business..."
         />
       </div>

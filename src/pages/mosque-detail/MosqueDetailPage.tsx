@@ -43,7 +43,7 @@ const MosqueDetailPage = () => {
             <ReviewSection 
               entityName={mosque.name}
               entityType="mosque"
-              entityId={mosque.id}
+              businessId={mosque.id}
               reviewPrompt={`Share your experience visiting ${mosque.name}...`}
             />
           </div>
