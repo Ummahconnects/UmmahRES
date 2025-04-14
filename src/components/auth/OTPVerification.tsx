@@ -113,7 +113,7 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
             Code expires in: <span className="font-medium">{formatTime(remainingTime)}</span>
           </p>
         ) : (
-          <Alert variant="warning" className="mt-2">
+          <Alert variant="destructive" className="mt-2">
             <AlertTriangle className="h-4 w-4" />
             <AlertTitle>Code expired</AlertTitle>
             <AlertDescription>

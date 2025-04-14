@@ -13,7 +13,14 @@ export function useAuth() {
   const { signUp, isLoading: isSigningUp, error: signUpError } = useSignUp();
   const { signOut, isLoading: isSigningOut, error: signOutError } = useSignOut();
   const { resetPassword, updatePassword, isLoading: isPasswordResetting, error: passwordResetError } = usePasswordReset();
-  const { resendOTP, verifyOTP, isLoading: isOtpProcessing, error: otpError } = useOtpVerification();
+  const { 
+    resendOTP, 
+    verifyOTP, 
+    isLoading: isOtpProcessing, 
+    error: otpError,
+    attempts,
+    isRateLimited
+  } = useOtpVerification();
 
   return {
     session,
@@ -36,6 +43,9 @@ export function useAuth() {
     signUpError,
     signOutError,
     passwordResetError,
-    otpError
+    otpError,
+    // Add the new properties
+    attempts,
+    isRateLimited
   };
 }
