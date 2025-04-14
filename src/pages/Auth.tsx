@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import LoginForm from "@/components/auth/LoginForm";
 import SignupForm from "@/components/auth/SignupForm";
 import OTPVerification from "@/components/auth/OTPVerification";
+import PasswordReset from "@/components/auth/PasswordReset";
+import UpdatePassword from "@/components/auth/UpdatePassword";
 import AuthCard from "@/components/auth/AuthCard";
 
 const AuthPage = () => {
@@ -22,6 +24,10 @@ const AuthPage = () => {
     const tabParam = searchParams.get('tab');
     if (tabParam === 'signup') {
       setActiveTab('signup');
+    } else if (tabParam === 'reset-password') {
+      setActiveTab('reset-password');
+    } else if (tabParam === 'update-password') {
+      setActiveTab('update-password');
     }
   }, [searchParams]);
 
@@ -45,6 +51,19 @@ const AuthPage = () => {
   const handleCancelVerification = () => {
     setShowOTPVerification(false);
     setActiveTab("signup");
+  };
+
+  // Handle password reset completion
+  const handlePasswordResetSuccess = () => {
+    // Stay on the same tab to show the success message
+  };
+
+  // Handle password update completion
+  const handlePasswordUpdateSuccess = () => {
+    // Redirect to login after successful password update
+    setTimeout(() => {
+      setActiveTab("login");
+    }, 3000);
   };
 
   // If the user is already logged in, redirect to home
@@ -81,6 +100,15 @@ const AuthPage = () => {
                 description="Sign in to access your account"
               >
                 <LoginForm />
+                <div className="mt-4 text-center">
+                  <button 
+                    type="button" 
+                    onClick={() => setActiveTab("reset-password")} 
+                    className="text-sm text-muslim-teal hover:underline"
+                  >
+                    Forgot your password?
+                  </button>
+                </div>
               </AuthCard>
             </TabsContent>
             
@@ -91,6 +119,35 @@ const AuthPage = () => {
                 description="Join our community and connect with Muslim-owned businesses"
               >
                 <SignupForm onSuccess={handleSignupSuccess} />
+              </AuthCard>
+            </TabsContent>
+            
+            {/* Password Reset Tab */}
+            <TabsContent value="reset-password">
+              <AuthCard 
+                title="Reset Password" 
+                description="We'll send you an email with a reset link"
+              >
+                <PasswordReset onSuccess={handlePasswordResetSuccess} />
+                <div className="mt-4 text-center">
+                  <button 
+                    type="button" 
+                    onClick={() => setActiveTab("login")} 
+                    className="text-sm text-muslim-teal hover:underline"
+                  >
+                    Back to login
+                  </button>
+                </div>
+              </AuthCard>
+            </TabsContent>
+            
+            {/* Update Password Tab */}
+            <TabsContent value="update-password">
+              <AuthCard 
+                title="Update Password" 
+                description="Create a new password for your account"
+              >
+                <UpdatePassword onSuccess={handlePasswordUpdateSuccess} />
               </AuthCard>
             </TabsContent>
           </Tabs>

@@ -21,9 +21,10 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 interface LoginFormProps {
   onSuccess?: () => void;
+  onForgotPassword?: () => void;
 }
 
-const LoginForm = ({ onSuccess }: LoginFormProps) => {
+const LoginForm = ({ onSuccess, onForgotPassword }: LoginFormProps) => {
   const { signIn } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   

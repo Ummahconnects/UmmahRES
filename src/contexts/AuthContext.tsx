@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session, User } from "@supabase/supabase-js";
@@ -13,6 +12,8 @@ type AuthContextType = {
   signOut: () => Promise<void>;
   resendOTP: (email: string) => Promise<void>;
   verifyOTP: (email: string, token: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  updatePassword: (newPassword: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -164,6 +165,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/auth?tab=reset-password',
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Password reset email sent",
+        description: "Please check your email for a password reset link.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error sending reset email",
+        description: error.message,
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  const updatePassword = async (newPassword: string) => {
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Password updated successfully",
+        description: "Your password has been changed. You can now sign in with your new password.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error updating password",
+        description: error.message,
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
   return (
     <AuthContext.Provider value={{ 
       session, 
@@ -173,7 +218,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       signUp, 
       signOut,
       resendOTP,
-      verifyOTP
+      verifyOTP,
+      resetPassword,
+      updatePassword
     }}>
       {children}
     </AuthContext.Provider>
