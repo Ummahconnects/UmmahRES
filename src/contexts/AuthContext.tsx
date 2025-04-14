@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session, User } from "@supabase/supabase-js";
@@ -64,18 +63,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     try {
-      // In development environment, we need to specify `skipBrowserRedirect` to prevent 
-      // the browser from attempting to redirect after signup
+      // In development environment, we need to disable captcha and handle email verification
       const { data, error } = await supabase.auth.signUp({ 
         email, 
         password,
         options: {
           emailRedirectTo: window.location.origin + '/auth',
           // We're using 'disabled' here as we're in development
-          // For production, you would need to implement a proper captcha solution
           captchaToken: 'disabled',
-          // Set to true to prevent automatic browser redirects
-          skipBrowserRedirect: true
+          // Remove the `skipBrowserRedirect` property as it's not available in this version
         }
       });
       
