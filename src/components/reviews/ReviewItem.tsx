@@ -5,7 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import { ThumbsUp, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/auth/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import VerificationBadge from "@/components/business/VerificationBadge";
 

@@ -1,10 +1,9 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ReviewList from "./ReviewList";
 import ReviewForm from "./ReviewForm";
 import { ReviewItemProps } from "./ReviewItem";
 import { SubmitReviewData } from "@/hooks/useReviews";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/auth/useAuth";
 
 interface ReviewTabsProps {
   isWritingReview: boolean;

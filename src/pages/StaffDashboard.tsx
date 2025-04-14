@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Layout from "@/components/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -6,20 +5,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ArrowUpRight, Users, Globe, MapPin, ChevronUp, ChevronDown, Calendar, PieChart, BarChart3, TrendingUp } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import SignupChart from "@/components/analytics/SignupChart";
 import GrowthMetricsCard from "@/components/analytics/GrowthMetricsCard";
 import LocationBreakdown from "@/components/analytics/LocationBreakdown";
 import SignupTable from "@/components/analytics/SignupTable";
+import AuthRequired from "@/components/auth/AuthRequired";
 
 const StaffDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [dateRange, setDateRange] = useState<"7d" | "30d" | "90d" | "all">("30d");
   
-  // Redirect if not staff (in a real app, you would check staff status)
   useEffect(() => {
     if (!user || !user.email?.endsWith('@ummahconnects.com')) {
       navigate('/');

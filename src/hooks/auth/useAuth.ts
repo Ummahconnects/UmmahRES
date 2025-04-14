@@ -9,11 +9,11 @@ import { useOtpVerification } from "./useOtpVerification";
 // Combined hook to maintain the original API surface
 export function useAuth() {
   const { session, user, loading } = useAuthContext();
-  const { signIn } = useSignIn();
-  const { signUp } = useSignUp();
-  const { signOut } = useSignOut();
-  const { resetPassword, updatePassword } = usePasswordReset();
-  const { resendOTP, verifyOTP } = useOtpVerification();
+  const { signIn, isLoading: isSigningIn, error: signInError } = useSignIn();
+  const { signUp, isLoading: isSigningUp, error: signUpError } = useSignUp();
+  const { signOut, isLoading: isSigningOut, error: signOutError } = useSignOut();
+  const { resetPassword, updatePassword, isLoading: isPasswordResetting, error: passwordResetError } = usePasswordReset();
+  const { resendOTP, verifyOTP, isLoading: isOtpProcessing, error: otpError } = useOtpVerification();
 
   return {
     session,
@@ -25,6 +25,17 @@ export function useAuth() {
     resendOTP,
     verifyOTP,
     resetPassword,
-    updatePassword
+    updatePassword,
+    // Also expose loading and error states if components need them
+    isSigningIn,
+    isSigningUp,
+    isSigningOut,
+    isPasswordResetting,
+    isOtpProcessing,
+    signInError,
+    signUpError,
+    signOutError,
+    passwordResetError,
+    otpError
   };
 }

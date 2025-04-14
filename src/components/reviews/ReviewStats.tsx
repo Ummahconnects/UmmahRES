@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import StarRating from "./StarRating";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/auth/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
 interface ReviewStatsProps {
