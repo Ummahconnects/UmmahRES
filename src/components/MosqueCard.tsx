@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { MapPin, Clock, Calendar } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import VerificationBadge from "./business/VerificationBadge";
@@ -35,7 +34,7 @@ const MosqueCard = ({
   name,
   type,
   address,
-  image = placeholderMosque, // Use placeholder if no image provided
+  image = placeholderMosque,
   prayerTimes,
   jumuahTime,
   isOpen = true,
@@ -45,17 +44,20 @@ const MosqueCard = ({
   verifiedCount = 3
 }: MosqueProps) => {
   return (
-    <Link to={`/mosque/${id}`} className={cn(
-      "block rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow relative group",
-      featured && "ring-2 ring-muslim-gold"
-    )}>
-      <div className="relative h-48 sm:h-52 w-full overflow-hidden">
+    <Link 
+      to={`/mosque/${id}`} 
+      className={cn(
+        "block rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow relative group",
+        featured && "ring-2 ring-muslim-gold"
+      )}
+    >
+      <div className="relative w-full aspect-video overflow-hidden">
         <img
           src={image}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        {/* Watermark overlay - improved for mobile */}
+        {/* Watermark overlay - improved for landscape */}
         <div 
           className="absolute inset-0 bg-black/10 flex items-center justify-center pointer-events-none"
         >
