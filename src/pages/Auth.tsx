@@ -66,6 +66,11 @@ const AuthPage = () => {
     }, 3000);
   };
 
+  // Handle forgot password click from login
+  const handleForgotPasswordClick = () => {
+    setActiveTab("reset-password");
+  };
+
   // If the user is already logged in, redirect to home
   if (user && !loading) {
     const from = (location.state as any)?.from?.pathname || "/";
@@ -99,11 +104,11 @@ const AuthPage = () => {
                 title="Login" 
                 description="Sign in to access your account"
               >
-                <LoginForm />
+                <LoginForm onForgotPassword={handleForgotPasswordClick} />
                 <div className="mt-4 text-center">
                   <button 
                     type="button" 
-                    onClick={() => setActiveTab("reset-password")} 
+                    onClick={handleForgotPasswordClick} 
                     className="text-sm text-muslim-teal hover:underline"
                   >
                     Forgot your password?

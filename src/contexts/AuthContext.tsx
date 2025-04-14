@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Session, User } from "@supabase/supabase-js";
@@ -63,15 +64,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     try {
-      // Supabase now requires captcha verification for signup
-      // We disable captcha verification for development environment
+      // In development environment, we need to specify `skipBrowserRedirect` to prevent 
+      // the browser from attempting to redirect after signup
       const { data, error } = await supabase.auth.signUp({ 
         email, 
         password,
         options: {
           emailRedirectTo: window.location.origin + '/auth',
-          // We're disabling captcha for development - in production you'd need to implement a proper captcha
-          captchaToken: 'disabled'
+          // We're using 'disabled' here as we're in development
+          // For production, you would need to implement a proper captcha solution
+          captchaToken: 'disabled',
+          // Set to true to prevent automatic browser redirects
+          skipBrowserRedirect: true
         }
       });
       
@@ -93,9 +97,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       return { needsEmailVerification };
     } catch (error: any) {
+      const errorMessage = error.message || "An unknown error occurred during signup";
+      
       toast({
         title: "Error signing up",
-        description: error.message,
+        description: errorMessage,
         variant: "destructive",
       });
       throw error;
@@ -168,7 +174,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const resetPassword = async (email: string) => {
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + '/auth?tab=reset-password',
+        redirectTo: window.location.origin + '/auth?tab=update-password',
       });
       
       if (error) throw error;

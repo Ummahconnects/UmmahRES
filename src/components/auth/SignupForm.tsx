@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 // Form validation schema
 const signupSchema = z.object({
@@ -32,6 +34,7 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [searchParams] = useSearchParams();
+  const [signupError, setSignupError] = useState<string | null>(null);
   const isTrial = searchParams.get('trial') === 'platinum';
   
   // Signup form setup
@@ -47,6 +50,8 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
   // Handle signup form submission
   const onSubmit = async (values: SignupFormValues) => {
     setIsSubmitting(true);
+    setSignupError(null);
+    
     try {
       const { needsEmailVerification } = await signUp(values.email, values.password);
       
@@ -61,8 +66,9 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
       if (onSuccess) {
         onSuccess(values.email, needsEmailVerification);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Signup error:", error);
+      setSignupError(error.message || "An unexpected error occurred during signup");
     } finally {
       setIsSubmitting(false);
     }
@@ -78,6 +84,14 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
               You're signing up for the <span className="font-bold">3-day Platinum trial</span>
             </p>
           </div>
+        )}
+        
+        {signupError && (
+          <Alert variant="destructive">
+            <ExclamationTriangleIcon className="h-4 w-4" />
+            <AlertTitle>Signup failed</AlertTitle>
+            <AlertDescription>{signupError}</AlertDescription>
+          </Alert>
         )}
       
         <FormField

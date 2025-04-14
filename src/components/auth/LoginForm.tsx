@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 // Form validation schema
 const loginSchema = z.object({
@@ -27,6 +29,7 @@ interface LoginFormProps {
 const LoginForm = ({ onSuccess, onForgotPassword }: LoginFormProps) => {
   const { signIn } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
   
   // Login form setup
   const form = useForm<LoginFormValues>({
@@ -41,11 +44,13 @@ const LoginForm = ({ onSuccess, onForgotPassword }: LoginFormProps) => {
   // Handle login form submission
   const onSubmit = async (values: LoginFormValues) => {
     setIsSubmitting(true);
+    setLoginError(null);
     try {
       await signIn(values.email, values.password);
       if (onSuccess) onSuccess();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
+      setLoginError(error.message || "Failed to sign in");
     } finally {
       setIsSubmitting(false);
     }
@@ -54,6 +59,14 @@ const LoginForm = ({ onSuccess, onForgotPassword }: LoginFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {loginError && (
+          <Alert variant="destructive">
+            <ExclamationTriangleIcon className="h-4 w-4" />
+            <AlertTitle>Login failed</AlertTitle>
+            <AlertDescription>{loginError}</AlertDescription>
+          </Alert>
+        )}
+        
         <FormField
           control={form.control}
           name="email"
