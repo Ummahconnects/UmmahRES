@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useReviews } from "@/hooks/useReviews";
 import ReviewTabs from "./ReviewTabs";
 import { useMembership } from "@/hooks/useMembership";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/auth/useAuth"; // Updated import
 import { Button } from "@/components/ui/button";
 import { Lock } from "lucide-react";
 
@@ -20,7 +20,7 @@ const ReviewSection = ({
   reviewPrompt,
   businessId 
 }: ReviewSectionProps) => {
-  const { user } = useAuth();
+  const { user } = useAuth(); // Use the new hook
   const { membership } = useMembership(businessId || '');
   const [isWritingReview, setIsWritingReview] = useState(false);
   
