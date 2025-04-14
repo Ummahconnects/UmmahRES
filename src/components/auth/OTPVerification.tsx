@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -8,8 +8,8 @@ import { Loader2 } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 // OTP validation schema
 const otpSchema = z.object({
@@ -27,6 +27,7 @@ interface OTPVerificationProps {
 const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerificationProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { verifyOTP, resendOTP } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [remainingTime, setRemainingTime] = useState(300); // 5 minutes in seconds
   
@@ -38,35 +39,37 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
     },
   });
 
+  // Countdown timer
+  useEffect(() => {
+    if (remainingTime <= 0) return;
+    
+    const timer = setInterval(() => {
+      setRemainingTime((prev) => prev - 1);
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, [remainingTime]);
+
+  // Format remaining time
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? '0' + secs : secs}`;
+  };
+
   // Handle OTP verification
   const onSubmit = async (values: OTPFormValues) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.auth.verifyOtp({
-        email,
-        token: values.otp,
-        type: 'email'
-      });
-      
-      if (error) throw error;
-      
-      toast({
-        title: "Verification successful",
-        description: "Your email has been verified successfully.",
-      });
+      await verifyOTP(email, values.otp);
       
       if (onVerificationComplete) {
         onVerificationComplete();
       } else {
         navigate("/");
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error("OTP verification error:", error);
-      toast({
-        title: "Verification failed",
-        description: error.message || "Failed to verify your email. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setIsSubmitting(false);
     }
@@ -76,27 +79,12 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
   const requestNewOTP = async () => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.auth.resend({
-        type: 'signup',
-        email,
-      });
-      
-      if (error) throw error;
+      await resendOTP(email);
       
       // Reset timer
       setRemainingTime(300);
-      
-      toast({
-        title: "OTP resent",
-        description: "A new verification code has been sent to your email.",
-      });
-    } catch (error: any) {
+    } catch (error) {
       console.error("OTP resend error:", error);
-      toast({
-        title: "Failed to resend OTP",
-        description: error.message || "Failed to send a new verification code. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setIsSubmitting(false);
     }
@@ -110,6 +98,11 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
           We've sent a verification code to <span className="font-medium">{email}</span>.
           <br />Enter the code below to verify your email.
         </p>
+        {remainingTime > 0 && (
+          <p className="text-sm text-muted-foreground">
+            Code expires in: <span className="font-medium">{formatTime(remainingTime)}</span>
+          </p>
+        )}
       </div>
 
       <Form {...form}>
