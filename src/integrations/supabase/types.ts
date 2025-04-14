@@ -38,7 +38,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      pg_get_coldef: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      pg_get_tabledef: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

@@ -1,14 +1,16 @@
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertTriangle } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/auth/useAuth";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 // OTP validation schema
 const otpSchema = z.object({
@@ -26,7 +28,7 @@ interface OTPVerificationProps {
 const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerificationProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { verifyOTP, resendOTP } = useAuth();
+  const { verifyOTP, resendOTP, isRateLimited, attempts } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [remainingTime, setRemainingTime] = useState(300); // 5 minutes in seconds
   
@@ -76,6 +78,15 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
 
   // Request a new OTP
   const requestNewOTP = async () => {
+    if (isRateLimited) {
+      toast({
+        title: "Rate limited",
+        description: `Too many attempts (${attempts}/5). Please try again later.`,
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     try {
       await resendOTP(email);
@@ -97,10 +108,18 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
           We've sent a verification code to <span className="font-medium">{email}</span>.
           <br />Enter the code below to verify your email.
         </p>
-        {remainingTime > 0 && (
+        {remainingTime > 0 ? (
           <p className="text-sm text-muted-foreground">
             Code expires in: <span className="font-medium">{formatTime(remainingTime)}</span>
           </p>
+        ) : (
+          <Alert variant="warning" className="mt-2">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>Code expired</AlertTitle>
+            <AlertDescription>
+              Your verification code has expired. Please request a new one.
+            </AlertDescription>
+          </Alert>
         )}
       </div>
 
@@ -135,7 +154,7 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
               type="button" 
               onClick={requestNewOTP} 
               className="text-muslim-teal hover:underline ml-1"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isRateLimited}
             >
               Resend
             </button>
@@ -145,7 +164,7 @@ const OTPVerification = ({ email, onVerificationComplete, onCancel }: OTPVerific
             <Button 
               type="submit" 
               className="w-full bg-muslim-teal hover:bg-muslim-teal/90" 
-              disabled={isSubmitting}
+              disabled={isSubmitting || remainingTime <= 0}
             >
               {isSubmitting ? (
                 <>
