@@ -63,15 +63,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     try {
-      // In development environment, we need to disable captcha and handle email verification
       const { data, error } = await supabase.auth.signUp({ 
         email, 
         password,
         options: {
           emailRedirectTo: window.location.origin + '/auth',
-          // We're using 'disabled' here as we're in development
-          captchaToken: 'disabled',
-          // Remove the `skipBrowserRedirect` property as it's not available in this version
         }
       });
       
