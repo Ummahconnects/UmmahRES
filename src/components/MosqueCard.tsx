@@ -49,18 +49,18 @@ const MosqueCard = ({
       "block rounded-lg overflow-hidden border shadow-sm hover:shadow-md transition-shadow relative group",
       featured && "ring-2 ring-muslim-gold"
     )}>
-      <div className="relative h-48 w-full overflow-hidden">
+      <div className="relative h-48 sm:h-52 w-full overflow-hidden">
         <img
           src={image}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        {/* Watermark overlay */}
+        {/* Watermark overlay - improved for mobile */}
         <div 
           className="absolute inset-0 bg-black/10 flex items-center justify-center pointer-events-none"
         >
           <span 
-            className="text-white/30 text-lg sm:text-2xl font-bold tracking-widest transform -rotate-12 select-none"
+            className="text-white/30 text-base sm:text-lg md:text-2xl font-bold tracking-widest transform -rotate-12 select-none"
           >
             TEMPORARY IMAGE
           </span>
@@ -71,10 +71,10 @@ const MosqueCard = ({
           </div>
         )}
       </div>
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="font-semibold text-lg line-clamp-1">{name}</h3>
+            <h3 className="font-semibold text-base sm:text-lg line-clamp-1">{name}</h3>
             <div className="flex flex-wrap gap-1 mt-1">
               <Badge
                 variant="outline"
@@ -96,7 +96,7 @@ const MosqueCard = ({
             {isOpen ? "Open" : "Closed"}
           </div>
         </div>
-        <div className="mt-3 space-y-1 text-sm text-gray-500">
+        <div className="mt-3 space-y-1 text-xs sm:text-sm text-gray-500">
           <div className="flex items-start">
             <MapPin className="h-4 w-4 mr-1 shrink-0 mt-0.5" />
             <span className="line-clamp-1">{address}</span>
