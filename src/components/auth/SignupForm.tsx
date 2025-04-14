@@ -1,17 +1,15 @@
-
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2, Sparkles, TriangleAlert } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 // Form validation schema
 const signupSchema = z.object({
@@ -88,7 +86,7 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
         
         {signupError && (
           <Alert variant="destructive">
-            <ExclamationTriangleIcon className="h-4 w-4" />
+            <TriangleAlert className="h-4 w-4" />
             <AlertTitle>Signup failed</AlertTitle>
             <AlertDescription>{signupError}</AlertDescription>
           </Alert>

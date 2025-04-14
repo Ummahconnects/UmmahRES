@@ -1,16 +1,14 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, TriangleAlert } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 // Form validation schema
 const loginSchema = z.object({
@@ -61,7 +59,7 @@ const LoginForm = ({ onSuccess, onForgotPassword }: LoginFormProps) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         {loginError && (
           <Alert variant="destructive">
-            <ExclamationTriangleIcon className="h-4 w-4" />
+            <TriangleAlert className="h-4 w-4" />
             <AlertTitle>Login failed</AlertTitle>
             <AlertDescription>{loginError}</AlertDescription>
           </Alert>
