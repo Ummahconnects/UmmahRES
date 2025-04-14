@@ -12,9 +12,9 @@ const HeroSection = () => {
 
   return (
     <section className="pattern-bg relative">
-      {/* Mosque image background */}
+      {/* Mosque image background - hidden on mobile landscape */}
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-30 z-0 brightness-110 contrast-125 saturate-175" 
+        className="absolute inset-0 bg-cover bg-center opacity-30 z-0 brightness-110 contrast-125 saturate-175 max-md:landscape:hidden" 
         style={{
           backgroundImage: `url("/lovable-uploads/c1c38c3c-c49d-4b52-9e08-dadc5d7c4e2c.png")`,
           backgroundSize: "cover",
