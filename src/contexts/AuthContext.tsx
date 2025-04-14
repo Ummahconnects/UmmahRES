@@ -9,8 +9,10 @@ type AuthContextType = {
   user: User | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string) => Promise<{ needsEmailVerification: boolean }>;
   signOut: () => Promise<void>;
+  resendOTP: (email: string) => Promise<void>;
+  verifyOTP: (email: string, token: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,6 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, currentSession) => {
+        console.log("Auth state changed:", event);
         setSession(currentSession);
         setUser(currentSession?.user ?? null);
         setLoading(false);
@@ -61,15 +64,91 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signUp({ email, password });
-      if (error) throw error;
-      toast({
-        title: "Sign up successful",
-        description: "Please check your email for a confirmation link.",
+      const { data, error } = await supabase.auth.signUp({ 
+        email, 
+        password,
+        options: {
+          emailRedirectTo: window.location.origin + '/auth',
+          // Set OTP expiry to 5 minutes (300 seconds)
+          data: {
+            otpExpiry: 300
+          }
+        }
       });
+      
+      if (error) throw error;
+      
+      const needsEmailVerification = !data.session;
+      
+      if (needsEmailVerification) {
+        toast({
+          title: "Verification email sent",
+          description: "Please check your email for a verification code.",
+        });
+      } else {
+        toast({
+          title: "Sign up successful",
+          description: "Your account has been created successfully.",
+        });
+      }
+      
+      return { needsEmailVerification };
     } catch (error: any) {
       toast({
         title: "Error signing up",
+        description: error.message,
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  const resendOTP = async (email: string) => {
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email,
+        options: {
+          // Set OTP expiry to 5 minutes (300 seconds)
+          data: {
+            otpExpiry: 300
+          }
+        }
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Verification code resent",
+        description: "Please check your email for a new verification code.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error resending verification code",
+        description: error.message,
+        variant: "destructive",
+      });
+      throw error;
+    }
+  };
+
+  const verifyOTP = async (email: string, token: string) => {
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        email,
+        token,
+        type: 'signup'
+      });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Email verified successfully",
+        description: "Your email has been verified. You can now sign in.",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error verifying email",
         description: error.message,
         variant: "destructive",
       });
@@ -94,7 +173,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ 
+      session, 
+      user, 
+      loading, 
+      signIn, 
+      signUp, 
+      signOut,
+      resendOTP,
+      verifyOTP
+    }}>
       {children}
     </AuthContext.Provider>
   );

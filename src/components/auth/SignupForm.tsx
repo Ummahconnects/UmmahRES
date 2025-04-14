@@ -24,7 +24,7 @@ const signupSchema = z.object({
 type SignupFormValues = z.infer<typeof signupSchema>;
 
 interface SignupFormProps {
-  onSuccess?: () => void;
+  onSuccess?: (email: string, needsEmailVerification: boolean) => void;
 }
 
 const SignupForm = ({ onSuccess }: SignupFormProps) => {
@@ -48,7 +48,7 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
   const onSubmit = async (values: SignupFormValues) => {
     setIsSubmitting(true);
     try {
-      await signUp(values.email, values.password);
+      const { needsEmailVerification } = await signUp(values.email, values.password);
       
       if (isTrial) {
         toast({
@@ -58,14 +58,11 @@ const SignupForm = ({ onSuccess }: SignupFormProps) => {
         });
       }
       
-      if (onSuccess) onSuccess();
+      if (onSuccess) {
+        onSuccess(values.email, needsEmailVerification);
+      }
     } catch (error) {
       console.error("Signup error:", error);
-      toast({
-        title: "Signup failed",
-        description: error instanceof Error ? error.message : "Something went wrong",
-        variant: "destructive",
-      });
     } finally {
       setIsSubmitting(false);
     }
