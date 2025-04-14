@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/auth/AuthContext";
 import { LocationProvider } from "./contexts/LocationContext";
 import Index from "./pages/Index";
 import BusinessesPage from "./pages/businesses";
@@ -15,8 +15,8 @@ import PackagesPage from "./pages/Packages";
 import SalesPage from "./pages/Sales";
 import AffiliatesPage from "./pages/Affiliates";
 import CommunityEventsPage from "./pages/CommunityEvents";
-import CommunityPage from "./pages/community"; // Add the new community page
-import DashboardPage from "./pages/dashboard"; // Add the new dashboard page
+import CommunityPage from "./pages/community"; 
+import DashboardPage from "./pages/dashboard"; 
 import HelpPage from "./pages/help";
 import MembershipPage from "./pages/Membership";
 import NotFound from "./pages/NotFound";
