@@ -7,12 +7,14 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function EmailTest() {
   const [recipient, setRecipient] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [testFail, setTestFail] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,8 +31,8 @@ export default function EmailTest() {
     setIsLoading(true);
     
     try {
-      const { error } = await supabase.functions.invoke("send-email", {
-        body: { to: recipient, subject, message }
+      const { data, error } = await supabase.functions.invoke("send-email", {
+        body: { to: recipient, subject, message, testFail }
       });
       
       if (error) throw error;
@@ -44,12 +46,18 @@ export default function EmailTest() {
       setRecipient("");
       setSubject("");
       setMessage("");
+      setTestFail(false);
     } catch (error: any) {
       console.error("Email sending error:", error);
       
+      // Display a specific message if it's the simulated failure
+      const errorMessage = error.message?.includes("Simulated failure") 
+        ? "Test failure was triggered as requested" 
+        : error.message || "An unknown error occurred";
+        
       toast({
         title: "Error sending email",
-        description: error.message || "An unknown error occurred",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -94,6 +102,17 @@ export default function EmailTest() {
             rows={5}
             required
           />
+        </div>
+        
+        <div className="flex items-center space-x-2">
+          <Checkbox 
+            id="test-fail" 
+            checked={testFail}
+            onCheckedChange={(checked) => setTestFail(checked === true)}
+          />
+          <Label htmlFor="test-fail" className="text-sm text-gray-600">
+            Simulate failure (for testing)
+          </Label>
         </div>
         
         <Button type="submit" disabled={isLoading} className="w-full">

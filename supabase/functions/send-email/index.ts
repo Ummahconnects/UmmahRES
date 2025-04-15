@@ -13,6 +13,7 @@ interface EmailRequest {
   to: string;
   subject: string;
   message: string;
+  testFail?: boolean; // New parameter to simulate failure
 }
 
 serve(async (req) => {
@@ -29,12 +30,21 @@ serve(async (req) => {
       );
     }
 
-    const { to, subject, message }: EmailRequest = await req.json();
+    const { to, subject, message, testFail }: EmailRequest = await req.json();
 
     if (!to || !subject || !message) {
       return new Response(
         JSON.stringify({ error: 'To, subject, and message are required fields' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Simulate failure if testFail is true
+    if (testFail) {
+      console.log("Simulating email failure for testing purposes");
+      return new Response(
+        JSON.stringify({ error: "Simulated failure for test" }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
