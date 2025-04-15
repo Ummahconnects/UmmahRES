@@ -21,3 +21,6 @@ api_url = "http://localhost"
 
 [functions.send-alert]
 verify_jwt = true
+
+[functions.send-email]
+verify_jwt = true
