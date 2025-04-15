@@ -1,1 +1,23 @@
-project_id = "ffyzqxplzxcqyceyugzx"
+
+project_id = "your-project-id"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage"]
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[auth]
+enabled = true
+
+[studio]
+enabled = true
+port = 54323
+api_url = "http://localhost"
+
+[functions.send-alert]
+verify_jwt = true
