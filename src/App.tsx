@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/auth/AuthContext";
 import { LocationProvider } from "./contexts/LocationContext";
 import Index from "./pages/Index";
@@ -37,31 +37,29 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/businesses" element={<BusinessesPage />} />
-              <Route path="/mosques" element={<MosquesPage />} />
-              <Route path="/mosque/:id" element={<MosqueDetailPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/packages" element={<PackagesPage />} />
-              <Route path="/sales" element={<SalesPage />} />
-              <Route path="/affiliates" element={<AffiliatesPage />} />
-              <Route path="/community-events" element={<CommunityEventsPage />} />
-              <Route path="/community" element={<CommunityPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/help" element={<HelpPage />} />
-              <Route path="/membership" element={<MembershipPage />} />
-              <Route path="/auth" element={<AuthPage />} />
-              <Route path="/business-profile" element={<BusinessProfile />} />
-              <Route path="/business-profile/:id" element={<BusinessProfile />} />
-              <Route path="/charities" element={<CharitiesPage />} />
-              <Route path="/staff-dashboard" element={<StaffDashboard />} />
-              <Route path="/email-test" element={<EmailTest />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/businesses" element={<BusinessesPage />} />
+            <Route path="/mosques" element={<MosquesPage />} />
+            <Route path="/mosque/:id" element={<MosqueDetailPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/packages" element={<PackagesPage />} />
+            <Route path="/sales" element={<SalesPage />} />
+            <Route path="/affiliates" element={<AffiliatesPage />} />
+            <Route path="/community-events" element={<CommunityEventsPage />} />
+            <Route path="/community" element={<CommunityPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/help" element={<HelpPage />} />
+            <Route path="/membership" element={<MembershipPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/business-profile" element={<BusinessProfile />} />
+            <Route path="/business-profile/:id" element={<BusinessProfile />} />
+            <Route path="/charities" element={<CharitiesPage />} />
+            <Route path="/staff-dashboard" element={<StaffDashboard />} />
+            <Route path="/email-test" element={<EmailTest />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </TooltipProvider>
       </LocationProvider>
     </AuthProvider>
